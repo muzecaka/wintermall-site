@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Winter Mall — Africa's First Indoor Snow & Ice Park</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<canvas id="snow"></canvas>
+
+<!-- ═══════════════════════════════════════
+     NAV
+════════════════════════════════════════ -->
+<nav id="nav">
+  <a class="nav-logo" href="#" onclick="go('home')">❄ Winter<em>Mall</em></a>
+
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a data-p="home"     class="active" onclick="go('home');closeMenu()">Home</a></li>
+    <li><a data-p="investor"               onclick="go('investor');closeMenu()">Investors</a></li>
+    <li><a data-p="team"                   onclick="go('team');closeMenu()">Team</a></li>
+    <li><a data-p="about"                  onclick="go('about');closeMenu()">About</a></li>
+    <li><a data-p="gallery"                onclick="go('gallery');closeMenu()">Gallery</a></li>
+    <li><a class="nav-book"                onclick="openBooking();closeMenu()">Book Now</a></li>
+  </ul>
+</nav>
+
+
+<!-- ═══════════════════════════════════════
+     HOME PAGE
+════════════════════════════════════════ -->
+<div id="pg-home" class="pg show">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-l">
+      <div class="hero-eyebrow">❄ Africa's First Indoor Snow & Ice Entertainment Park</div>
+      <h1 class="hero-h1">Experience<br><span>Winter.</span><br>Inside.</h1>
+      <p class="hero-tagline">A fully indoor snow and ice park inside a premium Nigerian mall. Real snow. Real ice. Open 365 days a year — regardless of the weather outside.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-navy"    onclick="openBooking()">🎟 Book Tickets</button>
+        <button class="btn btn-outline" onclick="go('investor')">📊 View Pitch Deck</button>
+        <button class="btn btn-glass"   onclick="go('investor')">🤝 Partner With Us</button>
+      </div>
+    </div>
+
+    <!-- ─────────────────────────────────────────
+         HERO VIDEO FRAME
+         HOW TO ADD YOUR 3D VIDEO:
+         1. Save your video file (MP4/WebM) into the /assets/ folder
+            e.g. assets/wintermall-3d.mp4
+         2. Replace the <div class="hf-inner"> block below with:
+
+            <video autoplay muted loop playsinline
+              style="width:100%;height:100%;object-fit:cover;border-radius:var(--r2)">
+              <source src="assets/wintermall-3d.mp4" type="video/mp4">
+            </video>
+
+         3. Remove the .hf-inner placeholder div entirely.
+         ───────────────────────────────────────── -->
+    <div class="hero-r">
+      <div class="hero-frame">
+        <div class="hero-frame-main">
+          <!-- ↓ REPLACE THIS BLOCK WITH YOUR VIDEO (see comment above) -->
+          <video autoplay muted loop playsinline
+              style="width:100%;height:100%;object-fit:cover;border-radius:32px">
+              <source src="assets/wintermall-3d.mp4" type="video/mp4">
+          </video>
+          <!-- ↑ REPLACE THIS BLOCK WITH YOUR VIDEO -->
+        </div>
+        <div class="fc fc-1">
+          <div class="fc-lbl">Projected Monthly</div>
+          <div class="fc-val">₦<span>110M</span>+</div>
+        </div>
+        <div class="fc fc-2">
+          <div class="fc-lbl">Daily Visitors</div>
+          <div class="fc-val"><span>800</span>+</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT IS WINTER MALL -->
+  <section class="sec sec-bg">
+    <div class="sec-eye dark">❄ Concept</div>
+    <h2 class="sec-h2">What Is Winter Mall?</h2>
+    <p class="sec-p">A fully indoor snow and ice park featuring ice skating, snow slides, snow play zones, food & beverage, and event hosting — installed inside a premium Nigerian mall.</p>
+    <div class="cards3">
+      <div class="gcard">
+        <span class="gcard-icon">❄️</span>
+        <div class="gcard-h">Indoor Snow & Ice Park</div>
+        <p class="gcard-p">Real snow machines. Real ice. A climate-controlled winter environment maintained at −5°C to −21°C, open 365 days a year regardless of Nigeria's heat.</p>
+      </div>
+      <div class="gcard">
+        <span class="gcard-icon">🏢</span>
+        <div class="gcard-h">Mall-Integrated Model</div>
+        <p class="gcard-p">Installed inside existing premium malls. Revenue-share replaces fixed rent. Lower capital risk, aligned incentives, and immediate built-in foot traffic from Day 1.</p>
+      </div>
+      <div class="gcard">
+        <span class="gcard-icon">📈</span>
+        <div class="gcard-h">High-Margin Asset</div>
+        <p class="gcard-p">₦768M+ projected EBITDA annually. Infrastructure-backed recurring cashflow. 5–7 year structured investor liquidity window. Zero direct competition in West Africa.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATTRACTIONS -->
+  <section class="sec sec-ice">
+    <div class="sec-eye dark tc">🏔 Experiences</div>
+    <h2 class="sec-h2 tc">What's Inside</h2>
+    <p class="sec-p tc">Six world-class zones. One address in Lagos.</p>
+    <div class="att-grid">
+      <div class="att" style="background:linear-gradient(155deg,#1565a8,#0B2D45)">
+        <div class="att-bg"><div class="att-emoji">⛸️</div><div class="att-name">Ice Skating Rink</div></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" style="background:linear-gradient(155deg,#1a7b5a,#0d3d2a)">
+        <div class="att-bg"><div class="att-emoji">🧒</div><div class="att-name">Snow Play Zone</div></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" style="background:linear-gradient(155deg,#0a7fa3,#0B2D45)">
+        <div class="att-bg"><div class="att-emoji">🛷</div><div class="att-name">Ice Slides</div></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" style="background:linear-gradient(155deg,#7b3a8a,#3d1a50)">
+        <div class="att-bg"><div class="att-emoji">🎉</div><div class="att-name">Events & Parties</div></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" style="background:linear-gradient(155deg,#8a5a1a,#4d2f08)">
+        <div class="att-bg"><div class="att-emoji">🍔</div><div class="att-name">Food & Beverage</div></div>
+        <div class="att-shine"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TARGET AUDIENCE -->
+  <section class="sec sec-bg">
+    <div class="sec-eye dark">👥 Who Comes</div>
+    <h2 class="sec-h2">Built for Everyone</h2>
+    <p class="sec-p">From families to corporates — Winter Mall is a destination for every segment of Nigerian society.</p>
+    <div class="cards3" style="grid-template-columns:repeat(3,1fr)">
+      <div class="gcard"><span class="gcard-icon">👨‍👩‍👧‍👦</span><div class="gcard-h">Families</div><p class="gcard-p">A weekly destination. Children experience real snow for the first time. Parents finally have a world-class outing option in Lagos.</p></div>
+      <div class="gcard"><span class="gcard-icon">🏫</span><div class="gcard-h">Schools & Field Trips</div><p class="gcard-p">Curriculum-linked educational visits. Bulk booking packages. Transport coordination. A learning experience like nothing in West Africa.</p></div>
+      <div class="gcard"><span class="gcard-icon">🏢</span><div class="gcard-h">Corporate & Events</div><p class="gcard-p">Private zone hire. Team away days. Product launches. Music & movie shoots. Sponsorship and naming rights packages available.</p></div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="sec sec-ice">
+    <div class="sec-eye dark tc">⭐ Social Proof</div>
+    <h2 class="sec-h2 tc">Early Excitement</h2>
+    <p class="sec-p tc">From our pre-launch community — parents, schools, and corporates already planning visits.</p>
+    <div class="rev-grid">
+      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"My children have never touched snow. The moment Winter Mall opens, we're first in line. This is exactly what Lagos has been missing."</p><div class="rev-who"><div class="rev-av">AA</div><div><div class="rev-name">Adaeze Anokwuru</div><div class="rev-role">Parent, Lekki Phase 1</div></div></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"We're planning our school trip already — 200 students experiencing indoor snow for the first time. Genuinely world-class infrastructure in Nigeria."</p><div class="rev-who"><div class="rev-av">BK</div><div><div class="rev-name">Babatunde Kolawole</div><div class="rev-role">Principal, Victoria Island</div></div></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"Our annual team offsite is confirmed. Nothing like this exists in West Africa. Completely differentiated — clients will talk about it for years."</p><div class="rev-who"><div class="rev-av">CN</div><div><div class="rev-name">Chinyere Nwosu</div><div class="rev-role">Head of HR, GTBank</div></div></div></div>
+    </div>
+  </section>
+
+  <!-- INVESTOR CTA -->
+  <section class="sec">
+    <div class="inv-cta">
+      <div>
+        <h2>Partner With Africa's Next Category-Defining Entertainment Brand</h2>
+        <p>₦7.5B total capitalisation. ₦768M+ annual EBITDA. 45% investor equity. 5–7 year structured exit. Institutional governance from Day 1. Zero direct competition.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button class="btn btn-glass"  onclick="downloadDeck()">📊 Download Pitch Deck</button>
+          <button class="btn btn-gold"   onclick="go('investor')">🔐 Investor Portal</button>
+        </div>
+      </div>
+      <div class="stat-grid">
+        <div class="istat"><div class="istat-v">₦7.5B</div><div class="istat-l">Total Capitalisation</div></div>
+        <div class="istat"><div class="istat-v">₦768M</div><div class="istat-l">Projected EBITDA Y1</div></div>
+        <div class="istat"><div class="istat-v">5–7 Yrs</div><div class="istat-l">Investor Liquidity</div></div>
+        <div class="istat"><div class="istat-v">45%</div><div class="istat-l">Investor Equity</div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="ft-grid">
+      <div>
+        <div class="ft-brand">❄ Winter<em>Mall</em></div>
+        <p class="ft-desc">Africa's first infrastructure-backed indoor snow & ice park. Real estate + entertainment + recurring cashflow.</p>
+        <div class="ft-social"><a class="ft-soc">in</a><a class="ft-soc">tw</a><a class="ft-soc">ig</a></div>
+      </div>
+      <div><h4 class="ft-h4">Explore</h4><ul class="ft-links">
+        <li><a onclick="go('home')">Home</a></li>
+        <li><a onclick="go('gallery')">Gallery</a></li>
+        <li><a onclick="go('about')">About</a></li>
+        <li><a onclick="openBooking()">Book Tickets</a></li>
+      </ul></div>
+      <div><h4 class="ft-h4">Investors</h4><ul class="ft-links">
+        <li><a onclick="go('investor')">Investor Portal</a></li>
+        <li><a onclick="go('investor')">Use of Funds</a></li>
+        <li><a onclick="go('investor')">Financials</a></li>
+        <li><a onclick="downloadDeck()">Download Deck</a></li>
+      </ul></div>
+      <div><h4 class="ft-h4">Company</h4><ul class="ft-links">
+        <li><a onclick="go('team')">Our Team</a></li>
+        <li><a onclick="go('about')">Vision & Mission</a></li>
+        <li><a onclick="go('about')">Roadmap</a></li>
+        <li><a>Press Kit</a></li>
+      </ul></div>
+    </div>
+    <div class="ft-bot">
+      <span class="ft-copy">© 2026 Winter Mall Nigeria Ltd. All rights reserved.</span>
+      <span class="ft-tag">Experience Winter. Inside. ❄</span>
+    </div>
+  </footer>
+</div><!-- /pg-home -->
+
+
+<!-- ═══════════════════════════════════════
+     INVESTOR PAGE
+════════════════════════════════════════ -->
+<div id="pg-investor" class="pg">
+  <div class="inv-hdr">
+    <h1>Investment Opportunity</h1>
+    <p>Africa's first infrastructure-backed indoor snow & ice park. Institutional structure. Conservative projections. Defined exit.</p>
+    <div style="display:flex;justify-content:center;margin-bottom:32px">
+      <!-- ── PITCH DECK DOWNLOAD BUTTON ── -->
+      <button class="btn btn-gold" onclick="downloadDeck()" style="font-size:1rem;padding:14px 32px;border-radius:50px;gap:10px">
+        ⬇ Download Full Pitch Deck (PDF)
+      </button>
+    </div>
+    <div class="inv-tabs-row">
+      <button class="inv-tab active" onclick="invTab(this,'uof')">Use of Funds</button>
+      <button class="inv-tab"        onclick="invTab(this,'finproj')">Financial Projections</button>
+      <button class="inv-tab"        onclick="invTab(this,'divsim')">Dividend Simulation</button>
+      <button class="inv-tab"        onclick="invTab(this,'contact')">Investor Relations</button>
+    </div>
+  </div>
+
+  <div class="inv-body">
+    <div class="inv-metrics">
+      <div class="met"><div class="met-v">₦7.5B</div><div class="met-l">Total Capitalisation</div></div>
+      <div class="met"><div class="met-v">₦768M</div><div class="met-l">Projected EBITDA Y1</div></div>
+      <div class="met"><div class="met-v">5–7 Yrs</div><div class="met-l">Investor Liquidity Window</div></div>
+      <div class="met"><div class="met-v">45%</div><div class="met-l">Investor Equity Stake</div></div>
+    </div>
+
+    <!-- USE OF FUNDS -->
+    <div id="inv-uof" class="inv-sec show">
+      <div class="uof-card">
+        <h3>Use of Funds — ₦7.5B</h3>
+        <p class="uof-sub">Capital deployed into revenue-generating assets, working capital, and contingency. Zero lifestyle or discretionary spend.</p>
+        <div class="fbar"><div class="fbar-hdr"><span class="fbar-lbl">Snow Park Equipment & Installation</span><span class="fbar-val">₦4.90B — 65%</span></div><div class="fbar-track"><div class="fbar-fill" style="width:65%"></div></div></div>
+        <div class="fbar"><div class="fbar-hdr"><span class="fbar-lbl">Facility Build-out & Utilities</span><span class="fbar-val">₦1.00B — 14%</span></div><div class="fbar-track"><div class="fbar-fill" style="width:14%"></div></div></div>
+        <div class="fbar"><div class="fbar-hdr"><span class="fbar-lbl">Technology & Systems</span><span class="fbar-val">₦200M — 3%</span></div><div class="fbar-track"><div class="fbar-fill" style="width:3%"></div></div></div>
+        <div class="fbar"><div class="fbar-hdr"><span class="fbar-lbl">Marketing & Launch Program (12–18m)</span><span class="fbar-val">₦600M — 8%</span></div><div class="fbar-track"><div class="fbar-fill" style="width:8%"></div></div></div>
+        <div class="fbar"><div class="fbar-hdr"><span class="fbar-lbl">Working Capital Reserve (9 months OPEX)</span><span class="fbar-val">₦600M — 8%</span></div><div class="fbar-track"><div class="fbar-fill" style="width:8%"></div></div></div>
+        <div class="fbar"><div class="fbar-hdr"><span class="fbar-lbl">Contingency Buffer</span><span class="fbar-val">₦200M — 2%</span></div><div class="fbar-track"><div class="fbar-fill" style="width:2%"></div></div></div>
+      </div>
+    </div>
+
+    <!-- FINANCIAL PROJECTIONS -->
+    <div id="inv-finproj" class="inv-sec">
+      <div class="uof-card">
+        <h3>5-Year Financial Projections</h3>
+        <p class="uof-sub">Conservative 25% annual growth from Y1 base. Dividend policy matures at Year 3. Returns driven by EBITDA growth and valuation expansion.</p>
+        <div class="dtable">
+          <div class="dtable-hdr">
+            <span>Year</span><span>Net Profit</span><span>Reinvest</span><span>Dividend</span><span>Div Pool</span><span>Scenario</span>
+          </div>
+          <div class="dtable-row"><span class="yr">Y1</span><span>₦1.00B</span><span>70%</span><span>30%</span><span class="green">₦300M</span><span>Base</span></div>
+          <div class="dtable-row"><span class="yr">Y2</span><span>₦1.25B</span><span>70%</span><span>30%</span><span class="green">₦375M</span><span>+25%</span></div>
+          <div class="dtable-row"><span class="yr">Y3</span><span>₦1.56B</span><span>50%</span><span>50%</span><span class="green">₦780M</span><span>+25%</span></div>
+          <div class="dtable-row"><span class="yr">Y4</span><span>₦1.95B</span><span>50%</span><span>50%</span><span class="green">₦975M</span><span>+25%</span></div>
+          <div class="dtable-row"><span class="yr">Y5</span><span>₦2.44B</span><span>50%</span><span>50%</span><span class="green">₦1.22B</span><span>+25%</span></div>
+        </div>
+        <div style="margin-top:24px;background:var(--bg);border-radius:16px;padding:20px;border:1px solid rgba(0,175,239,.15)">
+          <div style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--turq-dark);margin-bottom:12px">Payback Scenarios</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:center">
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--navy)">6–7 Yrs</div><div style="font-size:.78rem;color:var(--ink3);margin-top:4px">Worst Case</div></div>
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--turq-dark)">5–6 Yrs</div><div style="font-size:.78rem;color:var(--ink3);margin-top:4px">Base Case</div></div>
+            <div><div style="font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;color:#0e7c4a">3–4 Yrs</div><div style="font-size:.78rem;color:var(--ink3);margin-top:4px">Best Case</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIVIDEND SIMULATION -->
+    <div id="inv-divsim" class="inv-sec">
+      <div class="uof-card">
+        <h3>5-Year Dividend Simulation</h3>
+        <p class="uof-sub">Cap table: Investor 45% · Founders 55% (Lead Founder 35% + Co-Founders 20%). Dividend policy: 30% distributed Y1–2 · 50% from Y3.</p>
+        <div class="dtable">
+          <div class="dtable-hdr">
+            <span>Year</span><span>Div Pool</span><span>Investor 45%</span><span>Founders 55%</span><span>Lead 35%</span><span>Co-Fnd 20%</span>
+          </div>
+          <div class="dtable-row"><span class="yr">Y1</span><span>₦300M</span><span>₦135M</span><span class="green">₦165M</span><span>₦105M</span><span>₦60M</span></div>
+          <div class="dtable-row"><span class="yr">Y2</span><span>₦375M</span><span>₦169M</span><span class="green">₦206M</span><span>₦131M</span><span>₦75M</span></div>
+          <div class="dtable-row"><span class="yr">Y3</span><span>₦780M</span><span>₦351M</span><span class="green">₦429M</span><span>₦273M</span><span>₦156M</span></div>
+          <div class="dtable-row"><span class="yr">Y4</span><span>₦975M</span><span>₦439M</span><span class="green">₦536M</span><span>₦341M</span><span>₦195M</span></div>
+          <div class="dtable-row"><span class="yr">Y5</span><span>₦1.22B</span><span>₦549M</span><span class="green">₦671M</span><span>₦427M</span><span>₦244M</span></div>
+        </div>
+        <div class="sum3">
+          <div class="s3c" style="background:var(--navy)"><div class="s3c-l" style="color:rgba(255,255,255,.5)">Investor 5-Yr Total</div><div class="s3c-v" style="color:var(--turq2)">₦1.64B</div></div>
+          <div class="s3c" style="background:#0e7c4a"><div class="s3c-l" style="color:rgba(255,255,255,.5)">Founders 5-Yr Total</div><div class="s3c-v" style="color:#fff">₦2.01B</div></div>
+          <div class="s3c" style="background:var(--turq)"><div class="s3c-l" style="color:rgba(255,255,255,.55)">Total Reinvested</div><div class="s3c-v" style="color:#fff">₦4.55B</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INVESTOR RELATIONS CONTACT -->
+    <div id="inv-contact" class="inv-sec">
+      <div class="inv-contact-blk">
+        <div>
+          <h3>Investor Relations</h3>
+          <p>We partner with institutional investors, family offices, and strategic partners who understand infrastructure-backed entertainment. Request the full investor deck and financial model.</p>
+          <div style="margin-top:24px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:.82rem;color:rgba(255,255,255,.55)">📞 +234 701 999 9900</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.55)">📞 +234 708 702 3861</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.55)">✉ wintermallng@gmail.com</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.55)">🌐 wintermall.com</div>
+          </div>
+        </div>
+        <div class="cff">
+          <div class="cf2">
+            <input class="cfi" type="text"  placeholder="Full Name">
+            <input class="cfi" type="text"  placeholder="Organisation">
+          </div>
+          <input class="cfi" type="email" placeholder="Email Address">
+          <input class="cfi" type="text"  placeholder="Investment Range (₦)">
+          <textarea class="cfi" rows="3"  placeholder="Message or Interest Area" style="resize:none"></textarea>
+          <button class="btn btn-navy btn-full" onclick="alert('Thank you. Our investor relations team will contact you within 24 hours. ❄')">
+            Submit Enquiry →
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top:0">
+    <div class="ft-bot" style="border-top:1px solid rgba(255,255,255,.08);padding:22px 0 0">
+      <span class="ft-copy">© 2026 Winter Mall Nigeria Ltd. — Confidential Investor Information</span>
+      <span class="ft-tag">Institutional. Disciplined. Profitable. ❄</span>
+    </div>
+  </footer>
+</div><!-- /pg-investor -->
+
+
+<!-- ═══════════════════════════════════════
+     TEAM PAGE
+════════════════════════════════════════ -->
+<div id="pg-team" class="pg">
+  <div class="team-hdr">
+    <div class="sec-eye dark" style="justify-content:center">👥 Leadership</div>
+    <h2 class="sec-h2">The Team Behind Winter Mall</h2>
+    <p class="sec-p" style="margin:0 auto">Operators, not dreamers. Each role is defined. Each person is accountable.</p>
+  </div>
+  <div class="team-grid">
+    <div class="tcard2">
+      <div class="tav">
+        <!--
+          TO ADD A REAL PHOTO:
+          Replace the emoji above with:
+          <img src="images/ishola.jpg" alt="Ishola Olasunkanmi"
+               style="width:100%;height:100%;object-fit:cover">
+        -->
+        <img src="images/kanmi.png" alt="Ishola Olasunkanmi"
+        style="width:100%;height:100%;object-fit:contain">
+      </div>
+      <div class="ti">
+        <div class="tn">Ishola Olasunkanmi</div>
+        <div class="trol">Founder & CEO</div>
+        <p class="tbio">15+ years of experience. Leads Research & Development, Strategy, and Partnerships. Architect of the Winter Mall concept and driving force behind the business model from idea to execution.</p>
+      </div>
+    </div>
+    <div class="tcard2">
+      <div class="tav">
+        <!--
+          TO ADD A REAL PHOTO:
+          <img src="images/oyeyemi.jpg" alt="Oyeyemi Oladimeji Rasaq"
+               style="width:100%;height:100%;object-fit:cover">
+        -->
+        <img src="images/rasaq.png" alt="Oyeyemi Oladimeji Rasaq"
+               style="width:100%;height:100%;object-fit:contain">
+      </div>
+      <div class="ti">
+        <div class="tn">Oyeyemi Oladimeji Rasaq</div>
+        <div class="trol">Operations Lead</div>
+        <p class="tbio">11+ years of experience. Responsible for Facilities & on-ground execution, Vendor coordination, and Site operations. Ensures the park runs with precision from Day 1.</p>
+      </div>
+    </div>
+    <div class="tcard2">
+      <div class="tav">
+        <!--
+          TO ADD A REAL PHOTO:
+          <img src="images/agboola.jpg" alt="Agboola Olatunji Issa Balogun"
+               style="width:100%;height:100%;object-fit:cover">
+        -->
+        <img src="images/tunji.png" alt="Agboola Olatunji Issa Balogun"
+               style="width:100%;height:100%;object-fit:contain">
+      </div>
+      <div class="ti">
+        <div class="tn">Agboola Olatunji Issa Balogun</div>
+        <div class="trol">Technical / Systems Lead</div>
+        <p class="tbio">8+ years of experience. Leads Infrastructure, Systems architecture, and Maintenance planning. Ensures all technical systems — from snow machines to ticketing — run without failure.</p>
+      </div>
+    </div>
+    <div class="tcard2">
+      <div class="tav">🤝</div>
+      <div class="ti">
+        <div class="tn">Advisory Network</div>
+        <div class="trol">Support Partners</div>
+        <p class="tbio">Supported by Legal, Compliance, Engineering partners, and Mall operators. A hands-on execution team with direct operational control at every level of the business.</p>
+      </div>
+    </div>
+  </div>
+  <footer style="margin-top:0">
+    <div class="ft-bot" style="border-top:1px solid rgba(255,255,255,.08);padding:22px 0 0">
+      <span class="ft-copy">© 2026 Winter Mall Nigeria Ltd.</span>
+      <span class="ft-tag">Experience Winter. Inside. ❄</span>
+    </div>
+  </footer>
+</div><!-- /pg-team -->
+
+
+<!-- ═══════════════════════════════════════
+     ABOUT PAGE
+════════════════════════════════════════ -->
+<div id="pg-about" class="pg">
+  <div class="about-hero">
+    <div>
+      <h1>Why Winter Mall Exists</h1>
+      <p>Nigeria has never experienced indoor snow. Africa's fastest-growing middle class deserves world-class entertainment — not imported, but homegrown. Winter Mall is an infrastructure-backed, category-defining indoor snow & ice park built for the African market and proudly owned by Africans. First-mover advantage. Zero direct competition.</p>
+    </div>
+    <div class="about-frame">
+      <div class="af-ico">❄️</div>
+      <div class="af-h">First-of-its-Kind</div>
+      <p class="af-p">200M+ population. Year-round hot climate. No indoor snow or ice parks. Strong unmet demand for experiential entertainment. Winter Mall introduces a unique, high-demand attraction with zero direct competition in West Africa.</p>
+    </div>
+  </div>
+
+  <div class="vmv-row">
+    <div class="vmv">
+      <div class="vmv-lbl">Vision</div>
+      <div class="vmv-h">Pioneer Africa's First Indoor Snow Park Network</div>
+      <p class="vmv-p">To pioneer Africa's first indoor snow park network, building the leading experiential entertainment brand across Nigeria and West Africa.</p>
+    </div>
+    <div class="vmv">
+      <div class="vmv-lbl">Mission</div>
+      <div class="vmv-h">Safe. World-Class. Scalable.</div>
+      <p class="vmv-p">To deliver safe, world-class indoor snow experiences through strategic mall partnerships, operational excellence, and scalable entertainment infrastructure.</p>
+    </div>
+    <div class="vmv">
+      <div class="vmv-lbl">Values</div>
+      <div class="vmv-h">Disciplined. Authentic. Scalable.</div>
+      <p class="vmv-p">We measure every naira, report transparently, operate with institutional governance, and build for long-term enterprise value — not short-term spectacle.</p>
+    </div>
+  </div>
+
+  <div class="tl">
+    <div class="sec-eye dark" style="padding-left:calc(44px + 28px)">🗓 Roadmap</div>
+    <h2 class="sec-h2" style="padding-left:calc(44px + 28px);margin-bottom:38px">Our Journey</h2>
+    <div class="tl-item">
+      <div class="tl-dot">💡</div>
+      <div class="tl-c">
+        <div class="tl-yr">2015</div>
+        <div class="tl-h">The Idea</div>
+        <p class="tl-p">Concept first developed in 2015 after extensive research into indoor snow parks across Asia, the Middle East, and Europe. Identified the gap — and the massive opportunity — in Africa's entertainment landscape.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">🔄</div>
+      <div class="tl-c">
+        <div class="tl-yr">2015 – 2024</div>
+        <div class="tl-h">Evolution & Refinement</div>
+        <p class="tl-p">The concept went through several phases of research, redesign, and refinement over nearly a decade — continuously updated to keep pace with technology changes, market conditions, and global entertainment trends.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">📋</div>
+      <div class="tl-c">
+        <div class="tl-yr">2026</div>
+        <div class="tl-h">Planning & Fundraising</div>
+        <p class="tl-p">Financial model completed. ₦7.5B raise structured. Equipment partners identified. Mall negotiations initiated. Full investor playbook and institutional governance framework developed.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">🚀</div>
+      <div class="tl-c">
+        <div class="tl-yr">2026</div>
+        <div class="tl-h">Lagos Launch</div>
+        <p class="tl-p">Africa's first indoor snow & ice park opens inside a premium Lagos mall. 600m² pilot. 780 daily capacity. 430 modelled daily visitors at 55% occupancy. Full commercial operations from Day 1.</p>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot">🌍</div>
+      <div class="tl-c">
+        <div class="tl-yr">2028+</div>
+        <div class="tl-h">West Africa Expansion</div>
+        <p class="tl-p">Abuja. Port Harcourt. Accra. Scale to 1200m² medium and 2400m² large formats. Each location compounds enterprise value and increases investor returns through the platform model.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer style="margin-top:0">
+    <div class="ft-bot" style="border-top:1px solid rgba(255,255,255,.08);padding:22px 0 0">
+      <span class="ft-copy">© 2026 Winter Mall Nigeria Ltd.</span>
+      <span class="ft-tag">Experience Winter. Inside. ❄</span>
+    </div>
+  </footer>
+</div><!-- /pg-about -->
+
+
+<!-- ═══════════════════════════════════════
+     GALLERY PAGE
+     HOW TO ADD IMAGES:
+     1. Drop image files into the /images/ folder
+        e.g.  images/snow-slides.jpg
+              images/ice-skating.jpg
+              images/kids-zone.jpg
+     2. On each .gi tile below, replace the gradient style with:
+        style="background:url('images/YOUR-FILE.jpg') center/cover no-repeat"
+     3. Remove the <div class="gi-in"> emoji placeholder inside each tile
+════════════════════════════════════════ -->
+<div id="pg-gallery" class="pg">
+  <div class="gal-hdr">
+    <div class="sec-eye dark" style="justify-content:center">📸 Gallery</div>
+    <h2 class="sec-h2">Winter In Motion</h2>
+    <p class="sec-p" style="margin:0 auto 20px">A glimpse of what awaits. Opening 2026, Lagos.</p>
+    <!-- <div class="gallery-tip">
+      📁 To add photos: drop image files into the <code>/images/</code> folder, then swap the gradient backgrounds on each tile with <code>background:url('images/filename.jpg') center/cover</code>
+    </div> -->
+  </div>
+
+  <div class="gal-grid">
+    <!-- TILE 1 — tall -->
+    <div class="gi tall" style="background:url('images/hero.jpg') center/cover no-repeat">
+      <!-- <div class="gi-in">❄️</div> -->
+      <div class="gi-ov"><span class="gi-cap">The Snow Wonderland</span></div>
+    </div>
+    <!-- TILE 2 -->
+    <div class="gi" style="background:url('images/slide.jpg') center/cover no-repeat">
+      <!-- <div class="gi-in">🛷</div> -->
+      <div class="gi-ov"><span class="gi-cap">Ice Slides</span></div>
+    </div>
+    <!-- TILE 3 -->
+    <div class="gi" style="background:url('images/dance.jpg') center/cover no-repeat">
+      <!-- <div class="gi-in">⛸️</div> -->
+      <div class="gi-ov"><span class="gi-cap">Ice Skating Rink</span></div>
+    </div>
+    <!-- TILE 4 — wide -->
+    <div class="gi wide" style="background:url('images/kidzone.jpg') center/cover no-repeat">
+      <!-- <div class="gi-in">🧒❄️🧒</div> -->
+      <div class="gi-ov"><span class="gi-cap">Kids Snow Zone — Family Fun All Day</span></div>
+    </div>
+    <!-- TILE 5 -->
+    <div class="gi" style="background:url('images/restaurant.jpg') center/cover no-repeat">
+      <!-- <div class="gi-in">🎉</div> -->
+      <div class="gi-ov"><span class="gi-cap">Private Events & Birthday Parties</span></div>
+    </div>
+    <!-- TILE 6 -->
+    <div class="gi" style="background:url('images/climbing.jpg') center/cover no-repeat">
+      <!-- <div class="gi-in">🏢</div> -->
+      <div class="gi-ov"><span class="gi-cap">Corporate Days Out</span></div>
+    </div>
+    <!-- TILE 7 -->
+    <div class="gi" style="background:url('images/sensory.jpg') center/cover no-repeat">
+      <!-- <div class="gi-in">🎿</div> -->
+      <div class="gi-ov"><span class="gi-cap">Snow Activities</span></div>
+    </div>
+  </div>
+
+  <!-- HOW TO ADD IMAGES GUIDE -->
+  <!-- <div style="padding:0 4% 60px">
+    <div class="img-guide">
+      <div>
+        <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--turq);margin-bottom:10px">How To Add Real Images</div>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:14px">3 Simple Steps</h3>
+        <ol style="color:rgba(255,255,255,.6);font-size:.9rem;line-height:2;padding-left:18px">
+          <li>Drop your image files into the <code style="background:rgba(255,255,255,.1);padding:2px 8px;border-radius:6px">/images/</code> folder</li>
+          <li>Open <code style="background:rgba(255,255,255,.1);padding:2px 8px;border-radius:6px">index.html</code> in VS Code or any text editor</li>
+          <li>Find the gallery tile and replace the gradient style with your image URL</li>
+        </ol>
+      </div>
+      <div class="code-block">
+        <div class="code-comment">&lt;!-- BEFORE (placeholder) --&gt;</div>
+        &lt;div class="gi" style="background:<span class="code-old">linear-gradient(...)</span>"&gt;<br><br>
+        <div class="code-comment">&lt;!-- AFTER (real image) --&gt;</div>
+        &lt;div class="gi" style="background:<span class="code-new">url('images/snow-slides.jpg')<br>&nbsp;&nbsp;center/cover no-repeat</span>"&gt;
+      </div>
+    </div>
+  </div> -->
+
+  <footer style="margin-top:0">
+    <div class="ft-bot" style="border-top:1px solid rgba(255,255,255,.08);padding:22px 0 0">
+      <span class="ft-copy">© 2026 Winter Mall Nigeria Ltd.</span>
+      <span class="ft-tag">Experience Winter. Inside. ❄</span>
+    </div>
+  </footer>
+</div><!-- /pg-gallery -->
+
+
+<!-- ═══════════════════════════════════════
+     BOOKING MODAL
+     Opens when "Book Now" is clicked.
+     TO CONNECT PAYSTACK/FLUTTERWAVE:
+     Edit confirmBooking() in css/main.js
+════════════════════════════════════════ -->
+<div id="booking-modal" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeBooking()">✕</button>
+    <div class="modal-title">🎟 Book Tickets</div>
+    <p class="modal-sub">Select your ticket type and quantity to get started.</p>
+
+    <div class="modal-field">
+      <label>Ticket Type</label>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div class="modal-tt sel tt-card" onclick="selectModalTicket(this,8000)" style="padding:12px 14px">
+          <div class="tt-l"><div class="tt-ico">👤</div><div><div class="tt-nm">Adult</div><div class="tt-ds">Full access · All 5 zones · 3 hours</div></div></div>
+          <div class="tt-pr">₦8,000</div>
+        </div>
+        <div class="modal-tt tt-card" onclick="selectModalTicket(this,6000)" style="padding:12px 14px">
+          <div class="tt-l"><div class="tt-ico">🧒</div><div><div class="tt-nm">Child (3–12)</div><div class="tt-ds">Full access · Kids zone priority</div></div></div>
+          <div class="tt-pr">₦6,000</div>
+        </div>
+        <div class="modal-tt tt-card" onclick="selectModalTicket(this,20000)" style="padding:12px 14px">
+          <div class="tt-l"><div class="tt-ico">👨‍👩‍👧‍👦</div><div><div class="tt-nm">Family Pack (2+2)</div><div class="tt-ds">2 adults + 2 children · Best value</div></div></div>
+          <div class="tt-pr">₦20,000</div>
+        </div>
+        <div class="modal-tt tt-card" onclick="selectModalTicket(this,12000)" style="padding:12px 14px">
+          <div class="tt-l"><div class="tt-ico">🏢</div><div><div class="tt-nm">Corporate / Event</div><div class="tt-ds">Private zone · F&B · MC included</div></div></div>
+          <div class="tt-pr">₦12,000</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-field">
+      <label>Quantity</label>
+      <div class="modal-qty-row">
+        <button class="modal-qty-btn" onclick="changeModalQty(-1)">−</button>
+        <span class="modal-qty-n" id="m-qty">1</span>
+        <button class="modal-qty-btn" onclick="changeModalQty(1)">+</button>
+      </div>
+    </div>
+
+    <div class="modal-total">
+      <span class="modal-total-lbl">Order Total</span>
+      <span class="modal-total-val" id="m-total">₦8,000</span>
+    </div>
+
+    <button class="btn btn-navy btn-full" onclick="confirmBooking()">
+      Confirm Booking →
+    </button>
+  </div>
+</div>
+
+<script src="css/main.js"></script>
+</body>
+</html>
