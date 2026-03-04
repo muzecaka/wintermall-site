@@ -902,3 +902,143 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
   .hero-ctas{flex-direction:column}
   .hero-ctas .btn{width:100%;justify-content:center}
 }
+
+/* ════════════════════════════════════════
+   CAPITAL STRUCTURE
+════════════════════════════════════════ */
+.capstruct-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:22px;margin-bottom:32px;
+}
+.cs-card{
+  border-radius:var(--r);padding:36px 28px;
+  position:relative;
+  border:2px solid rgba(158,220,255,.18);
+  transition:transform .25s,box-shadow .25s;
+}
+.cs-card:hover{transform:translateY(-4px);box-shadow:var(--sh2)}
+.cs-hybrid{
+  background:linear-gradient(160deg,var(--navy) 0%,#0d4a72 100%);
+  border-color:rgba(0,175,239,.35);
+}
+.cs-equity{
+  background:linear-gradient(160deg,#0e5c35 0%,#0a3d24 100%);
+  border-color:rgba(14,124,74,.4);
+}
+.cs-badge{
+  position:absolute;top:-1px;right:24px;
+  background:var(--gold);color:var(--navy);
+  font-size:.65rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.1em;padding:5px 12px;border-radius:0 0 10px 10px;
+}
+.cs-icon{font-size:2.4rem;margin-bottom:14px;display:block}
+.cs-type{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.45rem;font-weight:700;color:#fff;
+  margin-bottom:4px;
+}
+.cs-risk{
+  font-size:.72rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;color:rgba(255,255,255,.4);
+  margin-bottom:22px;
+}
+.cs-list{
+  list-style:none;padding:0;margin:0 0 22px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.cs-list li{
+  font-size:.85rem;color:rgba(255,255,255,.7);
+  display:flex;align-items:flex-start;gap:8px;line-height:1.4;
+}
+.cs-profile{
+  font-size:.78rem;color:rgba(255,255,255,.5);
+  padding-top:18px;border-top:1px solid rgba(255,255,255,.1);
+  margin-bottom:12px;
+}
+.cs-profile strong{color:rgba(255,255,255,.8)}
+.cs-note{
+  font-size:.74rem;color:rgba(255,255,255,.35);
+  line-height:1.6;font-style:italic;
+}
+.cs-tagline{
+  text-align:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-style:italic;
+  color:var(--ink2);
+  padding:22px 32px;
+  background:var(--bg2);
+  border-radius:var(--r);
+  border:1px solid rgba(0,175,239,.15);
+  margin-bottom:8px;
+}
+
+/* Protection grid */
+.prot-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+.prot-item{
+  background:var(--bg);border-radius:16px;
+  padding:22px 20px;border:1px solid rgba(0,175,239,.12);
+}
+.prot-ico{font-size:1.6rem;margin-bottom:10px}
+.prot-h{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:7px;
+}
+.prot-p{font-size:.8rem;color:var(--ink3);line-height:1.6}
+
+/* ════════════════════════════════════════
+   LEGAL FRAMEWORK
+════════════════════════════════════════ */
+.legal-disclaimer{
+  background:rgba(201,162,39,.08);
+  border:1px solid rgba(201,162,39,.3);
+  border-radius:12px;padding:16px 20px;
+  font-size:.82rem;color:var(--ink2);
+  line-height:1.65;margin:24px 0 32px;
+}
+.clause-list{display:flex;flex-direction:column;gap:16px}
+.clause{
+  background:var(--bg);border-radius:16px;
+  padding:24px 26px;
+  border-left:4px solid var(--turq);
+  border:1px solid rgba(0,175,239,.12);
+  border-left:4px solid var(--turq);
+}
+.clause-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--turq-dark);margin-bottom:5px;
+}
+.clause-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;font-weight:700;color:var(--navy);
+  margin-bottom:10px;
+}
+.clause-body{
+  font-size:.85rem;color:var(--ink2);line-height:1.75;
+}
+.legal-cta{
+  margin-top:28px;
+  background:linear-gradient(135deg,var(--navy),var(--navy3));
+  border-radius:var(--r);padding:28px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:24px;
+}
+.inv-legal-footer{
+  background:var(--bg2);
+  padding:28px 4%;
+  font-size:.78rem;color:var(--ink3);
+  line-height:1.75;
+  border-top:1px solid rgba(0,175,239,.12);
+}
+
+/* Responsive */
+@media(max-width:768px){
+  .capstruct-grid{grid-template-columns:1fr}
+  .prot-grid{grid-template-columns:1fr}
+  .legal-cta{flex-direction:column;text-align:center}
+  .inv-tabs-row{gap:6px}
+  .inv-tab{font-size:.72rem;padding:7px 12px}
+}

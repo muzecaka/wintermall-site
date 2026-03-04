@@ -208,17 +208,22 @@
 ════════════════════════════════════════ -->
 <div id="pg-investor" class="pg">
   <div class="inv-hdr">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(0,175,239,.15);border:1px solid rgba(0,175,239,.35);color:var(--turq2);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;border-radius:50px;margin-bottom:20px">
+      🔒 Confidential — Qualified Investors Only
+    </div>
     <h1>Investment Opportunity</h1>
-    <p>Africa's first infrastructure-backed indoor snow & ice park. Institutional structure. Conservative projections. Defined exit.</p>
+    <p>Africa's first infrastructure-backed indoor snow & ice park. Institutional structure. Conservative projections. Defined exit. Two capital structures designed for different investor profiles.</p>
     <div style="display:flex;justify-content:center;margin-bottom:32px">
       <button class="btn btn-gold" onclick="downloadDeck()" style="font-size:1rem;padding:14px 32px;border-radius:50px;gap:10px">
         ⬇ Download Full Pitch Deck (PDF)
       </button>
     </div>
     <div class="inv-tabs-row">
-      <button class="inv-tab active" onclick="invTab(this,'uof')">Use of Funds</button>
+      <button class="inv-tab active" onclick="invTab(this,'capstruct')">Capital Structure</button>
+      <button class="inv-tab"        onclick="invTab(this,'uof')">Use of Funds</button>
       <button class="inv-tab"        onclick="invTab(this,'finproj')">Financial Projections</button>
       <button class="inv-tab"        onclick="invTab(this,'divsim')">Dividend Simulation</button>
+      <button class="inv-tab"        onclick="invTab(this,'legal')">Legal Framework</button>
       <button class="inv-tab"        onclick="invTab(this,'contact')">Investor Relations</button>
     </div>
   </div>
@@ -228,11 +233,96 @@
       <div class="met"><div class="met-v">₦7.5B</div><div class="met-l">Total Capitalisation</div></div>
       <div class="met"><div class="met-v">₦768M</div><div class="met-l">Projected EBITDA Y1</div></div>
       <div class="met"><div class="met-v">5–7 Yrs</div><div class="met-l">Investor Liquidity Window</div></div>
-      <div class="met"><div class="met-v">45%</div><div class="met-l">Investor Equity Stake</div></div>
+      <div class="met"><div class="met-v">45%</div><div class="met-l">Investor Participation</div></div>
     </div>
 
-    <!-- USE OF FUNDS -->
-    <div id="inv-uof" class="inv-sec show">
+    <!-- ── CAPITAL STRUCTURE ── -->
+    <div id="inv-capstruct" class="inv-sec show">
+      <div class="uof-card">
+        <div style="text-align:center;margin-bottom:36px">
+          <h3 style="font-size:2rem;margin-bottom:8px">Capital Structure Options</h3>
+          <p class="uof-sub" style="max-width:560px;margin:0 auto">Winter Mall offers two distinct capital instruments designed to match different investor risk profiles — while preserving long-term company scalability and founder control.</p>
+        </div>
+
+        <!-- Two-column comparison -->
+        <div class="capstruct-grid">
+
+          <!-- LEFT — Hybrid -->
+          <div class="cs-card cs-hybrid">
+            <div class="cs-badge">Recommended</div>
+            <div class="cs-icon">🛡️</div>
+            <div class="cs-type">Hybrid Structured Capital</div>
+            <div class="cs-risk">Lower Risk · Fixed Returns</div>
+            <ul class="cs-list">
+              <li>✅ Fixed annual return participation</li>
+              <li>✅ Dividend participation (30–50%)</li>
+              <li>✅ Capital protection mechanism</li>
+              <li>✅ 5–7 year structured buyback</li>
+              <li>✅ No ownership dilution</li>
+              <li>✅ Predictable, defined exit</li>
+              <li>✅ No voting rights required</li>
+              <li>❌ No automatic equity conversion</li>
+            </ul>
+            <div class="cs-profile">Best for: <strong>Conservative &amp; Institutional Investors</strong></div>
+            <div class="cs-note">This instrument does not grant ownership, voting rights, or equity interest. Returns are governed by a signed Hybrid Investment Agreement.</div>
+          </div>
+
+          <!-- RIGHT — Equity -->
+          <div class="cs-card cs-equity">
+            <div class="cs-icon">📈</div>
+            <div class="cs-type">Equity Participation</div>
+            <div class="cs-risk">Higher Risk · Higher Upside</div>
+            <ul class="cs-list">
+              <li>✅ Direct ownership stake</li>
+              <li>✅ Dividend participation</li>
+              <li>✅ Voting rights (as agreed)</li>
+              <li>✅ Long-term enterprise value growth</li>
+              <li>✅ Exit via recapitalisation or secondary sale</li>
+              <li>✅ Higher returns potential</li>
+              <li>⚠️ Subject to market valuation at entry</li>
+              <li>⚠️ No fixed return guarantee</li>
+            </ul>
+            <div class="cs-profile">Best for: <strong>Growth-Focused &amp; Strategic Investors</strong></div>
+            <div class="cs-note">Equity participation is priced at prevailing market valuation at time of investment. Subject to separate negotiation and shareholder agreement.</div>
+          </div>
+        </div>
+
+        <!-- Bottom positioning line -->
+        <div class="cs-tagline">
+          Winter Mall offers flexible capital structures aligned to investor risk appetite — while preserving long-term scalability and operational independence.
+        </div>
+
+        <!-- Key Protections -->
+        <div style="margin-top:36px">
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--turq-dark);margin-bottom:18px">Key Structural Protections</div>
+          <div class="prot-grid">
+            <div class="prot-item">
+              <div class="prot-ico">⚖️</div>
+              <div class="prot-h">No Double Participation</div>
+              <p class="prot-p">Upon redemption of the Hybrid Investment, the Investor shall have no further claim to equity, profit share, or continuing participation unless otherwise agreed in writing.</p>
+            </div>
+            <div class="prot-item">
+              <div class="prot-ico">🔒</div>
+              <div class="prot-h">No Automatic Conversion</div>
+              <p class="prot-p">Hybrid capital shall not include any automatic or preferential right to convert into equity securities of the Company at any time.</p>
+            </div>
+            <div class="prot-item">
+              <div class="prot-ico">🏦</div>
+              <div class="prot-h">Founder Control Preserved</div>
+              <p class="prot-p">Hybrid investors receive financial participation only. Governance, operational decisions, and strategic direction remain with the founding team.</p>
+            </div>
+            <div class="prot-item">
+              <div class="prot-ico">📅</div>
+              <div class="prot-h">Defined Buyback Window</div>
+              <p class="prot-p">The Company retains the right to repurchase the Hybrid Investment between Year 5 and Year 7 at the agreed redemption value, concluding investor participation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── USE OF FUNDS ── -->
+    <div id="inv-uof" class="inv-sec">
       <div class="uof-card">
         <h3>Use of Funds — ₦7.5B</h3>
         <p class="uof-sub">Capital deployed into revenue-generating assets, working capital, and contingency. Zero lifestyle or discretionary spend.</p>
@@ -245,7 +335,7 @@
       </div>
     </div>
 
-    <!-- FINANCIAL PROJECTIONS -->
+    <!-- ── FINANCIAL PROJECTIONS ── -->
     <div id="inv-finproj" class="inv-sec">
       <div class="uof-card">
         <h3>5-Year Financial Projections</h3>
@@ -271,7 +361,7 @@
       </div>
     </div>
 
-    <!-- DIVIDEND SIMULATION -->
+    <!-- ── DIVIDEND SIMULATION ── -->
     <div id="inv-divsim" class="inv-sec">
       <div class="uof-card">
         <h3>5-Year Dividend Simulation</h3>
@@ -294,33 +384,140 @@
       </div>
     </div>
 
-    <!-- INVESTOR RELATIONS CONTACT -->
+    <!-- ── LEGAL FRAMEWORK ── -->
+    <div id="inv-legal" class="inv-sec">
+      <div class="uof-card">
+        <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:8px">
+          <span style="font-size:2rem">⚖️</span>
+          <div>
+            <h3 style="margin-bottom:4px">Legal Framework & Term Sheet Clauses</h3>
+            <p class="uof-sub" style="margin-bottom:0">The following clauses are term-sheet ready and govern the Hybrid Investment structure. These are provided for investor review prior to formal legal engagement. All final agreements are subject to execution of a binding Investment Agreement.</p>
+          </div>
+        </div>
+
+        <div class="legal-disclaimer">
+          ⚠️ <strong>Important Notice:</strong> The following clauses are provided for informational and preliminary review purposes only. They do not constitute a binding legal agreement. All investments are subject to the execution of a formal, legally binding Investment Agreement reviewed by qualified legal counsel on both sides.
+        </div>
+
+        <!-- Clause blocks -->
+        <div class="clause-list">
+
+          <div class="clause">
+            <div class="clause-num">Clause 1</div>
+            <div class="clause-title">Nature of Investment</div>
+            <div class="clause-body">The Hybrid Investment shall constitute a structured capital instrument providing fixed returns and dividend participation only. This investment does not grant ownership, voting rights, or equity interest in the Company. The Investor's participation is strictly financial in nature and shall be governed by the terms of the executed Hybrid Investment Agreement.</div>
+          </div>
+
+          <div class="clause">
+            <div class="clause-num">Clause 2</div>
+            <div class="clause-title">No Automatic Conversion</div>
+            <div class="clause-body">The Hybrid Investment shall not include any automatic or preferential right to convert into equity securities of the Company at any time during or after the investment period. Any purported conversion right not expressly agreed in writing shall be deemed null and void.</div>
+          </div>
+
+          <div class="clause">
+            <div class="clause-num">Clause 3</div>
+            <div class="clause-title">Optional Future Equity Participation</div>
+            <div class="clause-body">Any future equity participation by the Investor shall be subject to a separate negotiation and shall be priced at the prevailing market valuation at the time of such investment, as determined by an independent valuation or mutual agreement between the parties. Past investment amounts shall not be used as the basis for equity pricing.</div>
+          </div>
+
+          <div class="clause">
+            <div class="clause-num">Clause 4</div>
+            <div class="clause-title">Buyback &amp; Exit Rights</div>
+            <div class="clause-body">The Company shall retain the right to repurchase the Hybrid Investment at any time between Year 5 and Year 7 from the date of initial investment, at the agreed redemption value as specified in the Investment Agreement. Upon redemption, the Investor's participation in the Company shall be deemed fully concluded and discharged.</div>
+          </div>
+
+          <div class="clause">
+            <div class="clause-num">Clause 5</div>
+            <div class="clause-title">No Double Participation</div>
+            <div class="clause-body">Upon redemption of the Hybrid Investment — whether at maturity, early buyback, or by mutual agreement — the Investor shall have no further claim to equity, profit share, dividends, or any continuing participation in the Company, its subsidiaries, or affiliated entities, unless otherwise expressly agreed in a separate written instrument executed by both parties.</div>
+          </div>
+
+          <div class="clause">
+            <div class="clause-num">Clause 6</div>
+            <div class="clause-title">Governance &amp; Non-Interference</div>
+            <div class="clause-body">The Hybrid Investor shall have no right to participate in, vote on, or otherwise influence the governance, management, or operational decisions of the Company. Board composition, strategic direction, and day-to-day operations remain exclusively within the authority of the founding team and any formally appointed Board of Directors.</div>
+          </div>
+
+          <div class="clause">
+            <div class="clause-num">Clause 7</div>
+            <div class="clause-title">Confidentiality</div>
+            <div class="clause-body">All information disclosed to the Investor in connection with this opportunity — including financial projections, operational data, and the terms of this document — is strictly confidential. The Investor agrees not to disclose any such information to third parties without prior written consent from the Company, and to use such information solely for the purpose of evaluating the investment.</div>
+          </div>
+
+          <div class="clause">
+            <div class="clause-num">Clause 8</div>
+            <div class="clause-title">Governing Law &amp; Jurisdiction</div>
+            <div class="clause-body">This investment and all agreements arising from it shall be governed by and construed in accordance with the laws of the Federal Republic of Nigeria. Any disputes shall be subject to the exclusive jurisdiction of the courts of Lagos State, or resolved through arbitration as mutually agreed in the executed Investment Agreement.</div>
+          </div>
+
+        </div>
+
+        <!-- CTA to get proper legal advice -->
+        <div class="legal-cta">
+          <div>
+            <div style="font-weight:700;color:#fff;margin-bottom:6px;font-size:1rem">Ready to proceed?</div>
+            <p style="color:rgba(255,255,255,.55);font-size:.85rem;margin:0">Our investment team will coordinate formal legal documentation with your counsel once you express interest. All binding agreements are prepared by qualified Nigerian legal practitioners.</p>
+          </div>
+          <button class="btn btn-gold" onclick="invTab(document.querySelector('.inv-tab:last-of-type'),'contact')" style="white-space:nowrap;flex-shrink:0">
+            Express Interest →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── INVESTOR RELATIONS CONTACT ── -->
     <div id="inv-contact" class="inv-sec">
       <div class="inv-contact-blk">
         <div>
           <h3>Investor Relations</h3>
-          <p>We partner with institutional investors, family offices, and strategic partners who understand infrastructure-backed entertainment. Request the full investor deck and financial model.</p>
-          <div style="margin-top:24px;display:flex;flex-direction:column;gap:8px">
+          <p>We partner with institutional investors, family offices, and strategic partners who understand infrastructure-backed entertainment. Submit your enquiry and our team will respond within 24 hours.</p>
+          <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px">
             <div style="font-size:.82rem;color:rgba(255,255,255,.55)">📞 +234 701 999 9900</div>
             <div style="font-size:.82rem;color:rgba(255,255,255,.55)">📞 +234 708 702 3861</div>
             <div style="font-size:.82rem;color:rgba(255,255,255,.55)">✉ wintermallng@gmail.com</div>
             <div style="font-size:.82rem;color:rgba(255,255,255,.55)">🌐 wintermall.com</div>
           </div>
+          <div style="margin-top:28px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1)">
+            <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.3);margin-bottom:10px">What happens next</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-size:.8rem;color:rgba(255,255,255,.45);display:flex;gap:10px"><span style="color:var(--turq)">01</span> We review your enquiry within 24 hours</div>
+              <div style="font-size:.8rem;color:rgba(255,255,255,.45);display:flex;gap:10px"><span style="color:var(--turq)">02</span> Introductory call scheduled with the founder</div>
+              <div style="font-size:.8rem;color:rgba(255,255,255,.45);display:flex;gap:10px"><span style="color:var(--turq)">03</span> Full financial model & data room shared under NDA</div>
+              <div style="font-size:.8rem;color:rgba(255,255,255,.45);display:flex;gap:10px"><span style="color:var(--turq)">04</span> Term sheet issued & legal documentation initiated</div>
+            </div>
+          </div>
         </div>
         <div class="cff">
           <div class="cf2">
-            <input class="cfi" type="text"  placeholder="Full Name">
-            <input class="cfi" type="text"  placeholder="Organisation">
+            <input class="cfi" type="text"  placeholder="Full Name *" required>
+            <input class="cfi" type="text"  placeholder="Organisation *" required>
           </div>
-          <input class="cfi" type="email" placeholder="Email Address">
+          <input class="cfi" type="email" placeholder="Email Address *" required>
+          <input class="cfi" type="tel"   placeholder="Phone Number">
+          <select class="cfi" style="appearance:none;-webkit-appearance:none">
+            <option value="" disabled selected>Investment Structure Interest</option>
+            <option>Hybrid Structured Capital</option>
+            <option>Equity Participation</option>
+            <option>Open to Discussion</option>
+          </select>
           <input class="cfi" type="text"  placeholder="Investment Range (₦)">
-          <textarea class="cfi" rows="3"  placeholder="Message or Interest Area" style="resize:none"></textarea>
-          <button class="btn btn-navy btn-full" onclick="alert('Thank you. Our investor relations team will contact you within 24 hours. ❄')">
+          <textarea class="cfi" rows="3"  placeholder="Message or specific questions" style="resize:none"></textarea>
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:4px">
+            <input type="checkbox" id="conf-chk" style="margin-top:3px;flex-shrink:0;accent-color:var(--turq)">
+            <label for="conf-chk" style="font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.5;cursor:pointer">I confirm that I am a qualified investor and agree to treat all information shared as strictly confidential.</label>
+          </div>
+          <button class="btn btn-navy btn-full" onclick="submitEnquiry()">
             Submit Enquiry →
           </button>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Legal footer notice -->
+  <div class="inv-legal-footer">
+    <p><strong>Important Disclaimer:</strong> The information contained on this page is provided for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities or investment products. Financial projections are forward-looking statements based on management assumptions and are not guaranteed. Past performance is not indicative of future results. Prospective investors should conduct their own due diligence and consult with qualified legal and financial advisers before making any investment decision. Winter Mall Nigeria Ltd. reserves the right to modify or withdraw this opportunity at any time without notice.</p>
+    <p style="margin-top:10px;opacity:.6">© 2026 Winter Mall Nigeria Ltd. · RC: [Registration Number Pending] · Regulated activities subject to applicable Nigerian law.</p>
   </div>
 
   <footer style="margin-top:0">
@@ -603,6 +800,12 @@
 
 <script src="css/main.js"></script>
 <script>
+function submitEnquiry(){
+  var chk = document.getElementById('conf-chk');
+  if(!chk.checked){ alert('Please confirm the confidentiality agreement before submitting.'); return; }
+  alert('Thank you for your enquiry.\n\nOur investor relations team will contact you within 24 hours to schedule an introductory call. ❄\n\n— Winter Mall Nigeria Ltd.');
+}
+
 /* ── GALLERY LIGHTBOX ── */
 var lbTiles = [], lbIndex = 0, lbTouchX = 0;
 
