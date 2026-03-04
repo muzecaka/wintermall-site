@@ -493,31 +493,38 @@
 
   <div class="gal-grid">
     <div class="gi tall" style="background:url('images/hero.jpg') center/cover no-repeat"
-         onclick="openLightbox(0)">
+         data-src="images/hero.jpg" data-caption="The Snow Wonderland"
+         onclick="openLightbox(this)">
       <div class="gi-ov"><span class="gi-cap">The Snow Wonderland</span></div>
     </div>
     <div class="gi" style="background:url('images/slide.jpg') center/cover no-repeat"
-         onclick="openLightbox(1)">
+         data-src="images/slide.jpg" data-caption="Ice Slides"
+         onclick="openLightbox(this)">
       <div class="gi-ov"><span class="gi-cap">Ice Slides</span></div>
     </div>
     <div class="gi" style="background:url('images/dance.jpg') center/cover no-repeat"
-         onclick="openLightbox(2)">
+         data-src="images/dance.jpg" data-caption="Ice Skating Rink"
+         onclick="openLightbox(this)">
       <div class="gi-ov"><span class="gi-cap">Ice Skating Rink</span></div>
     </div>
     <div class="gi wide" style="background:url('images/kidzone.jpg') center/cover no-repeat"
-         onclick="openLightbox(3)">
+         data-src="images/kidzone.jpg" data-caption="Kids Snow Zone — Family Fun All Day"
+         onclick="openLightbox(this)">
       <div class="gi-ov"><span class="gi-cap">Kids Snow Zone — Family Fun All Day</span></div>
     </div>
     <div class="gi" style="background:url('images/restaurant.jpg') center/cover no-repeat"
-         onclick="openLightbox(4)">
+         data-src="images/restaurant.jpg" data-caption="Private Events & Birthday Parties"
+         onclick="openLightbox(this)">
       <div class="gi-ov"><span class="gi-cap">Private Events & Birthday Parties</span></div>
     </div>
     <div class="gi" style="background:url('images/climbing.jpg') center/cover no-repeat"
-         onclick="openLightbox(5)">
+         data-src="images/climbing.jpg" data-caption="Corporate Days Out"
+         onclick="openLightbox(this)">
       <div class="gi-ov"><span class="gi-cap">Corporate Days Out</span></div>
     </div>
     <div class="gi" style="background:url('images/sensory.jpg') center/cover no-repeat"
-         onclick="openLightbox(6)">
+         data-src="images/sensory.jpg" data-caption="Snow Activities"
+         onclick="openLightbox(this)">
       <div class="gi-ov"><span class="gi-cap">Snow Activities</span></div>
     </div>
   </div>
@@ -597,14 +604,29 @@
 <script src="css/main.js"></script>
 <script>
 /* ── GALLERY LIGHTBOX ── */
-let lbIndex = 0, lbTouchStartX = 0;
+var lbTiles = [], lbIndex = 0, lbTouchX = 0;
 
-// reads image paths directly from the tiles themselves
-const lbTiles = () => Array.from(document.querySelectorAll('.gal-grid .gi'));
-
-function openLightbox(i){
-  lbIndex = i;
-  renderLightbox();
+function openLightbox(tile){
+  lbTiles = Array.from(document.querySelectorAll('.gal-grid .gi'));
+  lbIndex = lbTiles.indexOf(tile);
+  showLightbox();
+}
+function showLightbox(){
+  var tile    = lbTiles[lbIndex];
+  var src     = tile.getAttribute('data-src');
+  var caption = tile.getAttribute('data-caption');
+  var content = document.getElementById('lb-content');
+  content.innerHTML = '';
+  var img = document.createElement('img');
+  img.src       = src;
+  img.alt       = caption;
+  img.className = 'lb-img';
+  img.onerror   = function(){
+    content.innerHTML = '<p style="color:rgba(255,255,255,.5);text-align:center;padding:40px">Image not found:<br><code>'+src+'</code></p>';
+  };
+  content.appendChild(img);
+  document.getElementById('lb-caption').textContent = caption;
+  document.getElementById('lb-count').textContent   = (lbIndex+1)+' / '+lbTiles.length;
   document.getElementById('lightbox').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -613,64 +635,24 @@ function closeLightbox(){
   document.body.style.overflow = '';
 }
 function lbNav(dir){
-  const tiles = lbTiles();
-  lbIndex = (lbIndex + dir + tiles.length) % tiles.length;
-  renderLightbox();
+  lbIndex = (lbIndex + dir + lbTiles.length) % lbTiles.length;
+  showLightbox();
 }
 function lbOutsideClick(e){
   if(e.target.id === 'lightbox') closeLightbox();
 }
-function renderLightbox(){
-  const tiles   = lbTiles();
-  const tile    = tiles[lbIndex];
-  const caption = tile.querySelector('.gi-cap').textContent;
-  const total   = tiles.length;
-
-  // extract background-image URL from the tile's inline style
-  const bgStyle = tile.style.backgroundImage || tile.style.background;
-  const urlMatch = bgStyle.match(/url\(['"]?([^'")\s]+)['"]?\)/);
-
-  const content = document.getElementById('lb-content');
-
-  if(urlMatch && urlMatch[1]){
-    // real image found — show it full size
-    content.innerHTML = `<img class="lb-img" src="${urlMatch[1]}"
-      alt="${caption}"
-      style="width:100%;max-height:78vh;object-fit:contain;border-radius:16px;
-             display:block;box-shadow:0 24px 80px rgba(0,0,0,.55)">`;
-  } else {
-    // fallback — show the tile background as a large block
-    content.innerHTML = `<div style="
-      width:100%;height:55vmin;max-height:460px;border-radius:16px;
-      background:${tile.style.background};
-      display:flex;align-items:center;justify-content:center;
-      font-size:4rem;">❄️</div>`;
-  }
-
-  document.getElementById('lb-caption').textContent = caption;
-  document.getElementById('lb-count').textContent   = `${lbIndex + 1} / ${total}`;
-}
-
-// keyboard nav
-document.addEventListener('keydown', e => {
-  const lb = document.getElementById('lightbox');
-  if(!lb.classList.contains('open')) return;
+document.addEventListener('keydown', function(e){
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
   if(e.key==='ArrowRight') lbNav(1);
   if(e.key==='ArrowLeft')  lbNav(-1);
   if(e.key==='Escape')     closeLightbox();
 });
-
-// swipe nav for mobile
-document.addEventListener('touchstart', e => {
-  lbTouchStartX = e.touches[0].clientX;
-}, {passive:true});
-document.addEventListener('touchend', e => {
+document.addEventListener('touchstart', function(e){ lbTouchX = e.touches[0].clientX; },{passive:true});
+document.addEventListener('touchend', function(e){
   if(!document.getElementById('lightbox').classList.contains('open')) return;
-  const diff = lbTouchStartX - e.changedTouches[0].clientX;
+  var diff = lbTouchX - e.changedTouches[0].clientX;
   if(Math.abs(diff) > 50) lbNav(diff > 0 ? 1 : -1);
-}, {passive:true});
+},{passive:true});
 </script>
-</body>
-</html>
 </body>
 </html>
