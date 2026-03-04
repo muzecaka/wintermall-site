@@ -50,20 +50,6 @@
       </div>
     </div>
 
-    <!-- ─────────────────────────────────────────
-         HERO VIDEO FRAME
-         HOW TO ADD YOUR 3D VIDEO:
-         1. Save your video file (MP4/WebM) into the /assets/ folder
-            e.g. assets/wintermall-3d.mp4
-         2. Replace the <div class="hf-inner"> block below with:
-
-            <video autoplay muted loop playsinline
-              style="width:100%;height:100%;object-fit:cover;border-radius:var(--r2)">
-              <source src="assets/wintermall-3d.mp4" type="video/mp4">
-            </video>
-
-         3. Remove the .hf-inner placeholder div entirely.
-         ───────────────────────────────────────── -->
     <div class="hero-r">
       <div class="hero-frame">
         <div class="hero-frame-main">
@@ -225,7 +211,6 @@
     <h1>Investment Opportunity</h1>
     <p>Africa's first infrastructure-backed indoor snow & ice park. Institutional structure. Conservative projections. Defined exit.</p>
     <div style="display:flex;justify-content:center;margin-bottom:32px">
-      <!-- ── PITCH DECK DOWNLOAD BUTTON ── -->
       <button class="btn btn-gold" onclick="downloadDeck()" style="font-size:1rem;padding:14px 32px;border-radius:50px;gap:10px">
         ⬇ Download Full Pitch Deck (PDF)
       </button>
@@ -359,12 +344,6 @@
   <div class="team-grid">
     <div class="tcard2">
       <div class="tav">
-        <!--
-          TO ADD A REAL PHOTO:
-          Replace the emoji above with:
-          <img src="images/ishola.jpg" alt="Ishola Olasunkanmi"
-               style="width:100%;height:100%;object-fit:cover">
-        -->
         <img src="images/kanmi.png" alt="Ishola Olasunkanmi"
         style="width:100%;height:100%;object-fit:contain">
       </div>
@@ -376,11 +355,6 @@
     </div>
     <div class="tcard2">
       <div class="tav">
-        <!--
-          TO ADD A REAL PHOTO:
-          <img src="images/oyeyemi.jpg" alt="Oyeyemi Oladimeji Rasaq"
-               style="width:100%;height:100%;object-fit:cover">
-        -->
         <img src="images/rasaq.png" alt="Oyeyemi Oladimeji Rasaq"
                style="width:100%;height:100%;object-fit:contain">
       </div>
@@ -392,11 +366,6 @@
     </div>
     <div class="tcard2">
       <div class="tav">
-        <!--
-          TO ADD A REAL PHOTO:
-          <img src="images/agboola.jpg" alt="Agboola Olatunji Issa Balogun"
-               style="width:100%;height:100%;object-fit:cover">
-        -->
         <img src="images/tunji.png" alt="Agboola Olatunji Issa Balogun"
                style="width:100%;height:100%;object-fit:contain">
       </div>
@@ -514,83 +483,56 @@
 
 <!-- ═══════════════════════════════════════
      GALLERY PAGE
-     HOW TO ADD IMAGES:
-     1. Drop image files into the /images/ folder
-        e.g.  images/snow-slides.jpg
-              images/ice-skating.jpg
-              images/kids-zone.jpg
-     2. On each .gi tile below, replace the gradient style with:
-        style="background:url('images/YOUR-FILE.jpg') center/cover no-repeat"
-     3. Remove the <div class="gi-in"> emoji placeholder inside each tile
 ════════════════════════════════════════ -->
 <div id="pg-gallery" class="pg">
   <div class="gal-hdr">
     <div class="sec-eye dark" style="justify-content:center">📸 Gallery</div>
     <h2 class="sec-h2">Winter In Motion</h2>
     <p class="sec-p" style="margin:0 auto 20px">A glimpse of what awaits. Opening 2026, Lagos.</p>
-    <!-- <div class="gallery-tip">
-      📁 To add photos: drop image files into the <code>/images/</code> folder, then swap the gradient backgrounds on each tile with <code>background:url('images/filename.jpg') center/cover</code>
-    </div> -->
   </div>
 
   <div class="gal-grid">
-    <!-- TILE 1 — tall -->
-    <div class="gi tall" style="background:url('images/hero.jpg') center/cover no-repeat">
-      <!-- <div class="gi-in">❄️</div> -->
+    <div class="gi tall" style="background:url('images/hero.jpg') center/cover no-repeat"
+         onclick="openLightbox(0)">
       <div class="gi-ov"><span class="gi-cap">The Snow Wonderland</span></div>
     </div>
-    <!-- TILE 2 -->
-    <div class="gi" style="background:url('images/slide.jpg') center/cover no-repeat">
-      <!-- <div class="gi-in">🛷</div> -->
+    <div class="gi" style="background:url('images/slide.jpg') center/cover no-repeat"
+         onclick="openLightbox(1)">
       <div class="gi-ov"><span class="gi-cap">Ice Slides</span></div>
     </div>
-    <!-- TILE 3 -->
-    <div class="gi" style="background:url('images/dance.jpg') center/cover no-repeat">
-      <!-- <div class="gi-in">⛸️</div> -->
+    <div class="gi" style="background:url('images/dance.jpg') center/cover no-repeat"
+         onclick="openLightbox(2)">
       <div class="gi-ov"><span class="gi-cap">Ice Skating Rink</span></div>
     </div>
-    <!-- TILE 4 — wide -->
-    <div class="gi wide" style="background:url('images/kidzone.jpg') center/cover no-repeat">
-      <!-- <div class="gi-in">🧒❄️🧒</div> -->
+    <div class="gi wide" style="background:url('images/kidzone.jpg') center/cover no-repeat"
+         onclick="openLightbox(3)">
       <div class="gi-ov"><span class="gi-cap">Kids Snow Zone — Family Fun All Day</span></div>
     </div>
-    <!-- TILE 5 -->
-    <div class="gi" style="background:url('images/restaurant.jpg') center/cover no-repeat">
-      <!-- <div class="gi-in">🎉</div> -->
+    <div class="gi" style="background:url('images/restaurant.jpg') center/cover no-repeat"
+         onclick="openLightbox(4)">
       <div class="gi-ov"><span class="gi-cap">Private Events & Birthday Parties</span></div>
     </div>
-    <!-- TILE 6 -->
-    <div class="gi" style="background:url('images/climbing.jpg') center/cover no-repeat">
-      <!-- <div class="gi-in">🏢</div> -->
+    <div class="gi" style="background:url('images/climbing.jpg') center/cover no-repeat"
+         onclick="openLightbox(5)">
       <div class="gi-ov"><span class="gi-cap">Corporate Days Out</span></div>
     </div>
-    <!-- TILE 7 -->
-    <div class="gi" style="background:url('images/sensory.jpg') center/cover no-repeat">
-      <!-- <div class="gi-in">🎿</div> -->
+    <div class="gi" style="background:url('images/sensory.jpg') center/cover no-repeat"
+         onclick="openLightbox(6)">
       <div class="gi-ov"><span class="gi-cap">Snow Activities</span></div>
     </div>
   </div>
 
-  <!-- HOW TO ADD IMAGES GUIDE -->
-  <!-- <div style="padding:0 4% 60px">
-    <div class="img-guide">
-      <div>
-        <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--turq);margin-bottom:10px">How To Add Real Images</div>
-        <h3 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:14px">3 Simple Steps</h3>
-        <ol style="color:rgba(255,255,255,.6);font-size:.9rem;line-height:2;padding-left:18px">
-          <li>Drop your image files into the <code style="background:rgba(255,255,255,.1);padding:2px 8px;border-radius:6px">/images/</code> folder</li>
-          <li>Open <code style="background:rgba(255,255,255,.1);padding:2px 8px;border-radius:6px">index.html</code> in VS Code or any text editor</li>
-          <li>Find the gallery tile and replace the gradient style with your image URL</li>
-        </ol>
-      </div>
-      <div class="code-block">
-        <div class="code-comment">&lt;!-- BEFORE (placeholder) --&gt;</div>
-        &lt;div class="gi" style="background:<span class="code-old">linear-gradient(...)</span>"&gt;<br><br>
-        <div class="code-comment">&lt;!-- AFTER (real image) --&gt;</div>
-        &lt;div class="gi" style="background:<span class="code-new">url('images/snow-slides.jpg')<br>&nbsp;&nbsp;center/cover no-repeat</span>"&gt;
-      </div>
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="lbOutsideClick(event)">
+    <button class="lb-close" onclick="closeLightbox()">✕</button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8249;</button>
+    <button class="lb-nav lb-next" onclick="lbNav(1)">&#8250;</button>
+    <div class="lb-inner">
+      <div id="lb-content"></div>
+      <div class="lb-caption" id="lb-caption"></div>
+      <div class="lb-count" id="lb-count"></div>
     </div>
-  </div> -->
+  </div>
 
   <footer style="margin-top:0">
     <div class="ft-bot" style="border-top:1px solid rgba(255,255,255,.08);padding:22px 0 0">
@@ -603,9 +545,6 @@
 
 <!-- ═══════════════════════════════════════
      BOOKING MODAL
-     Opens when "Book Now" is clicked.
-     TO CONNECT PAYSTACK/FLUTTERWAVE:
-     Edit confirmBooking() in css/main.js
 ════════════════════════════════════════ -->
 <div id="booking-modal" class="modal-overlay">
   <div class="modal-box">
@@ -656,5 +595,59 @@
 </div>
 
 <script src="css/main.js"></script>
+<script>
+/* ── GALLERY LIGHTBOX ── */
+const galleryItems = [
+  { src:'images/hero.jpg',       caption:'The Snow Wonderland' },
+  { src:'images/slide.jpg',      caption:'Ice Slides' },
+  { src:'images/dance.jpg',      caption:'Ice Skating Rink' },
+  { src:'images/kidzone.jpg',    caption:'Kids Snow Zone — Family Fun All Day' },
+  { src:'images/restaurant.jpg', caption:'Private Events & Birthday Parties' },
+  { src:'images/climbing.jpg',   caption:'Corporate Days Out' },
+  { src:'images/sensory.jpg',    caption:'Snow Activities' },
+];
+
+let lbIndex = 0, lbTouchStartX = 0;
+
+function openLightbox(i){
+  lbIndex = i;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbNav(dir){
+  lbIndex = (lbIndex + dir + galleryItems.length) % galleryItems.length;
+  renderLightbox();
+}
+function lbOutsideClick(e){
+  if(e.target.id === 'lightbox') closeLightbox();
+}
+function renderLightbox(){
+  const item = galleryItems[lbIndex];
+  document.getElementById('lb-content').innerHTML =
+    `<img class="lb-img" src="${item.src}" alt="${item.caption}">`;
+  document.getElementById('lb-caption').textContent = item.caption;
+  document.getElementById('lb-count').textContent   = `${lbIndex + 1} / ${galleryItems.length}`;
+}
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if(!lb.classList.contains('open')) return;
+  if(e.key==='ArrowRight') lbNav(1);
+  if(e.key==='ArrowLeft')  lbNav(-1);
+  if(e.key==='Escape')     closeLightbox();
+});
+document.addEventListener('touchstart', e => {
+  lbTouchStartX = e.touches[0].clientX;
+}, {passive:true});
+document.addEventListener('touchend', e => {
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  const diff = lbTouchStartX - e.changedTouches[0].clientX;
+  if(Math.abs(diff) > 50) lbNav(diff > 0 ? 1 : -1);
+}, {passive:true});
+</script>
 </body>
 </html>

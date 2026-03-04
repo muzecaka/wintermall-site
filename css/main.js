@@ -138,3 +138,87 @@ function downloadDeck(){
   link.click();
   document.body.removeChild(link);
 }
+
+
+/* ── 7. GALLERY LIGHTBOX ───────────────── */
+/*
+  HOW TO ADD REAL IMAGES:
+  Replace each `src: null` with your image path, e.g.:
+    src: 'images/snow-wonderland.jpg'
+  The lightbox will show the real photo when clicked.
+  If src is null, it shows the emoji placeholder instead.
+*/
+const galleryItems = [
+  { src: null, bg: 'linear-gradient(155deg,#00AFEF,#0B2D45)', emoji: '❄️', caption: 'The Snow Wonderland' },
+  { src: null, bg: 'linear-gradient(135deg,#0a5c8a,#1e3d5c)', emoji: '🛷', caption: 'Ice Slides' },
+  { src: null, bg: 'linear-gradient(135deg,#00AFEF,#0d3349)', emoji: '⛸️', caption: 'Ice Skating Rink' },
+  { src: null, bg: 'linear-gradient(135deg,#0e6691,#0a3d5c)', emoji: '🧒❄️🧒', caption: 'Kids Snow Zone — Family Fun All Day' },
+  { src: null, bg: 'linear-gradient(135deg,#1a3d6e,#0d2442)', emoji: '🎉', caption: 'Private Events & Birthday Parties' },
+  { src: null, bg: 'linear-gradient(135deg,#00AFEF,#083d52)', emoji: '🏢', caption: 'Corporate Days Out' },
+  { src: null, bg: 'linear-gradient(135deg,#1a6b4a,#0d3d2a)', emoji: '🎿', caption: 'Snow Activities' },
+];
+
+let lbIndex = 0;
+let lbTouchStartX = 0;
+
+function openLightbox(i){
+  lbIndex = i;
+  renderLightbox();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function lbNav(dir){
+  lbIndex = (lbIndex + dir + galleryItems.length) % galleryItems.length;
+  renderLightbox();
+}
+
+function lbOutsideClick(e){
+  if(e.target.id === 'lightbox') closeLightbox();
+}
+
+function renderLightbox(){
+  const item    = galleryItems[lbIndex];
+  const content = document.getElementById('lb-content');
+  const caption = document.getElementById('lb-caption');
+  const count   = document.getElementById('lb-count');
+
+  if(item.src){
+    content.innerHTML = `<img class="lb-img" src="${item.src}" alt="${item.caption}">`;
+  } else {
+    content.innerHTML = `
+      <div class="lb-placeholder" style="background:${item.bg}">
+        <div class="lb-placeholder-emoji">${item.emoji}</div>
+        <div class="lb-placeholder-label">${item.caption}</div>
+      </div>`;
+  }
+
+  caption.textContent = item.caption;
+  count.textContent   = `${lbIndex + 1} / ${galleryItems.length}`;
+}
+
+/* keyboard nav */
+document.addEventListener('keydown', e => {
+  const lb = document.getElementById('lightbox');
+  if(!lb.classList.contains('open')) return;
+  if(e.key === 'ArrowRight') lbNav(1);
+  if(e.key === 'ArrowLeft')  lbNav(-1);
+  if(e.key === 'Escape')     closeLightbox();
+});
+
+/* touch swipe for mobile */
+document.addEventListener('touchstart', e => {
+  lbTouchStartX = e.touches[0].clientX;
+}, {passive:true});
+
+document.addEventListener('touchend', e => {
+  const lb = document.getElementById('lightbox');
+  if(!lb.classList.contains('open')) return;
+  const diff = lbTouchStartX - e.changedTouches[0].clientX;
+  if(Math.abs(diff) > 50) lbNav(diff > 0 ? 1 : -1);
+}, {passive:true});
