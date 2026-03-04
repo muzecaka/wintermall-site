@@ -84,43 +84,114 @@ function invTab(btn,sec){
 
 
 /* ── 5. BOOKING MODAL ──────────────────── */
-/*
-  TO CONNECT A REAL PAYMENT GATEWAY:
-  Replace the alert() in confirmBooking() with
-  your Paystack / Flutterwave handler.
-*/
-let modalPrice = 8000;
+var modalPrice     = 8000;
+var modalType      = 'adult';
+var extraChildren  = 0;
 
+/* Set min date to tomorrow on open */
 function openBooking(){
+  var tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  var iso = tomorrow.toISOString().split('T')[0];
+  var dateEl = document.getElementById('m-date');
+  if(dateEl){ dateEl.min = iso; if(!dateEl.value) dateEl.value = iso; }
   document.getElementById('booking-modal').classList.add('open');
-  document.body.style.overflow='hidden';
+  document.body.style.overflow = 'hidden';
+  calcModal();
 }
 function closeBooking(){
   document.getElementById('booking-modal').classList.remove('open');
-  document.body.style.overflow='';
+  document.body.style.overflow = '';
 }
-function selectModalTicket(el,price){
-  document.querySelectorAll('.modal-tt').forEach(c=>c.classList.remove('sel'));
+
+function selectModalTicket(el, type, price){
+  /* deselect all */
+  document.querySelectorAll('.modal-tt').forEach(function(c){ c.classList.remove('sel'); });
+  /* hide all disclaimers */
+  document.querySelectorAll('.tt-disclaimer').forEach(function(d){ d.classList.add('hidden'); });
+  /* select this one */
   el.classList.add('sel');
-  modalPrice=price;
+  modalType  = type;
+  modalPrice = price;
+  extraChildren = 0;
+  if(document.getElementById('extra-child-n'))
+    document.getElementById('extra-child-n').textContent = '0';
+  /* show its disclaimer */
+  var disc = document.getElementById('disc-' + type);
+  if(disc) disc.classList.remove('hidden');
+  /* adjust qty label */
+  var qtyLabel = document.getElementById('qty-label');
+  if(type === 'school' || type === 'corp'){
+    qtyLabel.textContent = type === 'school' ? 'Number of Pupils' : 'Number of Attendees';
+    var qtyEl = document.getElementById('m-qty');
+    if(parseInt(qtyEl.textContent) < (type === 'school' ? 20 : 15))
+      qtyEl.textContent = type === 'school' ? '20' : '15';
+  } else if(type === 'family'){
+    qtyLabel.textContent = 'Number of Family Packs';
+    document.getElementById('m-qty').textContent = '1';
+  } else {
+    qtyLabel.textContent = 'Number of Tickets';
+    document.getElementById('m-qty').textContent = '1';
+  }
   calcModal();
 }
+
 function changeModalQty(d){
-  const el=document.getElementById('m-qty');
-  const v=Math.max(1,parseInt(el.textContent)+d);
-  el.textContent=v;
+  var el  = document.getElementById('m-qty');
+  var min = (modalType === 'school') ? 20 : (modalType === 'corp') ? 15 : 1;
+  var v   = Math.max(min, parseInt(el.textContent) + d);
+  el.textContent = v;
   calcModal();
 }
-function calcModal(){
-  const qty=parseInt(document.getElementById('m-qty').textContent);
-  document.getElementById('m-total').textContent='₦'+(modalPrice*qty).toLocaleString();
+
+function changeExtraChildren(d){
+  extraChildren = Math.max(0, extraChildren + d);
+  document.getElementById('extra-child-n').textContent = extraChildren;
+  calcModal();
 }
+
+function calcModal(){
+  var qty   = parseInt(document.getElementById('m-qty').textContent) || 1;
+  var base  = modalPrice * qty;
+  var extra = (modalType === 'family') ? extraChildren * 5000 : 0;
+  var total = base + extra;
+  document.getElementById('m-total').textContent = '₦' + total.toLocaleString();
+  var breakdown = document.getElementById('m-breakdown');
+  if(breakdown){
+    var parts = [];
+    if(modalType === 'family'){
+      parts.push(qty + ' pack' + (qty > 1 ? 's' : '') + ' × ₦' + modalPrice.toLocaleString());
+      if(extraChildren > 0)
+        parts.push(extraChildren + ' extra child' + (extraChildren > 1 ? 'ren' : '') + ' × ₦5,000');
+    } else {
+      parts.push(qty + ' × ₦' + modalPrice.toLocaleString());
+    }
+    breakdown.textContent = parts.join('  +  ');
+  }
+}
+
 function confirmBooking(){
-  alert('Booking confirmed! ❄ Welcome to Winter Mall.\nWe will be in touch shortly with your ticket details.');
+  var date = document.getElementById('m-date');
+  if(!date || !date.value){
+    alert('Please select a visit date before confirming.');
+    return;
+  }
+  var qty   = document.getElementById('m-qty').textContent;
+  var total = document.getElementById('m-total').textContent;
+  var typeNames = {adult:'Adult',child:'Child',family:'Family Pack',school:'School Group',corp:'Corporate/Event'};
+  alert(
+    '✅ Booking Request Received!\n\n' +
+    '📅 Date: ' + date.value + '\n' +
+    '🎟 Type: ' + (typeNames[modalType] || modalType) + '\n' +
+    '👥 Qty: ' + qty + (modalType==='family' && extraChildren > 0 ? ' pack(s) + '+extraChildren+' extra child(ren)' : '') + '\n' +
+    '💰 Total: ' + total + '\n\n' +
+    'Our team will contact you within 2 hours to confirm your booking and payment details.\n\n— Winter Mall ❄'
+  );
   closeBooking();
 }
-document.addEventListener('click',e=>{if(e.target.id==='booking-modal')closeBooking()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeBooking()});
+
+document.addEventListener('click', function(e){ if(e.target.id==='booking-modal') closeBooking(); });
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeBooking(); });
 
 
 /* ── 6. PITCH DECK DOWNLOAD ────────────── */

@@ -517,7 +517,7 @@
   <!-- Legal footer notice -->
   <div class="inv-legal-footer">
     <p><strong>Important Disclaimer:</strong> The information contained on this page is provided for informational purposes only and does not constitute an offer to sell or a solicitation of an offer to buy any securities or investment products. Financial projections are forward-looking statements based on management assumptions and are not guaranteed. Past performance is not indicative of future results. Prospective investors should conduct their own due diligence and consult with qualified legal and financial advisers before making any investment decision. Winter Mall Nigeria Ltd. reserves the right to modify or withdraw this opportunity at any time without notice.</p>
-    <p style="margin-top:10px;opacity:.6">© 2026 Winter Mall Nigeria Ltd. · RC: [Registration Number 8015501] · Regulated activities subject to applicable Nigerian law.</p>
+    <p style="margin-top:10px;opacity:.6">© 2026 Winter Mall Nigeria Ltd. · RC: 8015501 · Regulated activities subject to applicable Nigerian law.</p>
   </div>
 
   <footer style="margin-top:0">
@@ -748,58 +748,501 @@
 
 
 <!-- ═══════════════════════════════════════
-     BOOKING MODAL
+     BOOKING MODAL — FULL TABBED VERSION
 ════════════════════════════════════════ -->
 <div id="booking-modal" class="modal-overlay">
   <div class="modal-box">
     <button class="modal-close" onclick="closeBooking()">✕</button>
-    <div class="modal-title">🎟 Book Tickets</div>
-    <p class="modal-sub">Select your ticket type and quantity to get started.</p>
+    <div class="modal-title">🎟 Winter Mall — Book &amp; Explore</div>
+    <p class="modal-sub">Tickets · Activities · Events · Memberships</p>
 
-    <div class="modal-field">
-      <label>Ticket Type</label>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div class="modal-tt sel tt-card" onclick="selectModalTicket(this,8000)" style="padding:12px 14px">
-          <div class="tt-l"><div class="tt-ico">👤</div><div><div class="tt-nm">Adult</div><div class="tt-ds">Full access · All 5 zones · 3 hours</div></div></div>
-          <div class="tt-pr">₦8,000</div>
-        </div>
-        <div class="modal-tt tt-card" onclick="selectModalTicket(this,6000)" style="padding:12px 14px">
-          <div class="tt-l"><div class="tt-ico">🧒</div><div><div class="tt-nm">Child (3–12)</div><div class="tt-ds">Full access · Kids zone priority</div></div></div>
-          <div class="tt-pr">₦6,000</div>
-        </div>
-        <div class="modal-tt tt-card" onclick="selectModalTicket(this,20000)" style="padding:12px 14px">
-          <div class="tt-l"><div class="tt-ico">👨‍👩‍👧‍👦</div><div><div class="tt-nm">Family Pack (2+2)</div><div class="tt-ds">2 adults + 2 children · Best value</div></div></div>
-          <div class="tt-pr">₦20,000</div>
-        </div>
-        <div class="modal-tt tt-card" onclick="selectModalTicket(this,12000)" style="padding:12px 14px">
-          <div class="tt-l"><div class="tt-ico">🏢</div><div><div class="tt-nm">Corporate / Event</div><div class="tt-ds">Private zone · F&B · MC included</div></div></div>
-          <div class="tt-pr">₦12,000</div>
+    <!-- MODAL TABS -->
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchModalTab(this,'mtab-tickets')">🎟 Tickets</button>
+      <button class="modal-tab" onclick="switchModalTab(this,'mtab-activities')">⛸️ Activities</button>
+      <button class="modal-tab" onclick="switchModalTab(this,'mtab-events')">🎉 Events</button>
+      <button class="modal-tab" onclick="switchModalTab(this,'mtab-memberships')">💎 Memberships</button>
+    </div>
+
+    <!-- ══ TAB 1: TICKETS ══ -->
+    <div id="mtab-tickets" class="modal-tab-content active">
+
+      <div class="modal-field">
+        <label>Visit Date</label>
+        <input class="modal-inp" type="date" id="m-date" min="">
+      </div>
+
+      <div class="modal-field">
+        <label>Ticket Type</label>
+        <div style="display:flex;flex-direction:column;gap:8px">
+
+          <!-- ADULT -->
+          <div class="modal-tt sel tt-card" id="tt-adult" onclick="selectModalTicket(this,'adult',8000)">
+            <div class="tt-l"><div class="tt-ico">👤</div><div>
+              <div class="tt-nm">Adult <span class="tt-age">18+</span></div>
+              <div class="tt-ds">Full access · All 5 zones · 3-hour session · All gear included</div>
+            </div></div>
+            <div class="tt-pr">₦8,000</div>
+          </div>
+          <div class="tt-disclaimer" id="disc-adult">
+            ℹ️ <strong>Adult Ticket</strong> — Full access to all five zones: Ice Skating Rink, Ice Slides, Snow Play Zone, Events Area, and Food & Beverage. All safety gear (jacket, trousers, gloves, boots, neck warmer) is included at no extra cost. Sessions are 3 hours. Valid for selected date only. Non-refundable; date changes must be requested at least 48 hours in advance.
+          </div>
+
+          <!-- YOUNG TEENAGER -->
+          <div class="modal-tt tt-card" id="tt-teen" onclick="selectModalTicket(this,'teen',7000)">
+            <div class="tt-l"><div class="tt-ico">🧑</div><div>
+              <div class="tt-nm">Young Teenager <span class="tt-age">11–17</span></div>
+              <div class="tt-ds">Full access · All zones · 3-hour session · All gear included</div>
+            </div></div>
+            <div class="tt-pr">₦7,000</div>
+          </div>
+          <div class="tt-disclaimer hidden" id="disc-teen">
+            ℹ️ <strong>Young Teenager Ticket</strong> — Available for ages 11 to 17 years. Includes full access to all five zones including the Ice Skating Rink and Ice Slides. All safety gear is provided. Teenagers aged 11–15 must be accompanied by a paying adult or a responsible guardian aged 18+. Sessions are 3 hours. Valid for selected date only. Non-refundable.
+          </div>
+
+          <!-- CHILD -->
+          <div class="modal-tt tt-card" id="tt-child" onclick="selectModalTicket(this,'child',6000)">
+            <div class="tt-l"><div class="tt-ico">🧒</div><div>
+              <div class="tt-nm">Child <span class="tt-age">3–10</span></div>
+              <div class="tt-ds">Kids zone priority · Adult supervision required · All gear included</div>
+            </div></div>
+            <div class="tt-pr">₦6,000</div>
+          </div>
+          <div class="tt-disclaimer hidden" id="disc-child">
+            ℹ️ <strong>Child Ticket</strong> — For ages 3 to 10 years. Children under 3 enter free but are restricted from the slides and skating rink. Every child must be accompanied by a paying adult at all times — unaccompanied minors will not be admitted. Priority access to the Snow Play Zone and Kids Ice Slides. All safety gear included. Sessions are 3 hours. Non-refundable.
+          </div>
+
+          <!-- FAMILY PACK -->
+          <div class="modal-tt tt-card" id="tt-family" onclick="selectModalTicket(this,'family',20000)">
+            <div class="tt-l"><div class="tt-ico">👨‍👩‍👧‍👦</div><div>
+              <div class="tt-nm">Family Pack <span class="tt-age">2 Adults + 2 Children</span></div>
+              <div class="tt-ds">Best value · Complimentary group photo · Extra children at ₦5,000</div>
+            </div></div>
+            <div class="tt-pr">₦20,000</div>
+          </div>
+          <div class="tt-disclaimer hidden" id="disc-family">
+            ℹ️ <strong>Family Pack</strong> — Covers 2 adults and 2 children (ages 3–10). Additional children can be added below at ₦5,000 each. All family members receive full access to every zone for a 3-hour session. Complimentary group photo included. Children must stay with accompanying adults. Non-refundable; date changes accepted up to 48 hours before visit.
+            <div class="extra-children-row" id="extra-children-wrap">
+              <label style="font-size:.72rem;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em">Extra Children (Ages 3–10)</label>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:6px">
+                <button class="modal-qty-btn" onclick="changeExtraChildren(-1);event.stopPropagation()">−</button>
+                <span class="modal-qty-n" id="extra-child-n">0</span>
+                <button class="modal-qty-btn" onclick="changeExtraChildren(1);event.stopPropagation()">+</button>
+                <span style="font-size:.78rem;color:var(--ink3);margin-left:4px">× ₦5,000 each</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCHOOL GROUP -->
+          <div class="modal-tt tt-card" id="tt-school" onclick="selectModalTicket(this,'school',5000)">
+            <div class="tt-l"><div class="tt-ico">🏫</div><div>
+              <div class="tt-nm">School Group <span class="tt-age">20+ pupils</span></div>
+              <div class="tt-ds">₦5,000/head · Teachers & chaperones FREE · Booking letter required</div>
+            </div></div>
+            <div class="tt-pr">₦5,000<span class="tt-per">/head</span></div>
+          </div>
+          <div class="tt-disclaimer hidden" id="disc-school">
+            ℹ️ <strong>School Excursion</strong> — For registered educational institutions booking a minimum of 20 pupils. Rate is ₦5,000 per pupil. All accompanying teachers and chaperones enter FREE — no ratio limit. School must provide a signed booking letter on official letterhead at time of enquiry. All pupils must be aged 3–17. Safety briefing conducted on arrival. Session duration: 2.5 hours. 50% deposit required at least 5 working days in advance. Balance payable on the day. Non-refundable deposit.
+          </div>
+
+          <!-- CORPORATE / EVENT -->
+          <div class="modal-tt tt-card" id="tt-corp" onclick="selectModalTicket(this,'corp',15000)">
+            <div class="tt-l"><div class="tt-ico">🏢</div><div>
+              <div class="tt-nm">Corporate / Event <span class="tt-age">Min. 15 persons</span></div>
+              <div class="tt-ds">Private zone · F&B package · Dedicated MC · Branding available</div>
+            </div></div>
+            <div class="tt-pr">₦15,000<span class="tt-per">/head</span></div>
+          </div>
+          <div class="tt-disclaimer hidden" id="disc-corp">
+            ℹ️ <strong>Corporate & Event Package</strong> — ₦15,000 per person, minimum 15 persons. Includes exclusive zone access, dedicated host/MC, branded entry experience, and a curated F&B package. Ideal for team outings, product launches, birthday celebrations, and private events. Full event customisation available. 50% non-refundable deposit required to confirm. Final headcount due 48 hours before event date.
+          </div>
+
         </div>
       </div>
-    </div>
 
-    <div class="modal-field">
-      <label>Quantity</label>
-      <div class="modal-qty-row">
-        <button class="modal-qty-btn" onclick="changeModalQty(-1)">−</button>
-        <span class="modal-qty-n" id="m-qty">1</span>
-        <button class="modal-qty-btn" onclick="changeModalQty(1)">+</button>
+      <!-- QUANTITY -->
+      <div class="modal-field">
+        <label id="qty-label">Number of Tickets</label>
+        <div class="modal-qty-row">
+          <button class="modal-qty-btn" onclick="changeModalQty(-1)">−</button>
+          <span class="modal-qty-n" id="m-qty">1</span>
+          <button class="modal-qty-btn" onclick="changeModalQty(1)">+</button>
+        </div>
       </div>
-    </div>
 
-    <div class="modal-total">
-      <span class="modal-total-lbl">Order Total</span>
-      <span class="modal-total-val" id="m-total">₦8,000</span>
-    </div>
+      <div class="modal-total">
+        <div>
+          <div class="modal-total-lbl">Order Total</div>
+          <div id="m-breakdown" style="font-size:.7rem;color:var(--ink3);margin-top:2px"></div>
+        </div>
+        <span class="modal-total-val" id="m-total">₦8,000</span>
+      </div>
+      <div class="booking-notice">📅 Arrive 15 mins early. Late arrivals may have shortened sessions. Cancellations/date changes require 48 hours notice. All gear is provided — no need to bring your own.</div>
+      <button class="btn btn-navy btn-full" onclick="confirmBooking()" style="margin-top:12px">Confirm Booking →</button>
+    </div><!-- /mtab-tickets -->
 
-    <button class="btn btn-navy btn-full" onclick="confirmBooking()">
-      Confirm Booking →
-    </button>
+
+    <!-- ══ TAB 2: ACTIVITIES ══ -->
+    <div id="mtab-activities" class="modal-tab-content">
+      <div class="act-notice">📋 Activities require a valid entry ticket. Book your ticket first, then add an activity to your session. All activities subject to availability on the day.</div>
+
+      <!-- HOURLY PASSES -->
+      <div class="act-section">
+        <div class="act-sec-title">⏱️ Hourly Snow Park Passes</div>
+        <div class="act-sec-sub">Flexible passes — stay as long as you like</div>
+        <div class="act-grid">
+          <div class="act-row act-hdr"><span>Pass</span><span>Adult</span><span>Junior</span><span>Family (4)</span></div>
+          <div class="act-row"><span>1 Hour Pass</span><span>₦5,000</span><span>₦3,500</span><span>₦16,000</span></div>
+          <div class="act-row"><span>2 Hour Pass</span><span>₦8,000</span><span>₦6,000</span><span>₦26,000</span></div>
+          <div class="act-row"><span>3 Hour Pass</span><span>₦11,000</span><span>₦8,000</span><span>₦35,000</span></div>
+          <div class="act-row act-highlight"><span>8 Hour Full Day ⭐</span><span>₦22,000</span><span>₦16,000</span><span>₦68,000</span></div>
+        </div>
+        <div class="act-disclaimer">All passes include use of safety gear. Family (4) pass covers 2 adults + 2 children. Additional persons billed at individual rates. Passes are non-transferable and valid for the booked date only.</div>
+      </div>
+
+      <!-- PRIVATE LESSONS -->
+      <div class="act-section">
+        <div class="act-sec-title">🎓 Private Lessons</div>
+        <div class="act-sec-sub">One-on-one coaching with a certified Winter Mall instructor</div>
+        <div class="act-grid">
+          <div class="act-row act-hdr"><span>Lesson Type</span><span>Guest Price</span><span>Member Price</span></div>
+          <div class="act-row"><span>Beginners Junior</span><span>₦12,000</span><span>₦9,500</span></div>
+          <div class="act-row"><span>Beginners Adult</span><span>₦15,000</span><span>₦12,000</span></div>
+          <div class="act-row"><span>Main Junior</span><span>₦14,000</span><span>₦11,000</span></div>
+          <div class="act-row"><span>Main Adult</span><span>₦18,000</span><span>₦14,500</span></div>
+        </div>
+        <div class="act-disclaimer">Private lessons are 1 hour per session unless otherwise stated. Pre-booking required — subject to instructor availability. Lesson price does not include park entry ticket.</div>
+      </div>
+
+      <!-- ADULT GROUP LESSONS -->
+      <div class="act-section">
+        <div class="act-sec-title">👥 Adult Group Lessons</div>
+        <div class="act-sec-sub">Structured group coaching — learn with others at your level</div>
+        <div class="act-grid">
+          <div class="act-row act-hdr"><span>Package</span><span>Guest Price</span><span>Member Price</span></div>
+          <div class="act-row"><span>2-Hour Adult Lesson</span><span>₦10,000</span><span>₦8,000</span></div>
+          <div class="act-row act-highlight"><span>5-Hour Adult Lesson ⭐</span><span>₦22,000</span><span>₦17,500</span></div>
+        </div>
+        <div class="act-disclaimer">Group lessons are capped at 8 participants per instructor to ensure quality coaching. Pre-booking required. Minimum age: 18 years.</div>
+      </div>
+
+      <!-- JUNIOR GROUP LESSONS -->
+      <div class="act-section">
+        <div class="act-sec-title">🧒 Junior Group Lessons</div>
+        <div class="act-sec-sub">Age-appropriate coaching — structured, safe, and fun</div>
+        <div class="act-grid">
+          <div class="act-row act-hdr"><span>Age Group</span><span>Guest Price</span><span>Member Price</span></div>
+          <div class="act-row"><span>5 Years (1 Hour)</span><span>₦7,000</span><span>₦5,500</span></div>
+          <div class="act-row"><span>6–7 Years (1 Hour)</span><span>₦7,500</span><span>₦6,000</span></div>
+          <div class="act-row"><span>8–11 Years (1 Hour)</span><span>₦8,000</span><span>₦6,500</span></div>
+          <div class="act-row act-highlight"><span>12–16 Years (1.5 Hours) ⭐</span><span>₦9,500</span><span>₦7,500</span></div>
+        </div>
+        <div class="act-disclaimer">Junior lessons are run in small groups of max 6 children per instructor. A parent or guardian must be present on-site during all junior lessons. Children must meet the minimum age requirement for their group.</div>
+      </div>
+
+      <!-- KIDS HOLIDAY CAMPS -->
+      <div class="act-section">
+        <div class="act-sec-title">🏕️ Kids Holiday Camps</div>
+        <div class="act-sec-sub">Immersive snow & ice experiences during school holidays</div>
+        <div class="act-grid">
+          <div class="act-row act-hdr"><span>Camp</span><span>Guest Price</span><span>Member Price</span></div>
+          <div class="act-row"><span>5–7 Years (1.5 Hours)</span><span>₦9,000</span><span>₦7,000</span></div>
+          <div class="act-row"><span>8–11 Years (2 Hours)</span><span>₦11,000</span><span>₦8,500</span></div>
+          <div class="act-row act-highlight"><span>12–16 Years (2 Hours) ⭐</span><span>₦12,000</span><span>₦9,500</span></div>
+        </div>
+        <div class="act-disclaimer">Holiday Camps run during Nigerian public school holidays only. Each camp includes structured activities, certified instructors, safety gear, and a light refreshment break. Pre-registration required. Spaces are limited — book early to avoid disappointment.</div>
+      </div>
+
+      <!-- GEAR & EXTRAS -->
+      <div class="act-section">
+        <div class="act-sec-title">🧤 Gear & Extras</div>
+        <div class="act-sec-sub">All gear is included with entry tickets — these are purchase prices for keepsakes</div>
+        <div class="act-grid act-grid-2">
+          <div class="act-row act-hdr"><span>Item</span><span>Price</span></div>
+          <div class="act-row"><span>Jacket + Trouser (Combo)</span><span>₦3,000</span></div>
+          <div class="act-row"><span>Boots (Kids/Adult)</span><span>₦2,000</span></div>
+          <div class="act-row"><span>Jacket Only</span><span>₦2,000</span></div>
+          <div class="act-row"><span>Trouser Only</span><span>₦1,500</span></div>
+          <div class="act-row"><span>Gloves</span><span>₦1,000</span></div>
+          <div class="act-row"><span>Socks</span><span>₦500</span></div>
+          <div class="act-row"><span>Neck Warmer</span><span>₦800</span></div>
+          <div class="act-row"><span>Toys &amp; Souvenirs</span><span>₦2,500 – ₦8,000</span></div>
+          <div class="act-row act-highlight"><span>Gift Voucher</span><span>₦10k / ₦20k / ₦50k / Custom</span></div>
+        </div>
+        <div class="act-disclaimer">All rental gear is provided FREE with every entry ticket and must be returned upon exit. Items listed above are available for purchase as personal keepsakes only. Gift vouchers are valid for 12 months from date of issue and redeemable against any product or service.</div>
+      </div>
+
+      <div class="act-cta">
+        <span>Want to book an activity?</span>
+        <button class="btn btn-navy" onclick="switchModalTab(document.querySelector('.modal-tab'),'mtab-tickets')" style="padding:10px 22px;font-size:.85rem">← Get Your Entry Ticket First</button>
+      </div>
+    </div><!-- /mtab-activities -->
+
+
+    <!-- ══ TAB 3: EVENTS ══ -->
+    <div id="mtab-events" class="modal-tab-content">
+      <div class="act-notice">🎉 All events are by prior arrangement. Submit an enquiry below and our events team will respond within 24 hours with availability and a full proposal.</div>
+
+      <div class="evt-grid">
+
+        <!-- VVIP AFTER-HOURS — HERO CARD -->
+        <div class="evt-card evt-vvip">
+          <div class="evt-vvip-glow"></div>
+          <div class="evt-vvip-header">
+            <div class="evt-vvip-tag">🔥 Most Exclusive</div>
+            <div class="evt-icon">🌙✨</div>
+            <div class="evt-name evt-vvip-name">VVIP After-Hours</div>
+            <div class="evt-vvip-sub">The whole park. Just you. After dark.</div>
+          </div>
+          <div class="evt-price evt-vvip-price">From ₦4,000,000 <span class="evt-vvip-window">/ 4-hr session</span></div>
+          <div class="evt-min evt-vvip-min">📍 8pm – Midnight · Zero public access · Your world</div>
+
+          <div class="evt-vvip-vibes">
+            <div class="vibe-pill">❄️ Full snow park</div>
+            <div class="vibe-pill">🎶 Bring your playlist</div>
+            <div class="vibe-pill">🍾 Private bar setup</div>
+            <div class="vibe-pill">📸 Content creation</div>
+            <div class="vibe-pill">🎤 MC on request</div>
+            <div class="vibe-pill">💡 Custom lighting</div>
+          </div>
+
+          <p class="evt-desc evt-vvip-desc">
+            After the last guest leaves, Winter Mall transforms into your private winter universe. No crowds. No strangers. No noise — except yours.<br><br>
+            Whether it's a luxury birthday, an intimate celebration, a content shoot, a brand activation, or just the most unhinged flex you've ever pulled — <strong>the entire park is yours from 8pm to midnight.</strong><br><br>
+            Real snow. Real ice. Real exclusive. Lagos has never seen anything like this.
+          </p>
+
+          <div class="evt-vvip-includes">
+            <div class="evt-vvip-inc-title">What's included</div>
+            <div class="evt-vvip-inc-grid">
+              <div>🏟️ Full park — all 5 zones</div>
+              <div>👥 Up to 80 guests</div>
+              <div>🎽 All gear for every guest</div>
+              <div>🛡️ Dedicated safety team</div>
+              <div>🎯 Private event coordinator</div>
+              <div>📷 1-hour complimentary shoot</div>
+            </div>
+          </div>
+
+          <div class="evt-disclaimer evt-vvip-disclaimer">
+            <strong>⚠️ Booking Terms & Disclaimer:</strong> VVIP After-Hours hire is strictly available from 8:00pm to 12:00am only. No daytime full-park exclusive bookings are offered — this protects the experience of our regular visitors and members. Maximum capacity: 80 persons. A non-refundable deposit of ₦1,500,000 is required to secure the date, with the balance payable 7 days before the event. Cancellations within 14 days of the event forfeit the full payment. External catering, DJs, and production equipment are subject to facility approval. Winter Mall management reserves the right to decline any booking not aligned with brand and safety standards. Available maximum 4 times per calendar month to preserve exclusivity.
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+            <a href="mailto:wintermallng@gmail.com?subject=VVIP After-Hours Enquiry" class="btn btn-gold" style="text-decoration:none;font-size:.82rem;padding:11px 20px">✨ Enquire Now</a>
+            <a href="tel:+2347017999900" class="btn btn-outline" style="text-decoration:none;font-size:.82rem;padding:11px 20px">📞 Call Us</a>
+          </div>
+        </div>
+
+        <div class="evt-card">
+          <div class="evt-icon">🎂</div>
+          <div class="evt-name">Birthday Party</div>
+          <div class="evt-price">From ₦120,000</div>
+          <div class="evt-min">Min. 10 persons · During park hours</div>
+          <p class="evt-desc">Private zone hire for your celebration. Includes dedicated party host, customised snow zone access, F&B setup, and a complimentary group photo session. Decoration packages available on request. Ideal for children and adult birthdays alike.</p>
+          <div class="evt-disclaimer">50% non-refundable deposit required to confirm. Minimum 10 guests. Final guest count due 48 hours prior. Cake and external catering permitted with prior approval. This is a zone hire — not a full park exclusive. Other guests may be present in adjacent zones.</div>
+        </div>
+
+        <div class="evt-card">
+          <div class="evt-icon">🏫</div>
+          <div class="evt-name">School Excursion</div>
+          <div class="evt-price">₦5,000 per pupil</div>
+          <div class="evt-min">Min. 20 pupils · Teachers FREE</div>
+          <p class="evt-desc">Curriculum-linked educational excursions for primary and secondary schools. Includes a guided educational introduction to snow science and climatology, structured activity sessions, safety briefing, and supervised zone access. Ideal for end-of-term or holiday activities.</p>
+          <div class="evt-disclaimer">Official booking letter on school letterhead required. 50% deposit 5 working days in advance. All teachers and chaperones enter free — no ratio cap. Session duration: 2.5 hours. School excursions run during standard park hours — other visitors may be present.</div>
+        </div>
+
+        <div class="evt-card">
+          <div class="evt-icon">🎵</div>
+          <div class="evt-name">Music Video Shoot</div>
+          <div class="evt-price">From ₦350,000/day</div>
+          <div class="evt-min">Full-day exclusive zone access</div>
+          <p class="evt-desc">Use Africa's only indoor snow park as your music video backdrop. Exclusive zone access for cast and crew, climate-controlled at your preferred temperature, with lighting rig access available. A completely unique visual environment that no other production in Nigeria can offer.</p>
+          <div class="evt-disclaimer">Zone-exclusive booking — other park zones remain open to the public. Full-park exclusive shoots are available via VVIP After-Hours only. Subject to production equipment approval. Non-refundable deposit: 50%. Crew headcount capped at 40 without prior arrangement.</div>
+        </div>
+
+        <div class="evt-card">
+          <div class="evt-icon">🎬</div>
+          <div class="evt-name">Movie / Film Scene</div>
+          <div class="evt-price">From ₦500,000/day</div>
+          <div class="evt-min">Exclusive production access</div>
+          <p class="evt-desc">Film productions, TV commercials, and branded content shoots. Full facility available for exclusive production use during after-hours. The only location in West Africa where you can shoot authentic winter scenes — no travel required. Ideal for Nollywood, streaming content, and international campaigns.</p>
+          <div class="evt-disclaimer">Full-park production shoots are available via VVIP After-Hours booking only. Daytime shoots are zone-exclusive. Multi-day discounts available for 3+ day productions. Insurance certificate required. Winter Mall reserves the right to decline any production not aligned with brand values.</div>
+        </div>
+
+        <div class="evt-card">
+          <div class="evt-icon">💍</div>
+          <div class="evt-name">Pre-Wedding Shoot</div>
+          <div class="evt-price">From ₦200,000/session</div>
+          <div class="evt-min">3-hour private session</div>
+          <p class="evt-desc">Create breathtaking pre-wedding and engagement photos in a fully private winter wonderland — right here in Lagos. Complete privacy during your session. Winter-themed props available. A truly unique experience unlike anything available elsewhere in Nigeria.</p>
+          <div class="evt-disclaimer">Sessions are 3 hours. Maximum party size of 10 persons including photographer and stylist. Full privacy guaranteed — no other guests admitted to the booked zone during session. Non-refundable booking fee of ₦50,000 required to secure date.</div>
+        </div>
+
+        <div class="evt-card">
+          <div class="evt-icon">🎤</div>
+          <div class="evt-name">Corporate Event / Team Day</div>
+          <div class="evt-price">₦15,000 per head</div>
+          <div class="evt-min">Min. 15 persons</div>
+          <p class="evt-desc">Team building, away days, product activations, and corporate hospitality. Includes private zone hire, dedicated MC, branded entry experience, and F&B package. Sponsorship and naming rights packages also available for brands wanting a longer-term association.</p>
+          <div class="evt-disclaimer">50% deposit required. Final headcount 48 hours before event. Full branding and customisation available. Catering and external vendors subject to approval. Zone-exclusive booking — other zones remain open to the public. Full-park corporate exclusives available via VVIP After-Hours.</div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:24px;background:var(--bg);border-radius:16px;padding:20px;border:1px solid rgba(0,175,239,.15)">
+        <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--turq-dark);margin-bottom:10px">📩 Enquire About an Event</div>
+        <p style="font-size:.82rem;color:var(--ink3);margin-bottom:14px">All events confirmed within 24 hours. We'll reach out with a full proposal tailored to your occasion.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="mailto:wintermallng@gmail.com" class="btn btn-navy" style="font-size:.82rem;padding:10px 20px;text-decoration:none">✉ wintermallng@gmail.com</a>
+          <a href="tel:+2347017999900" class="btn btn-outline" style="font-size:.82rem;padding:10px 20px;text-decoration:none">📞 +234 701 999 9900</a>
+        </div>
+      </div>
+    </div><!-- /mtab-events -->
+
+
+    <!-- ══ TAB 4: MEMBERSHIPS ══ -->
+    <div id="mtab-memberships" class="modal-tab-content">
+
+      <div class="mem-what-is">
+        <div class="mem-what-icon">💡</div>
+        <div>
+          <div class="mem-what-title">What is a Winter Mall Membership?</div>
+          <p class="mem-what-body">A membership is <strong>not a free-entry pass</strong>. It is a monthly or annual subscription that unlocks <strong>discounted ticket prices, activity savings, priority booking, and exclusive perks</strong> — the more you visit, the more you save. Members still pay a ticket on every visit, but always at a reduced member rate.</p>
+        </div>
+      </div>
+
+      <!-- DISCOUNT COMPARISON TABLE -->
+      <div class="act-section">
+        <div class="act-sec-title">🎟️ Member Ticket Savings</div>
+        <div class="act-sec-sub">What members pay vs full guest price on every visit</div>
+        <div class="act-grid">
+          <div class="act-row act-hdr"><span>Ticket</span><span>Guest</span><span>Silver</span><span>Gold / Platinum</span></div>
+          <div class="act-row"><span>Adult</span><span>₦8,000</span><span>₦6,800</span><span>₦6,400 / ₦6,000</span></div>
+          <div class="act-row"><span>Teen (11–17)</span><span>₦7,000</span><span>₦5,950</span><span>₦5,600 / ₦5,250</span></div>
+          <div class="act-row"><span>Child (3–10)</span><span>₦6,000</span><span>₦5,100</span><span>₦4,800 / ₦4,500</span></div>
+        </div>
+        <div class="act-disclaimer">Member ticket prices apply on every visit. Savings compound with frequency — a Gold member visiting weekly saves over ₦64,000/year on adult tickets alone, before activity discounts.</div>
+      </div>
+
+      <div class="mem-grid">
+
+        <!-- SILVER -->
+        <div class="mem-card mem-silver">
+          <div class="mem-badge">🥈 Silver</div>
+          <div class="mem-tagline">The Smart Regular</div>
+          <div class="mem-prices">
+            <div><span class="mem-pr">₦35,000</span><span class="mem-per">/mo · Adult</span></div>
+            <div><span class="mem-pr">₦25,000</span><span class="mem-per">/mo · Junior</span></div>
+          </div>
+          <div class="mem-annual">Annual: ₦350,000 · ₦250,000 (2 months free)</div>
+          <ul class="mem-perks">
+            <li>🎟️ 15% off every entry ticket</li>
+            <li>📚 Member pricing on all activities & lessons</li>
+            <li>🍔 10% off all Food & Beverage</li>
+            <li>📅 Priority weekend slot booking</li>
+            <li>📬 Member-only newsletter & early access to offers</li>
+          </ul>
+          <div class="mem-explanation">
+            <strong>Who is Silver for?</strong> Anyone who visits Winter Mall 2–3 times a month and wants guaranteed savings without a large upfront commitment. At just 3 adult visits per month, your Silver membership pays for itself entirely through ticket discounts alone.
+          </div>
+          <div class="mem-disclaimer">
+            ⚠️ <strong>Disclaimer:</strong> Silver membership does not include free entry. A discounted ticket must be purchased on every visit at the applicable member rate. Membership is personal and non-transferable — valid for one named individual only. Billed monthly or annually. Cancellation requires 30 days written notice before next billing date. No refunds on annual memberships once issued. Winter Mall reserves the right to adjust membership benefits with 30 days prior notice.
+          </div>
+        </div>
+
+        <!-- GOLD -->
+        <div class="mem-card mem-gold">
+          <div class="mem-badge mem-badge-gold">🥇 Gold <span class="mem-pop">Most Popular</span></div>
+          <div class="mem-tagline">The Enthusiast</div>
+          <div class="mem-prices">
+            <div><span class="mem-pr">₦55,000</span><span class="mem-per">/mo · Adult</span></div>
+            <div><span class="mem-pr">₦40,000</span><span class="mem-per">/mo · Junior</span></div>
+          </div>
+          <div class="mem-annual">Annual: ₦550,000 · ₦400,000 (2 months free)</div>
+          <ul class="mem-perks">
+            <li>🎟️ 20% off every entry ticket</li>
+            <li>📚 Everything in Silver</li>
+            <li>🎫 2 complimentary guest passes/month</li>
+            <li>🍔 15% off all Food & Beverage</li>
+            <li>🧒 1 free junior group lesson/month</li>
+            <li>🚀 Dedicated fast-track check-in lane</li>
+            <li>🎂 Birthday month: free upgrade to Platinum</li>
+          </ul>
+          <div class="mem-explanation">
+            <strong>Who is Gold for?</strong> Families, frequent visitors, and anyone who brings guests regularly. The 2 monthly guest passes alone save ₦16,000/month at guest rates — more than covering the difference between Silver and Gold. The included junior lesson adds further value for families with children.
+          </div>
+          <div class="mem-disclaimer">
+            ⚠️ <strong>Disclaimer:</strong> Gold membership does not include free entry. A discounted ticket at the Gold member rate must be purchased on every visit. The 2 monthly guest passes allow two non-members to visit at no additional ticket cost on the same day as the Gold member — passes are non-transferable, cannot be used without the member present, and do not roll over to the next month. The monthly junior lesson applies to one group lesson session per calendar month per membership and cannot be accumulated or substituted with a private lesson. Birthday month Platinum upgrade is for the member only and applies for the calendar month of their registered birthday. All Silver terms apply.
+          </div>
+        </div>
+
+        <!-- PLATINUM -->
+        <div class="mem-card mem-platinum">
+          <div class="mem-badge mem-badge-plat">💎 Platinum</div>
+          <div class="mem-tagline">The VIP Experience</div>
+          <div class="mem-prices">
+            <div><span class="mem-pr">₦85,000</span><span class="mem-per">/mo · Adult</span></div>
+            <div><span class="mem-pr">₦60,000</span><span class="mem-per">/mo · Junior</span></div>
+          </div>
+          <div class="mem-annual">Annual: ₦850,000 · ₦600,000 (2 months free)</div>
+          <ul class="mem-perks">
+            <li>🎟️ 25% off every entry ticket</li>
+            <li>📚 Everything in Gold</li>
+            <li>🎫 4 complimentary guest passes/month</li>
+            <li>🔐 Private named locker — yours every visit</li>
+            <li>🤵 Personal dedicated host on every visit</li>
+            <li>🍾 20% off all Food & Beverage</li>
+            <li>🎓 1 free private lesson/month</li>
+            <li>⭐ Priority access to VVIP After-Hours & events</li>
+            <li>💳 Platinum card — valid at all future locations</li>
+            <li>🎊 Quarterly VIP-only member events</li>
+          </ul>
+          <div class="mem-explanation">
+            <strong>Who is Platinum for?</strong> Those for whom Winter Mall is a lifestyle, not just an outing. High-net-worth individuals, families who visit weekly, and corporate accounts who want the best possible experience every single time — with zero friction, maximum privacy, and genuine VIP treatment from the moment they walk in.
+          </div>
+          <div class="mem-disclaimer">
+            ⚠️ <strong>Disclaimer:</strong> Platinum membership does not include free entry. A discounted ticket at the Platinum member rate (25% off) must be purchased on every visit. The 4 monthly guest passes follow the same rules as Gold guest passes — non-transferable, cannot be used without the Platinum member present, and expire at month end. The monthly private lesson is for one 1-hour session per calendar month and cannot be accumulated, transferred, or substituted. Personal host service requires 24 hours advance notice; walk-in requests are subject to staff availability. The named private locker is assigned at membership activation and forfeited upon cancellation with no right of retrieval after 14 days. The Platinum card grants priority (not guaranteed) access at future Winter Mall locations, subject to those facilities' operational policies. Quarterly VIP events are invitation-managed within the Platinum member pool — attendance is not guaranteed. Platinum membership is limited in total active memberships to preserve service quality. All Gold and Silver terms apply. Winter Mall reserves the right to modify Platinum-tier benefits with 30 days notice; material changes will be communicated directly to all active Platinum members.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Annual Summary Table -->
+      <div class="act-section" style="margin-top:24px">
+        <div class="act-sec-title">📅 Annual Membership Summary</div>
+        <div class="act-sec-sub">Pay upfront — get 2 months free on every tier</div>
+        <div class="act-grid act-grid-2">
+          <div class="act-row act-hdr"><span>Membership</span><span>Annual Price</span></div>
+          <div class="act-row"><span>🥈 Silver — Adult</span><span>₦350,000/yr</span></div>
+          <div class="act-row"><span>🥈 Silver — Junior</span><span>₦250,000/yr</span></div>
+          <div class="act-row"><span>🥇 Gold — Adult</span><span>₦550,000/yr</span></div>
+          <div class="act-row"><span>🥇 Gold — Junior</span><span>₦400,000/yr</span></div>
+          <div class="act-row act-highlight"><span>💎 Platinum — Adult</span><span>₦850,000/yr</span></div>
+          <div class="act-row act-highlight"><span>💎 Platinum — Junior</span><span>₦600,000/yr</span></div>
+        </div>
+        <div class="act-disclaimer">Annual memberships are non-refundable once issued. In the event of a facility closure exceeding 14 consecutive days, membership validity will be extended by an equivalent period at no additional charge. Memberships are not transferable, shareable, or redeemable for cash.</div>
+      </div>
+
+      <div style="margin-top:20px;text-align:center">
+        <a href="mailto:wintermallng@gmail.com?subject=Membership Enquiry" class="btn btn-navy" style="text-decoration:none;display:inline-flex">✉ Enquire About Membership</a>
+      </div>
+    </div><!-- /mtab-memberships -->
+
   </div>
 </div>
 
 <script src="css/main.js"></script>
 <script>
+/* ── MODAL TAB SWITCHER (inline guarantee) ── */
+function switchModalTab(btn, tabId){
+  document.querySelectorAll('.modal-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.modal-tab-content').forEach(function(t){ t.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  var el = document.getElementById(tabId);
+  if(el) el.classList.add('active');
+}
+
 function submitEnquiry(){
   var chk = document.getElementById('conf-chk');
   if(!chk.checked){ alert('Please confirm the confidentiality agreement before submitting.'); return; }
