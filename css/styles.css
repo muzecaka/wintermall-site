@@ -468,16 +468,17 @@ body{
 }
 .inv-contact-blk h3{font-family:'Cormorant Garamond',serif;font-size:2rem;color:#fff;margin-bottom:12px}
 .inv-contact-blk p{color:rgba(255,255,255,.55);line-height:1.7;font-size:.92rem}
-.cff{display:flex;flex-direction:column;gap:12px}
+.cff{display:flex;flex-direction:column;gap:12px;width:100%}
 .cfi{
   background:rgba(255,255,255,.1);border:1.5px solid rgba(158,220,255,.22);
   border-radius:12px;padding:13px 16px;
   font-family:'Outfit',sans-serif;font-size:.88rem;color:#fff;outline:none;
   transition:border-color .2s;
+  width:100%;box-sizing:border-box;
 }
 .cfi::placeholder{color:rgba(255,255,255,.38)}
 .cfi:focus{border-color:var(--ice)}
-.cf2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cf2{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
 
 /* ══ TEAM ══ */
 .team-hdr{padding:68px 4% 44px;text-align:center}
@@ -710,6 +711,12 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
   .inv-metrics{grid-template-columns:repeat(2,1fr)}
   .dtable-hdr,.dtable-row{grid-template-columns:56px 1fr 90px 90px}
   .dtable-hdr span:nth-child(n+5),.dtable-row span:nth-child(n+5){display:none}
+
+  /* investor contact form mobile */
+  .inv-contact-blk{padding:28px 20px;gap:28px;border-radius:16px}
+  .cf2{grid-template-columns:1fr}
+  .cff{width:100%}
+  .cfi{font-size:.85rem;padding:12px 14px}
 }
 
 /* ── VIDEO HINT (hero frame placeholder) ── */
@@ -1378,4 +1385,17 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
 @media(max-width:480px){
   .evt-vvip-inc-grid{grid-template-columns:1fr}
   .evt-vvip-name{font-size:1.4rem}
+}
+
+@media(max-width:480px){
+  /* investor contact — small phones */
+  .inv-contact-blk{padding:22px 16px;margin-top:16px}
+  .inv-contact-blk h3{font-size:1.5rem}
+  .cf2{grid-template-columns:1fr;gap:10px}
+  .cfi{
+    width:100%;box-sizing:border-box;
+    font-size:.84rem;padding:11px 13px;
+  }
+  .inv-body{padding:0 4% 40px}
+  .uof-card{padding:22px 16px}
 }
