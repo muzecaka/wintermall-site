@@ -141,6 +141,19 @@ body{
 .btn-navy:hover{background:var(--turq-dark);transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,175,239,.4)}
 .btn-outline{background:transparent;color:var(--navy);border:2px solid rgba(11,45,69,.3)}
 .btn-outline:hover{background:var(--navy);color:#fff;border-color:var(--navy);transform:translateY(-2px)}
+/* btn-outline on dark backgrounds — used in VVIP card */
+.evt-vvip .btn-outline{
+  color:rgba(255,255,255,.85);
+  border-color:rgba(255,255,255,.35);
+}
+.evt-vvip .btn-outline:hover{
+  background:rgba(255,255,255,.12);
+  border-color:rgba(255,255,255,.7);
+  color:#fff;
+}
+/* outline variant for dark backgrounds — used on VVIP card */
+.btn-outline-light{background:transparent;color:rgba(255,255,255,.85);border:2px solid rgba(255,255,255,.35);text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+.btn-outline-light:hover{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.7);transform:translateY(-2px)}
 .btn-glass{background:rgba(158,220,255,.2);color:var(--navy2);border:1px solid rgba(158,220,255,.5)}
 .btn-glass:hover{background:rgba(158,220,255,.38);transform:translateY(-2px)}
 .btn-gold{background:var(--gold);color:var(--navy);font-weight:700}
@@ -182,18 +195,63 @@ body{
 /* Floating stat cards */
 .fc{
   position:absolute;
-  background:#fff;border-radius:16px;
-  padding:16px 20px;
+  border-radius:18px;
+  padding:16px 22px;
   box-shadow:var(--sh2);
-  border:1px solid rgba(158,220,255,.3);
-  min-width:170px;
+  min-width:175px;
+  z-index:10;
 }
-.fc-1{bottom:-18px;right:-18px;animation:bob 4s ease-in-out infinite}
-.fc-2{top:-18px;left:-18px;animation:bob 4s 2s ease-in-out infinite}
+
+/* fc-1 = Projected Monthly ₦200M+ — GOLD/AMBER */
+.fc-1{
+  bottom:-18px;right:-18px;
+  animation:bob 4s ease-in-out infinite;
+  background:linear-gradient(135deg,#0a1628 0%,#1a2d4a 100%);
+  border:1.5px solid rgba(201,162,39,.5);
+  box-shadow:0 8px 32px rgba(201,162,39,.25), 0 0 0 0 rgba(201,162,39,.4);
+  animation:bob 4s ease-in-out infinite, pulse-gold 2.5s ease-in-out infinite;
+}
+/* fc-2 = Daily Visitors 800+ — TURQUOISE */
+.fc-2{
+  top:-18px;left:-18px;
+  background:linear-gradient(135deg,#0a1628 0%,#0d2d4a 100%);
+  border:1.5px solid rgba(0,175,239,.5);
+  box-shadow:0 8px 32px rgba(0,175,239,.25), 0 0 0 0 rgba(0,175,239,.35);
+  animation:bob 4s 2s ease-in-out infinite, pulse-turq 2.5s 1.2s ease-in-out infinite;
+}
+
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.fc-lbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:4px}
-.fc-val{font-family:'JetBrains Mono',monospace;font-size:1.35rem;font-weight:700;color:var(--navy)}
-.fc-val span{color:var(--turq)}
+@keyframes pulse-gold{
+  0%,100%{box-shadow:0 8px 32px rgba(201,162,39,.25),0 0 0 0 rgba(201,162,39,.35)}
+  50%{box-shadow:0 8px 40px rgba(201,162,39,.4),0 0 0 8px rgba(201,162,39,.0)}
+}
+@keyframes pulse-turq{
+  0%,100%{box-shadow:0 8px 32px rgba(0,175,239,.25),0 0 0 0 rgba(0,175,239,.3)}
+  50%{box-shadow:0 8px 40px rgba(0,175,239,.45),0 0 0 8px rgba(0,175,239,.0)}
+}
+
+.fc-lbl{
+  font-size:.62rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.1em;color:rgba(255,255,255,.5);margin-bottom:6px;
+}
+.fc-1 .fc-lbl{color:rgba(201,162,39,.7)}
+.fc-2 .fc-lbl{color:rgba(0,175,239,.8)}
+
+.fc-val{
+  font-family:'JetBrains Mono',monospace;
+  font-size:1.55rem;font-weight:800;color:#fff;
+  line-height:1;
+}
+.fc-1 .fc-val{color:#fff}
+.fc-1 .fc-val span{
+  color:var(--gold);
+  text-shadow:0 0 20px rgba(201,162,39,.6);
+}
+.fc-2 .fc-val{color:#fff}
+.fc-2 .fc-val span{
+  color:var(--turq2);
+  text-shadow:0 0 20px rgba(0,175,239,.7);
+}
 
 /* SECTIONS */
 .sec{padding:80px 4%;position:relative;z-index:1}
@@ -705,7 +763,22 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
   .about-frame,.tblock-r{display:none}
   .hero-r{display:block;width:100%;margin-top:28px}
   .hero-frame-main{aspect-ratio:16/9;min-height:200px}
-  .fc{display:none}
+  /* stat cards — reposition from absolute to inline row on mobile */
+  .fc{
+    position:static !important;
+    display:flex !important;
+    flex-direction:column;
+    min-width:0;flex:1;
+    animation:none !important;
+    transform:none !important;
+    padding:14px 16px;
+    border-radius:14px;
+  }
+  .hero-r{position:relative}
+  /* mobile stat row injected via CSS — cards sit below video */
+  .hero-r .fc-2,.hero-r .fc-1{
+    /* stacked row handled by hero-stats-row wrapper — see below */
+  }
   .cards3,.rev-grid,.team-grid,.vmv-row,.sum3{grid-template-columns:repeat(2,1fr)}
   .att-grid{grid-template-columns:repeat(3,1fr)}
   .inv-metrics{grid-template-columns:repeat(2,1fr)}
@@ -768,10 +841,11 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
 .modal-overlay.open{opacity:1;pointer-events:all}
 .modal-box{
   background:#fff;border-radius:var(--r2);
-  padding:32px 28px;max-width:520px;width:100%;
+  padding:28px 24px;max-width:520px;width:100%;
+  box-sizing:border-box;
   box-shadow:0 40px 120px rgba(0,0,0,.3);
   transform:translateY(24px);transition:transform .3s;
-  position:relative;max-height:90vh;overflow-y:auto;
+  position:relative;max-height:90vh;overflow-y:auto;overflow-x:hidden;
 }
 .modal-overlay.open .modal-box{transform:translateY(0)}
 .modal-close{
@@ -1199,10 +1273,12 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
 }
 
 /* memberships */
-.mem-grid{display:flex;flex-direction:column;gap:14px}
+.mem-grid{display:flex;flex-direction:column;gap:14px;width:100%}
 .mem-card{
   border-radius:16px;padding:22px 20px;
   border:2px solid rgba(158,220,255,.15);
+  box-sizing:border-box;width:100%;
+  word-wrap:break-word;overflow-wrap:break-word;
 }
 .mem-silver{background:linear-gradient(135deg,#f0f4f8,#e2edf5)}
 .mem-gold{background:linear-gradient(135deg,#fdf6e3,#f5e8c0);border-color:rgba(201,162,39,.3)}
@@ -1399,3 +1475,147 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
   .inv-body{padding:0 4% 40px}
   .uof-card{padding:22px 16px}
 }
+
+/* ════════════════════════════════════════
+   HERO STAT CARDS — MOBILE ROW
+════════════════════════════════════════ */
+.hero-stats-mobile{
+  display:none; /* hidden on desktop — absolute .fc cards used instead */
+}
+
+@media(max-width:900px){
+  /* revert the messy fc override — just hide them, use mobile row instead */
+  .fc{
+    position:absolute !important;
+    display:none !important;
+    animation:bob 4s ease-in-out infinite !important;
+  }
+  .fc-1{animation:bob 4s ease-in-out infinite, pulse-gold 2.5s ease-in-out infinite !important}
+  .fc-2{animation:bob 4s 2s ease-in-out infinite, pulse-turq 2.5s 1.2s ease-in-out infinite !important}
+
+  .hero-stats-mobile{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:16px;
+    padding:0 2px;
+  }
+  .hsm-card{
+    border-radius:16px;padding:16px 18px;
+    border:1.5px solid transparent;
+    position:relative;overflow:hidden;
+  }
+  .hsm-turq{
+    background:linear-gradient(135deg,#061524,#0d2d4a);
+    border-color:rgba(0,175,239,.45);
+    box-shadow:0 6px 24px rgba(0,175,239,.2);
+  }
+  .hsm-gold{
+    background:linear-gradient(135deg,#0f1a0a,#1a2d10);
+    border-color:rgba(201,162,39,.45);
+    box-shadow:0 6px 24px rgba(201,162,39,.2);
+  }
+  .hsm-lbl{
+    font-size:.6rem;font-weight:800;
+    text-transform:uppercase;letter-spacing:.1em;
+    margin-bottom:6px;
+  }
+  .hsm-turq .hsm-lbl{color:rgba(0,175,239,.8)}
+  .hsm-gold  .hsm-lbl{color:rgba(201,162,39,.75)}
+  .hsm-val{
+    font-family:'JetBrains Mono',monospace;
+    font-size:1.6rem;font-weight:800;
+    color:#fff;line-height:1;
+  }
+  .hsm-turq .hsm-val span{
+    color:var(--turq2);
+    text-shadow:0 0 16px rgba(0,175,239,.7);
+  }
+  .hsm-gold .hsm-val span{
+    color:var(--gold);
+    text-shadow:0 0 16px rgba(201,162,39,.6);
+  }
+}
+
+@media(max-width:480px){
+  .hero-stats-mobile{gap:10px;margin-top:14px}
+  .hsm-card{padding:14px 14px}
+  .hsm-val{font-size:1.4rem}
+  .hsm-lbl{font-size:.58rem}
+}
+
+/* ════════════════════════════════════════
+   MEMBERSHIP + MODAL — MOBILE OVERFLOW FIXES
+════════════════════════════════════════ */
+@media(max-width:600px){
+  /* modal box — tighter padding on small phones */
+  .modal-box{
+    padding:22px 16px !important;
+    border-radius:18px;
+    max-height:92vh;
+  }
+  .modal-title{font-size:1.1rem}
+  .modal-tabs{gap:3px;padding:3px}
+  .modal-tab{font-size:.65rem;padding:8px 5px}
+
+  /* membership cards */
+  .mem-card{padding:18px 14px}
+  .mem-pr{font-size:.9rem}
+  .mem-tagline{font-size:.95rem}
+  .mem-perks li{font-size:.75rem}
+  .mem-explanation{font-size:.73rem;padding:10px 12px}
+  .mem-disclaimer{font-size:.68rem}
+  .mem-annual{font-size:.68rem}
+  .mem-what-body{font-size:.75rem}
+
+  /* activity tables — allow horizontal scroll on very small screens */
+  .act-grid{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .act-row{font-size:.7rem;padding:8px 10px;min-width:320px}
+  .act-hdr{font-size:.62rem}
+
+  /* events tab */
+  .evt-card{padding:16px 14px}
+  .evt-vvip{padding:20px 16px}
+  .evt-vvip-name{font-size:1.25rem}
+  .evt-vvip-inc-grid{grid-template-columns:1fr;font-size:.74rem}
+  .vibe-pill{font-size:.68rem;padding:4px 10px}
+
+  /* membership savings table */
+  .act-grid-2 .act-row{grid-template-columns:1.8fr 1fr;font-size:.72rem}
+}
+
+/* ════════════════════════════════════════
+   MEMBERSHIPS — MOBILE FIXES
+════════════════════════════════════════ */
+@media(max-width:600px){
+  .modal-overlay{padding:10px}
+  .modal-box{
+    padding:20px 16px;
+    border-radius:16px;
+    max-height:92vh;
+  }
+  .modal-tabs{gap:3px;padding:3px}
+  .modal-tab{font-size:.66rem;padding:8px 5px}
+
+  /* membership cards tight on mobile */
+  .mem-card{padding:16px 14px}
+  .mem-what-is{padding:12px 14px;gap:10px}
+  .mem-what-icon{font-size:1.3rem}
+  .mem-tagline{font-size:.95rem}
+  .mem-pr{font-size:.92rem}
+  .mem-annual{font-size:.68rem}
+  .mem-perks li{font-size:.76rem}
+  .mem-explanation{padding:10px 12px;font-size:.74rem}
+  .mem-disclaimer{font-size:.68rem;padding-top:8px}
+
+  /* act-grid on mobile — 2-col becomes scrollable or wraps */
+  .act-grid .act-row{font-size:.72rem;padding:8px 10px;gap:4px}
+  .act-grid .act-hdr{font-size:.62rem}
+
+  /* evt-vvip on mobile */
+  .evt-vvip{padding:20px 16px}
+  .evt-vvip-inc-grid{grid-template-columns:1fr 1fr;font-size:.74rem}
+}
+
+/* 4-column activity table */
+.act-grid-4col .act-row{grid-template-columns:1.4fr 1fr 1fr 1.3fr}
