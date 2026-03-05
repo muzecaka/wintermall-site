@@ -523,29 +523,47 @@
             </div>
           </div>
         </div>
-        <div class="cff">
+
+        <!-- LIVE FORM — connected to Formspree → wintermallng@gmail.com -->
+        <form class="cff" id="investor-form"
+              action="https://formspree.io/f/xwvrewep"
+              method="POST">
+
+          <!-- hidden subject line so emails arrive clearly labelled -->
+          <input type="hidden" name="_subject" value="🏔 New Investor Enquiry — Winter Mall">
+
           <div class="cf2">
-            <input class="cfi" type="text"  placeholder="Full Name *" required>
-            <input class="cfi" type="text"  placeholder="Organisation *" required>
+            <input class="cfi" type="text"  name="Full Name"     placeholder="Full Name *"     required>
+            <input class="cfi" type="text"  name="Organisation"  placeholder="Organisation *"  required>
           </div>
-          <input class="cfi" type="email" placeholder="Email Address *" required>
-          <input class="cfi" type="tel"   placeholder="Phone Number">
-          <select class="cfi" style="appearance:none;-webkit-appearance:none">
+          <input class="cfi" type="email" name="email"           placeholder="Email Address *" required>
+          <input class="cfi" type="tel"   name="Phone Number"    placeholder="Phone Number">
+          <select class="cfi" name="Investment Structure" style="appearance:none;-webkit-appearance:none">
             <option value="" disabled selected>Investment Structure Interest</option>
             <option>Hybrid Structured Capital</option>
             <option>Equity Participation</option>
             <option>Open to Discussion</option>
           </select>
-          <input class="cfi" type="text"  placeholder="Investment Range (₦)">
-          <textarea class="cfi" rows="3"  placeholder="Message or specific questions" style="resize:none"></textarea>
+          <input class="cfi" type="text"  name="Investment Range" placeholder="Investment Range (₦)">
+          <textarea class="cfi" name="Message" rows="3" placeholder="Message or specific questions" style="resize:none"></textarea>
+
           <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:4px">
             <input type="checkbox" id="conf-chk" style="margin-top:3px;flex-shrink:0;accent-color:var(--turq)">
             <label for="conf-chk" style="font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.5;cursor:pointer">I confirm that I am a qualified investor and agree to treat all information shared as strictly confidential.</label>
           </div>
-          <button class="btn btn-navy btn-full" onclick="submitEnquiry()">
+
+          <!-- success / error messages -->
+          <div id="form-success" style="display:none;background:rgba(14,124,74,.2);border:1px solid rgba(14,124,74,.5);border-radius:12px;padding:14px 16px;font-size:.85rem;color:#6effc0;line-height:1.6">
+            ✅ <strong>Enquiry received!</strong> Our investor relations team will contact you within 24 hours. ❄
+          </div>
+          <div id="form-error" style="display:none;background:rgba(220,50,50,.15);border:1px solid rgba(220,50,50,.4);border-radius:12px;padding:14px 16px;font-size:.85rem;color:#ffaaaa;line-height:1.6">
+            ⚠️ Something went wrong. Please try again or email us directly at wintermallng@gmail.com
+          </div>
+
+          <button type="submit" class="btn btn-navy btn-full" id="form-submit-btn">
             Submit Enquiry →
           </button>
-        </div>
+        </form>
       </div>
     </div>
   </div>
@@ -1066,7 +1084,7 @@
 
           <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
             <a href="mailto:wintermallng@gmail.com?subject=VVIP After-Hours Enquiry" class="btn btn-gold" style="text-decoration:none;font-size:.82rem;padding:11px 20px">✨ Enquire Now</a>
-            <a href="tel:+2347017999900" class="btn btn-outline" style="text-decoration:none;font-size:.82rem;padding:11px 20px">📞 Call Us</a>
+            <a href="tel:+2347017999900" class="btn btn-outline-light" style="font-size:.82rem;padding:11px 20px">📞 Call Us</a>
           </div>
         </div>
 
@@ -1152,12 +1170,14 @@
       <div class="act-section">
         <div class="act-sec-title">🎟️ Member Ticket Savings</div>
         <div class="act-sec-sub">What members pay vs full guest price on every visit</div>
-        <div class="act-grid">
+        <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+        <div class="act-grid act-grid-4col" style="min-width:320px">
           <div class="act-row act-hdr"><span>Ticket</span><span>Guest</span><span>Silver</span><span>Gold / Platinum</span></div>
           <div class="act-row"><span>Adult</span><span>₦8,000</span><span>₦6,800</span><span>₦6,400 / ₦6,000</span></div>
           <div class="act-row"><span>Teen (11–17)</span><span>₦7,000</span><span>₦5,950</span><span>₦5,600 / ₦5,250</span></div>
           <div class="act-row"><span>Child (3–10)</span><span>₦6,000</span><span>₦5,100</span><span>₦4,800 / ₦4,500</span></div>
-        </div>
+        </div><!-- /act-grid -->
+        </div><!-- /scroll wrapper -->
         <div class="act-disclaimer">Member ticket prices apply on every visit. Savings compound with frequency — a Gold member visiting weekly saves over ₦64,000/year on adult tickets alone, before activity discounts.</div>
       </div>
 
@@ -1279,11 +1299,56 @@ function switchModalTab(btn, tabId){
   if(el) el.classList.add('active');
 }
 
-function submitEnquiry(){
-  var chk = document.getElementById('conf-chk');
-  if(!chk.checked){ alert('Please confirm the confidentiality agreement before submitting.'); return; }
-  alert('Thank you for your enquiry.\n\nOur investor relations team will contact you within 24 hours to schedule an introductory call. ❄\n\n— Winter Mall Nigeria Ltd.');
-}
+/* ── INVESTOR FORM — Formspree AJAX ── */
+(function(){
+  var form = document.getElementById('investor-form');
+  if(!form) return;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    /* check confidentiality checkbox */
+    var chk = document.getElementById('conf-chk');
+    if(!chk || !chk.checked){
+      alert('Please confirm the confidentiality agreement before submitting.');
+      return;
+    }
+
+    /* UI feedback — loading state */
+    var btn = document.getElementById('form-submit-btn');
+    var successEl = document.getElementById('form-success');
+    var errorEl   = document.getElementById('form-error');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    successEl.style.display = 'none';
+    errorEl.style.display   = 'none';
+
+    /* AJAX POST to Formspree */
+    var data = new FormData(form);
+    fetch('https://formspree.io/f/xwvrewep', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(res){
+      if(res.ok){
+        /* success */
+        form.reset();
+        chk.checked = false;
+        successEl.style.display = 'block';
+        btn.textContent = '✅ Enquiry Sent';
+        btn.style.background = '#0e7c4a';
+      } else {
+        return res.json().then(function(d){ throw d; });
+      }
+    })
+    .catch(function(){
+      errorEl.style.display = 'block';
+      btn.textContent = 'Submit Enquiry →';
+      btn.disabled = false;
+    });
+  });
+})();
 
 /* ── GALLERY LIGHTBOX ── */
 var lbTiles = [], lbIndex = 0, lbTouchX = 0;
