@@ -667,15 +667,25 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
 .ft-brand{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:700;color:#fff;margin-bottom:10px}
 .ft-brand em{color:var(--turq);font-style:normal}
 .ft-desc{font-size:.84rem;color:rgba(255,255,255,.4);line-height:1.65;margin-bottom:22px;max-width:260px}
-.ft-social{display:flex;gap:9px}
+.ft-social{display:flex;gap:9px;flex-wrap:wrap;margin-top:4px}
 .ft-soc{
-  width:34px;height:34px;border-radius:50%;
+  width:36px;height:36px;border-radius:50%;
   border:1px solid rgba(255,255,255,.13);
   display:flex;align-items:center;justify-content:center;
-  color:rgba(255,255,255,.45);font-size:.8rem;cursor:pointer;
-  transition:all .2s;text-decoration:none;
+  color:rgba(255,255,255,.45);cursor:pointer;
+  transition:all .22s;text-decoration:none;
+  flex-shrink:0;
 }
-.ft-soc:hover{background:rgba(0,175,239,.18);border-color:var(--turq);color:var(--turq)}
+.ft-soc svg{display:block;transition:transform .22s}
+.ft-soc:hover svg{transform:scale(1.15)}
+
+/* brand hover colours */
+.ft-soc-ig:hover{background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);border-color:transparent;color:#fff}
+.ft-soc-fb:hover{background:#1877f2;border-color:transparent;color:#fff}
+.ft-soc-tt:hover{background:#010101;border-color:transparent;color:#fff}
+.ft-soc-yt:hover{background:#ff0000;border-color:transparent;color:#fff}
+.ft-soc-x:hover{background:#000;border-color:transparent;color:#fff}
+.ft-soc-li:hover{background:#0a66c2;border-color:transparent;color:#fff}
 .ft-h4{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:14px}
 .ft-links{list-style:none}
 .ft-links li{margin-bottom:9px}
@@ -1214,6 +1224,7 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
 }
 .mem-platinum .mem-pr{color:var(--turq2)}
 .mem-per{font-size:.72rem;color:var(--ink3);margin-left:4px}
+.mem-platinum .mem-per{color:rgba(255,255,255,.45)}
 .mem-annual{
   font-size:.72rem;color:var(--ink3);
   margin-bottom:12px;padding-bottom:12px;
@@ -1225,14 +1236,15 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
   display:flex;flex-direction:column;gap:6px;
 }
 .mem-perks li{font-size:.8rem;color:var(--ink2);line-height:1.4}
-.mem-platinum .mem-perks li{color:rgba(255,255,255,.75)}
+.mem-platinum .mem-perks li{color:rgba(255,255,255,.82)}
 .mem-disclaimer{
   font-size:.71rem;color:var(--ink3);line-height:1.6;
   padding-top:10px;border-top:1px dashed rgba(0,0,0,.1);
 }
 .mem-platinum .mem-disclaimer{
-  border-color:rgba(255,255,255,.1);color:rgba(255,255,255,.35);
+  border-color:rgba(255,255,255,.12);color:rgba(255,255,255,.4);
 }
+.mem-platinum .mem-disclaimer strong{color:rgba(255,255,255,.7)}
 
 /* modal box wider for tabs */
 /* modal-box size consolidated above */
@@ -1355,7 +1367,13 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
   background:rgba(201,162,39,.06);
   border-left-color:var(--gold);
 }
+.mem-platinum .mem-explanation{
+  background:rgba(255,255,255,.06);
+  border-left-color:var(--turq2);
+  color:rgba(255,255,255,.65);
+}
 .mem-explanation strong{color:var(--navy);font-weight:700}
+.mem-platinum .mem-explanation strong{color:rgba(255,255,255,.9)}
 
 @media(max-width:480px){
   .evt-vvip-inc-grid{grid-template-columns:1fr}
