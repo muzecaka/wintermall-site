@@ -88,7 +88,12 @@ var modalPrice     = 8000;
 var modalType      = 'adult';
 var extraChildren  = 0;
 
-/* Set min date to tomorrow on open */
+function switchModalTab(btn, tabId){
+  document.querySelectorAll('.modal-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelectorAll('.modal-tab-content').forEach(function(t){ t.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById(tabId).classList.add('active');
+}
 function openBooking(){
   var tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -171,23 +176,81 @@ function calcModal(){
 }
 
 function confirmBooking(){
-  var date = document.getElementById('m-date');
-  if(!date || !date.value){
+  /* validate date */
+  var dateEl = document.getElementById('m-date');
+  if(!dateEl || !dateEl.value){
     alert('Please select a visit date before confirming.');
     return;
   }
+
+  /* validate contact fields */
+  var name  = (document.getElementById('b-name')  || {}).value  || '';
+  var email = (document.getElementById('b-email') || {}).value  || '';
+  var phone = (document.getElementById('b-phone') || {}).value  || '';
+  if(!name.trim())  { alert('Please enter your full name.');    return; }
+  if(!email.trim()) { alert('Please enter your email address.'); return; }
+  if(!phone.trim()) { alert('Please enter your phone number.'); return; }
+
   var qty   = document.getElementById('m-qty').textContent;
   var total = document.getElementById('m-total').textContent;
-  var typeNames = {adult:'Adult',child:'Child',family:'Family Pack',school:'School Group',corp:'Corporate/Event'};
-  alert(
-    '✅ Booking Request Received!\n\n' +
-    '📅 Date: ' + date.value + '\n' +
-    '🎟 Type: ' + (typeNames[modalType] || modalType) + '\n' +
-    '👥 Qty: ' + qty + (modalType==='family' && extraChildren > 0 ? ' pack(s) + '+extraChildren+' extra child(ren)' : '') + '\n' +
-    '💰 Total: ' + total + '\n\n' +
-    'Our team will contact you within 2 hours to confirm your booking and payment details.\n\n— Winter Mall ❄'
-  );
-  closeBooking();
+  var breakdown = document.getElementById('m-breakdown').textContent;
+  var typeNames = {adult:'Adult',teen:'Young Teenager',child:'Child',family:'Family Pack',school:'School Group',corp:'Corporate/Event'};
+  var ticketType = typeNames[modalType] || modalType;
+  var extrasNote = (modalType === 'family' && extraChildren > 0)
+    ? ' + ' + extraChildren + ' extra child(ren)'
+    : '';
+
+  /* UI — loading state */
+  var btn       = document.getElementById('book-submit-btn');
+  var successEl = document.getElementById('book-success');
+  var errorEl   = document.getElementById('book-error');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  successEl.style.display = 'none';
+  errorEl.style.display   = 'none';
+
+  /* build form data */
+  var data = new FormData();
+  data.append('_subject',      '🎟 New Booking Request — Winter Mall');
+  data.append('Full Name',     name);
+  data.append('email',         email);
+  data.append('Phone Number',  phone);
+  data.append('Ticket Type',   ticketType);
+  data.append('Visit Date',    dateEl.value);
+  data.append('Quantity',      qty + extrasNote);
+  data.append('Order Breakdown', breakdown || ticketType + ' × ' + qty);
+  data.append('Order Total',   total);
+
+  /* POST to Formspree */
+  fetch('https://formspree.io/f/mvzwpnaw', {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(function(res){
+    if(res.ok){
+      successEl.style.display = 'block';
+      btn.textContent  = '✅ Booking Sent!';
+      btn.style.background = '#0e7c4a';
+      /* reset fields */
+      document.getElementById('b-name').value  = '';
+      document.getElementById('b-email').value = '';
+      document.getElementById('b-phone').value = '';
+      document.getElementById('m-qty').textContent = '1';
+      extraChildren = 0;
+      if(document.getElementById('extra-child-n'))
+        document.getElementById('extra-child-n').textContent = '0';
+      calcModal();
+    } else {
+      return res.json().then(function(d){ throw d; });
+    }
+  })
+  .catch(function(){
+    errorEl.style.display = 'block';
+    btn.textContent  = 'Confirm Booking →';
+    btn.disabled     = false;
+    btn.style.background = '';
+  });
 }
 
 document.addEventListener('click', function(e){ if(e.target.id==='booking-modal') closeBooking(); });

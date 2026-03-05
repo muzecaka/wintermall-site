@@ -931,8 +931,28 @@
         </div>
         <span class="modal-total-val" id="m-total">₦8,000</span>
       </div>
+
+      <!-- CONTACT DETAILS -->
+      <div class="modal-field" style="margin-top:14px">
+        <label>Your Contact Details</label>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <input class="modal-inp" type="text"  id="b-name"  placeholder="Full Name *" required>
+          <input class="modal-inp" type="email" id="b-email" placeholder="Email Address *" required>
+          <input class="modal-inp" type="tel"   id="b-phone" placeholder="Phone Number *" required>
+        </div>
+      </div>
+
       <div class="booking-notice">📅 Arrive 15 mins early. Late arrivals may have shortened sessions. Cancellations/date changes require 48 hours notice. All gear is provided — no need to bring your own.</div>
-      <button class="btn btn-navy btn-full" onclick="confirmBooking()" style="margin-top:12px">Confirm Booking →</button>
+
+      <!-- success / error banners -->
+      <div id="book-success" style="display:none;background:rgba(14,124,74,.12);border:1px solid rgba(14,124,74,.4);border-radius:12px;padding:13px 16px;font-size:.82rem;color:#0e7c4a;line-height:1.6;margin-top:10px">
+        ✅ <strong>Booking request received!</strong> We'll contact you within 2 hours to confirm your slot and payment details. ❄
+      </div>
+      <div id="book-error" style="display:none;background:rgba(220,50,50,.08);border:1px solid rgba(220,50,50,.3);border-radius:12px;padding:13px 16px;font-size:.82rem;color:#c0392b;line-height:1.6;margin-top:10px">
+        ⚠️ Something went wrong. Please try again or call us on +234 701 999 9900.
+      </div>
+
+      <button class="btn btn-navy btn-full" id="book-submit-btn" onclick="confirmBooking()" style="margin-top:12px">Confirm Booking →</button>
     </div><!-- /mtab-tickets -->
 
 
