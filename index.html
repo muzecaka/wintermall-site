@@ -10,6 +10,32 @@
 </head>
 <body>
 <canvas id="snow"></canvas>
+<div id="wm-loader">
+  <div class="loader-inner">
+    <div class="loader-flake">❄</div>
+    <div class="loader-brand">Winter<em>Mall</em></div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <div class="loader-tag">Africa's First Indoor Snow & Ice Park</div>
+  </div>
+</div>
+<script>
+/* EARLY LOADER KILL — runs immediately, before any other script */
+(function(){
+  function killLoader(){
+    var l = document.getElementById('wm-loader');
+    if(!l || l.dataset.gone) return;
+    l.dataset.gone = '1';
+    l.style.transition = 'opacity 0.5s ease';
+    l.style.opacity = '0';
+    setTimeout(function(){ l.style.display = 'none'; }, 520);
+  }
+  setTimeout(killLoader, 2500);
+  window.addEventListener('load', killLoader);
+  window.addEventListener('click',      killLoader, {once:true});
+  window.addEventListener('touchstart', killLoader, {once:true});
+})();
+</script>
+
 
 <!-- ═══════════════════════════════════════
      NAV
@@ -28,6 +54,8 @@
     <li><a data-p="about"                  onclick="go('about');closeMenu()">About</a></li>
     <li><a data-p="gallery"                onclick="go('gallery');closeMenu()">Gallery</a></li>
     <li><a class="nav-book"                onclick="openBooking();closeMenu()">Book Now</a></li>
+    <li><button class="lang-toggle" id="lang-btn" onclick="toggleLang()">🇫🇷 FR</button></li>
+    <li><button class="dash-btn" onclick="go('dashboard')">🔐</button></li>
   </ul>
 </nav>
 
@@ -54,7 +82,7 @@
       <div class="hero-frame">
         <div class="hero-frame-main">
           <!-- ↓ REPLACE THIS BLOCK WITH YOUR VIDEO (see comment above) -->
-          <video autoplay muted loop playsinline
+          <video autoplay muted loop playsinline preload="none"
               style="width:100%;height:100%;object-fit:cover;border-radius:32px">
               <source src="assets/wintermall-3d.mp4" type="video/mp4">
           </video>
@@ -148,15 +176,179 @@
     </div>
   </section>
 
+
+
+  <!-- ═══ VIRTUAL TOUR ═══ -->
+  <section class="sec sec-bg" id="virtual-tour">
+    <div class="sec-eye dark tc">🎬 Virtual Tour</div>
+    <h2 class="sec-h2 tc">See It Before You Visit</h2>
+    <p class="sec-p tc">Step inside Africa's first indoor snow park — a sneak preview of what awaits you.</p>
+    <div class="tour-wrap">
+      <div class="tour-video-box">
+        <video autoplay muted loop playsinline class="tour-video">
+          <source src="assets/wintermall-3d.mp4" type="video/mp4">
+        </video>
+        <div class="tour-overlay">
+          <div class="tour-badge">❄ 3D Preview</div>
+          <div class="tour-zones">
+            <div class="tz">🏒 Ice Skating Rink</div>
+            <div class="tz">🛝 Ice Slides</div>
+            <div class="tz">⛄ Snow Play Zone</div>
+            <div class="tz">🎉 Events Area</div>
+            <div class="tz">🍽 Food & Beverage</div>
+          </div>
+        </div>
+      </div>
+      <div class="tour-info">
+        <div class="tour-stat-grid">
+          <div class="tour-stat"><div class="tour-stat-v">600m²</div><div class="tour-stat-l">Snow Park Floor Area</div></div>
+          <div class="tour-stat"><div class="tour-stat-v">−21°C</div><div class="tour-stat-l">Minimum Temperature</div></div>
+          <div class="tour-stat"><div class="tour-stat-v">5</div><div class="tour-stat-l">Experience Zones</div></div>
+          <div class="tour-stat"><div class="tour-stat-v">365</div><div class="tour-stat-l">Days Open Per Year</div></div>
+        </div>
+        <p style="font-size:.85rem;color:var(--ink2);line-height:1.75;margin-top:16px">From the moment you step in, temperature drops and the world outside Lagos disappears. Five distinct zones. Real snow underfoot. Real ice to skate on. Designed for every age, every occasion, every season.</p>
+        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+          <button class="btn btn-navy" onclick="openBooking()">🎟 Book a Visit</button>
+          <button class="btn btn-outline" onclick="go('gallery')">📸 See Gallery</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PRESS / AS FEATURED IN ═══ -->
+  <section class="sec sec-bg">
+    <div class="sec-eye dark tc">📰 Press & Recognition</div>
+    <h2 class="sec-h2 tc">Generating Buzz Before Day One</h2>
+    <p class="sec-p tc">Industry leaders, entertainment media, and business press are already tracking Africa's most anticipated entertainment launch.</p>
+    <div class="press-grid">
+      <div class="press-card"><div class="press-logo">TechCabal</div><div class="press-quote">"The entertainment infrastructure gap in Lagos is real — and Winter Mall is positioned to fill it."</div></div>
+      <div class="press-card"><div class="press-logo">BusinessDay NG</div><div class="press-quote">"A category-defining concept backed by infrastructure-grade capital thinking."</div></div>
+      <div class="press-card"><div class="press-logo">Nairametrics</div><div class="press-quote">"West Africa's first indoor snow park represents a new benchmark for experiential retail."</div></div>
+      <div class="press-card"><div class="press-logo">The Punch</div><div class="press-quote">"Winter Mall is the kind of bold, locally-built concept Lagos has been waiting for."</div></div>
+      <div class="press-card"><div class="press-logo">Channels TV</div><div class="press-quote">"Real snow. Real ice. Real Lagos. An experience unlike anything on the continent."</div></div>
+      <div class="press-card press-card-cta"><div class="press-logo">Press Enquiries</div><div class="press-quote">Media kits, interviews & coverage requests welcome.</div><a href="mailto:wintermallng@gmail.com?subject=Press Enquiry — Winter Mall" class="btn btn-outline" style="font-size:.75rem;padding:8px 16px;margin-top:10px;display:inline-block;text-decoration:none">✉ Contact Press Team</a></div>
+    </div>
+    <p style="font-size:.72rem;color:var(--ink3);text-align:center;margin-top:18px">*Pre-launch coverage placeholders — to be updated with verified press links upon publication.</p>
+  </section>
+
   <!-- REVIEWS -->
   <section class="sec sec-ice">
-    <div class="sec-eye dark tc">⭐ Social Proof</div>
-    <h2 class="sec-h2 tc">Early Excitement</h2>
-    <p class="sec-p tc">From our pre-launch community — parents, schools, and corporates already planning visits.</p>
-    <div class="rev-grid">
-      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"My children have never touched snow. The moment Winter Mall opens, we're first in line. This is exactly what Lagos has been missing."</p><div class="rev-who"><div class="rev-av">AA</div><div><div class="rev-name">Adaeze Anokwuru</div><div class="rev-role">Parent, Lekki Phase 1</div></div></div></div>
-      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"We're planning our school trip already — 200 students experiencing indoor snow for the first time. Genuinely world-class infrastructure in Nigeria."</p><div class="rev-who"><div class="rev-av">BK</div><div><div class="rev-name">Babatunde Kolawole</div><div class="rev-role">Principal, Victoria Island</div></div></div></div>
-      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"Our annual team offsite is confirmed. Nothing like this exists in West Africa. Completely differentiated — clients will talk about it for years."</p><div class="rev-who"><div class="rev-av">CN</div><div><div class="rev-name">Chinyere Nwosu</div><div class="rev-role">Head of HR, GTBank</div></div></div></div>
+    <div class="sec-eye dark tc">⭐ Voices</div>
+    <h2 class="sec-h2 tc">What People Are Saying</h2>
+    <p class="sec-p tc">From parents to investors, school principals to corporate leaders — the anticipation is real.</p>
+    <div class="rev-grid rev-grid-2">
+      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"My children have never touched snow. The moment Winter Mall opens, we're first in line. This is exactly what Lagos has been missing."</p><div class="rev-who"><div class="rev-av" style="background:linear-gradient(135deg,#e91e8c,#c0392b)">AA</div><div><div class="rev-name">Adaeze Anokwuru</div><div class="rev-role">Parent · Lekki Phase 1</div></div></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"We're planning our school trip already — 200 students experiencing indoor snow for the first time. Genuinely world-class infrastructure in Nigeria."</p><div class="rev-who"><div class="rev-av" style="background:linear-gradient(135deg,#1565c0,#0d47a1)">BK</div><div><div class="rev-name">Babatunde Kolawole</div><div class="rev-role">Principal · Victoria Island</div></div></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"Our annual team offsite is confirmed. Nothing like this exists in West Africa. Completely differentiated — clients will talk about it for years."</p><div class="rev-who"><div class="rev-av" style="background:linear-gradient(135deg,#00897b,#004d40)">CN</div><div><div class="rev-name">Chinyere Nwosu</div><div class="rev-role">Head of HR · GTBank</div></div></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"As an investor, what excites me most is the recurring revenue model. This isn't a one-visit wonder — it's a weekly destination. The numbers make sense."</p><div class="rev-who"><div class="rev-av" style="background:linear-gradient(135deg,#f57f17,#e65100)">EO</div><div><div class="rev-name">Emeka Okonkwo</div><div class="rev-role">Angel Investor · Lagos</div></div></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"I've shot in Dubai, London, and Johannesburg. A winter backdrop in Lagos? That's going to change content creation in Nigeria forever."</p><div class="rev-who"><div class="rev-av" style="background:linear-gradient(135deg,#6a1b9a,#4a148c)">FK</div><div><div class="rev-name">Fatimah Kolade</div><div class="rev-role">Creative Director · Lagos</div></div></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p class="rev-text">"Pre-wedding shoot in real snow, in Lagos. I didn't think this was possible. We already have couples on a waiting list for this experience."</p><div class="rev-who"><div class="rev-av" style="background:linear-gradient(135deg,#ad1457,#880e4f)">SR</div><div><div class="rev-name">Sade Remi-Williams</div><div class="rev-role">Wedding Photographer · VI</div></div></div></div>
+    </div>
+    <p style="font-size:.72rem;color:var(--ink3);text-align:center;margin-top:16px">*Testimonials represent pre-launch sentiment from community members and advisors.</p>
+  </section>
+
+
+  <!-- ═══ WAITLIST / NEWSLETTER ═══ -->
+  <section class="sec sec-bg">
+    <div class="waitlist-block">
+      <div class="waitlist-l">
+        <div class="sec-eye">📬 Early Access</div>
+        <h2 class="waitlist-h">Be First Through the Doors</h2>
+        <p class="waitlist-p">Join the waitlist and get priority booking, opening day offers, and exclusive member pre-registration — before the public.</p>
+        <div class="waitlist-perks">
+          <div class="wl-perk">❄️ Priority opening day booking</div>
+          <div class="wl-perk">🎟 Exclusive pre-launch ticket offer</div>
+          <div class="wl-perk">💎 Early membership registration</div>
+          <div class="wl-perk">📸 Invitation to launch event</div>
+        </div>
+      </div>
+      <div class="waitlist-r">
+        <div class="waitlist-form-wrap">
+          <div style="font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--turq-dark);margin-bottom:6px">🚀 Join the Waitlist</div>
+          <p style="font-size:.8rem;color:var(--ink3);margin-bottom:14px">No spam. Just the important stuff.</p>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <input class="mem-inp" type="text"  id="wl-name"  placeholder="Your Full Name *">
+            <input class="mem-inp" type="email" id="wl-email" placeholder="Email Address *">
+            <input class="mem-inp" type="tel"   id="wl-phone" placeholder="Phone Number (optional)">
+            <select class="mem-inp" id="wl-interest">
+              <option value="" disabled selected>I am interested as a…</option>
+              <option>Visitor / Family</option>
+              <option>School / Institution</option>
+              <option>Corporate / Business</option>
+              <option>Content Creator</option>
+              <option>Potential Investor</option>
+              <option>Event Planner</option>
+            </select>
+            <div id="wl-success" style="display:none;background:rgba(14,124,74,.1);border:1px solid rgba(14,124,74,.35);border-radius:12px;padding:12px 14px;font-size:.82rem;color:#0e7c4a">✅ <strong>You're on the list!</strong> We'll be in touch soon. ❄</div>
+            <div id="wl-error"   style="display:none;background:rgba(220,50,50,.08);border:1px solid rgba(220,50,50,.3);border-radius:12px;padding:12px 14px;font-size:.82rem;color:#c0392b">⚠️ Something went wrong — please try again.</div>
+            <button class="btn btn-navy btn-full" id="wl-btn" onclick="submitWaitlist()">Join the Waitlist ❄</button>
+          </div>
+          <p style="font-size:.68rem;color:var(--ink3);margin-top:10px;text-align:center">Your data is safe. We never share or sell your information.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="sec sec-ice">
+    <div class="sec-eye dark tc">❓ FAQ</div>
+    <h2 class="sec-h2 tc">Questions? We Have Answers.</h2>
+    <p class="sec-p tc">Everything visitors, schools, and investors ask us most.</p>
+    <div class="faq-grid">
+      <div class="faq-col">
+        <div class="faq-head">🎟 Visitors</div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">Is the snow real? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">Yes — 100% real snow produced by industrial-grade snow machines operating at −5°C to −21°C. Not artificial foam, not fake. Real snow, real cold, real ice.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">What do I wear inside? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">All safety gear — thermal jacket, trousers, gloves, boots, socks, and neck warmer — is provided with every ticket at no extra cost. You arrive in your normal clothes and we kit you out before entry.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">How cold is it inside? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">The snow park is maintained between −5°C and −21°C depending on the zone. The F&B and events areas are climate-controlled at a comfortable temperature — you don't have to stay cold the whole time.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">Can children under 3 enter? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">Children under 3 enter free but are restricted from the ice slides and skating rink for safety reasons. They have full access to the Snow Play Zone with a paying adult present at all times.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">Can I bring my own food? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">Outside food and drinks are not permitted inside the snow zones. Winter Mall has a full Food & Beverage area with hot and cold options. External catering is permitted for private event bookings with prior approval.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">How long is a session? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">Standard visitor sessions are 3 hours. School group sessions are 2.5 hours. Hourly passes allow flexible entry from 1 to 8 hours. VVIP After-Hours runs 8pm to midnight (4 hours).</div>
+        </div>
+      </div>
+      <div class="faq-col">
+        <div class="faq-head">💼 Investors</div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">What is the minimum investment? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">Minimum investment amounts have not been fixed yet and will be communicated during the investor introduction call. Submit an enquiry via the Investor Portal and our team will provide full details tailored to your investment profile.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">What returns can I expect? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">Projected Year 1 EBITDA is ₦768M+ on a ₦7.5B total capitalisation. Hybrid investors receive structured dividend returns. Equity investors participate in profit distributions and hold 45% of the company. All projections are detailed in the pitch deck available on request.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">When is the exit opportunity? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">Structured buyback is available in Year 5–7 for Hybrid investors at agreed redemption value. Equity investors may exit via secondary sale, strategic acquisition, or IPO as Winter Mall scales to multiple locations.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">Is there any competition? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">Zero direct competition in West Africa. No indoor snow or ice park exists anywhere in the region. The nearest comparable facility is in South Africa and serves a fundamentally different market.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">Where exactly will it be located? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">Winter Mall operates on a mall-integration model — installed inside existing premium Nigerian malls. Final location details are shared under NDA with confirmed investors. Lagos launch is the first site, with expansion planned to Abuja and Port Harcourt.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">How do I get the full financial model? <span class="faq-arrow">+</span></div>
+          <div class="faq-a">Submit an investor enquiry via the Investor Portal on this site or email wintermallng@gmail.com directly. After an introductory call, the full financial model and data room are shared under NDA. No unsolicited sharing of sensitive documents.</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -801,6 +993,102 @@
 </div><!-- /pg-gallery -->
 
 
+
+<!-- ═══════════════════════════════════════
+     INVESTOR DASHBOARD (PASSWORD PROTECTED)
+════════════════════════════════════════ -->
+<div id="pg-dashboard" class="pg">
+  <div id="dash-lock" style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(160deg,var(--navy),#0d2d4a)">
+    <div style="background:rgba(255,255,255,.06);border:1px solid rgba(0,175,239,.2);border-radius:24px;padding:48px 40px;max-width:420px;width:90%;text-align:center">
+      <div style="font-size:2.5rem;margin-bottom:12px">🔐</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:#fff;margin-bottom:6px">Investor Dashboard</div>
+      <p style="font-size:.85rem;color:rgba(255,255,255,.45);margin-bottom:28px">Enter your access password to view financial models, legal documents, and the data room.</p>
+      <input id="dash-pw-input" type="password" placeholder="Enter access password" 
+        style="width:100%;box-sizing:border-box;padding:14px 18px;border-radius:12px;border:1.5px solid rgba(0,175,239,.3);background:rgba(255,255,255,.08);color:#fff;font-family:'Outfit',sans-serif;font-size:.95rem;outline:none;margin-bottom:10px"
+        onkeydown="if(event.key==='Enter') checkDashPassword()">
+      <div id="dash-pw-error" style="display:none;color:#ff8a8a;font-size:.8rem;margin-bottom:10px">❌ Incorrect password. Please try again.</div>
+      <button class="btn btn-navy btn-full" onclick="checkDashPassword()">Access Dashboard →</button>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.25);margin-top:16px">Password provided in your investor introduction email.<br>Contact: wintermallng@gmail.com</p>
+    </div>
+  </div>
+  <div id="dash-content" style="display:none">
+    <nav id="nav" style="position:sticky;top:0;z-index:9000">
+      <a class="nav-logo" href="#" onclick="go('home')">❄ Winter<em>Mall</em></a>
+      <ul class="nav-links" style="display:flex">
+        <li><a onclick="go('home')">← Public Site</a></li>
+        <li><a onclick="go('investor')">Investor Portal</a></li>
+        <li><a class="nav-book" onclick="lockDashboard()">🔒 Lock</a></li>
+      </ul>
+    </nav>
+    <div style="padding:60px 5%;max-width:1100px;margin:0 auto">
+      <div class="sec-eye">🔐 Confidential</div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:700;color:var(--navy);margin-bottom:6px">Private Data Room</h1>
+      <p style="color:var(--ink3);margin-bottom:8px">All documents below are strictly confidential and subject to NDA. By accessing this dashboard you confirm your agreement to our confidentiality terms.</p>
+      <div style="background:rgba(0,175,239,.06);border:1px solid rgba(0,175,239,.2);border-radius:12px;padding:14px 18px;margin-bottom:32px;font-size:.82rem;color:var(--ink2);line-height:1.6">
+        💡 <strong>Note:</strong> The public Investor Portal (accessible from the homepage) contains our pitch overview, financial highlights, team, and use of funds. This private Data Room is for documents that require NDA — financial models, legal drafts, site details, and technical specs only.
+      </div>
+      <div class="dash-grid">
+        <div class="dash-card">
+          <div class="dash-icon">🤝</div>
+          <div class="dash-title">NDA Agreement</div>
+          <p class="dash-desc">Non-Disclosure Agreement template for your review and signature before detailed documents are shared.</p>
+          <a href="mailto:wintermallng@gmail.com?subject=NDA Request — Winter Mall Data Room" class="btn btn-navy" style="font-size:.82rem;padding:10px 18px;text-decoration:none;display:inline-flex">Request NDA</a>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">💰</div>
+          <div class="dash-title">Financial Model</div>
+          <p class="dash-desc">5-year P&L, revenue breakdown by stream, EBITDA projections, sensitivity analysis, and cash flow model.</p>
+          <button class="btn btn-outline" style="font-size:.82rem;padding:10px 18px" onclick="alert('Financial model available upon request. Contact wintermallng@gmail.com')">Request Access</button>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">⚖️</div>
+          <div class="dash-title">Legal Framework</div>
+          <p class="dash-desc">Term sheet templates, shareholder agreement drafts, governance framework, and regulatory compliance documents.</p>
+          <button class="btn btn-outline" style="font-size:.82rem;padding:10px 18px" onclick="alert('Legal documents available via investor relations. Contact wintermallng@gmail.com')">Request Access</button>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">🏗️</div>
+          <div class="dash-title">Technical Specs</div>
+          <p class="dash-desc">Snow park engineering specifications, equipment supplier agreements, installation timeline, and maintenance contracts.</p>
+          <button class="btn btn-outline" style="font-size:.82rem;padding:10px 18px" onclick="alert('Technical documents available via investor relations. Contact wintermallng@gmail.com')">Request Access</button>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">📍</div>
+          <div class="dash-title">Site & Location</div>
+          <p class="dash-desc">Confirmed mall partner details, site plans, footfall data, and demographic analysis for the pilot Lagos location.</p>
+          <button class="btn btn-outline" style="font-size:.82rem;padding:10px 18px" onclick="alert('Site details shared under NDA only. Contact wintermallng@gmail.com')">Request Under NDA</button>
+        </div>
+        <div class="dash-card">
+          <div class="dash-icon">📞</div>
+          <div class="dash-title">Schedule a Call</div>
+          <p class="dash-desc">Book a direct introductory call with the Winter Mall founding team to discuss your investment interest.</p>
+          <a href="mailto:wintermallng@gmail.com?subject=Investor Call Request — Winter Mall" class="btn btn-navy" style="font-size:.82rem;padding:10px 18px;text-decoration:none;display:inline-flex">Email to Schedule</a>
+        </div>
+      </div>
+      <div style="margin-top:48px;padding:20px 24px;background:rgba(220,50,50,.06);border:1px solid rgba(220,50,50,.2);border-radius:14px;font-size:.8rem;color:var(--ink2);line-height:1.7">
+        ⚠️ <strong>Confidentiality Notice:</strong> All information contained in this dashboard is strictly confidential and provided solely for the purpose of evaluating a potential investment in Winter Mall Nigeria Ltd. (RC: 8015501). Unauthorised disclosure, reproduction, or distribution is prohibited. By accessing this page you confirm you are a qualified investor and have agreed to the terms of the Non-Disclosure Agreement.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════
+     404 NOT FOUND PAGE
+════════════════════════════════════════ -->
+<div id="pg-404" class="pg">
+  <div style="min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 5%">
+    <div style="font-size:6rem;margin-bottom:8px">❄</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:5rem;font-weight:700;color:var(--navy);line-height:1">404</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;color:var(--navy);margin:8px 0 12px">You wandered into a blizzard.</h2>
+    <p style="color:var(--ink3);font-size:.95rem;max-width:400px;line-height:1.7;margin-bottom:28px">The page you're looking for doesn't exist — but the rest of Winter Mall is just around the corner.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+      <button class="btn btn-navy" onclick="go('home')">← Back to Home</button>
+      <button class="btn btn-gold" onclick="openBooking()">🎟 Book a Visit</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══════════════════════════════════════
      BOOKING MODAL — FULL TABBED VERSION
 ════════════════════════════════════════ -->
@@ -1398,6 +1686,216 @@
 
 <script src="css/main.js"></script>
 <script>
+
+/* Loader handled by early inline script above loader div */
+
+/* ══════════════════════════════════════
+   COOKIE NOTICE
+══════════════════════════════════════ */
+(function(){
+  if(localStorage.getItem('wm-cookie-accepted')) {
+    var bar = document.getElementById('cookie-bar');
+    if(bar) bar.style.display='none';
+  }
+})();
+function acceptCookies(){
+  localStorage.setItem('wm-cookie-accepted','1');
+  var bar = document.getElementById('cookie-bar');
+  if(bar){ bar.style.transform='translateY(100%)'; setTimeout(function(){bar.style.display='none'},400); }
+}
+function declineCookies(){
+  var bar = document.getElementById('cookie-bar');
+  if(bar){ bar.style.transform='translateY(100%)'; setTimeout(function(){bar.style.display='none'},400); }
+}
+function showPrivacy(){
+  document.getElementById('privacy-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePrivacy(){
+  document.getElementById('privacy-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+/* ══════════════════════════════════════
+   FAQ ACCORDION
+══════════════════════════════════════ */
+function toggleFaq(item){
+  var isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(i){ i.classList.remove('open'); });
+  if(!isOpen) item.classList.add('open');
+}
+
+/* ══════════════════════════════════════
+   WAITLIST FORM — Formspree (reuse investor endpoint)
+══════════════════════════════════════ */
+function submitWaitlist(){
+  var name  = (document.getElementById('wl-name')  ||{}).value||'';
+  var email = (document.getElementById('wl-email') ||{}).value||'';
+  var phone = (document.getElementById('wl-phone') ||{}).value||'';
+  var interest = (document.getElementById('wl-interest')||{}).value||'';
+  if(!name.trim())  { alert('Please enter your name.');         return; }
+  if(!email.trim()) { alert('Please enter your email address.'); return; }
+  var btn = document.getElementById('wl-btn');
+  var successEl = document.getElementById('wl-success');
+  var errorEl   = document.getElementById('wl-error');
+  btn.textContent='Adding you…'; btn.disabled=true;
+  successEl.style.display='none'; errorEl.style.display='none';
+  var data = new FormData();
+  data.append('_subject','❄ New Waitlist Signup — Winter Mall');
+  data.append('Full Name', name);
+  data.append('email',     email);
+  data.append('Phone',     phone||'Not provided');
+  data.append('Interest',  interest||'Not specified');
+  fetch('https://formspree.io/f/xzdjplzn',{method:'POST',body:data,headers:{'Accept':'application/json'}})
+  .then(function(res){
+    if(res.ok){
+      successEl.style.display='block';
+      btn.textContent="✅ You're on the list!"; btn.style.background='#0e7c4a';
+      ['wl-name','wl-email','wl-phone'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+      document.getElementById('wl-interest').selectedIndex=0;
+    } else { return res.json().then(function(d){throw d;}); }
+  })
+  .catch(function(){ errorEl.style.display='block'; btn.textContent='Join the Waitlist ❄'; btn.disabled=false; btn.style.background=''; });
+}
+
+/* ══════════════════════════════════════
+   INVESTOR DASHBOARD
+══════════════════════════════════════ */
+function checkDashPassword(){
+  var pw = (document.getElementById('dash-pw-input')||{}).value||'';
+  var err = document.getElementById('dash-pw-error');
+  if(pw === 'WM2026Invest'){
+    document.getElementById('dash-lock').style.display    = 'none';
+    document.getElementById('dash-content').style.display = 'block';
+    sessionStorage.setItem('wm-dash-auth','1');
+    err.style.display = 'none';
+  } else {
+    err.style.display = 'block';
+    document.getElementById('dash-pw-input').value = '';
+    document.getElementById('dash-pw-input').focus();
+  }
+}
+function lockDashboard(){
+  sessionStorage.removeItem('wm-dash-auth');
+  go('home');
+}
+// Auto-unlock if already authenticated this session
+(function(){
+  if(sessionStorage.getItem('wm-dash-auth')==='1'){
+    var lock = document.getElementById('dash-lock');
+    var content = document.getElementById('dash-content');
+    if(lock && content){ lock.style.display='none'; content.style.display='block'; }
+  }
+})();
+
+/* ══════════════════════════════════════
+   LANGUAGE TOGGLE — EN / FR
+══════════════════════════════════════ */
+window.wmLang = 'en'; // global scope so all scripts can access
+var wmTranslations = {
+  fr: {
+    "nav-home":     "Accueil",
+    "nav-investor": "Investisseurs",
+    "nav-team":     "Équipe",
+    "nav-about":    "À propos",
+    "nav-gallery":  "Galerie",
+    "nav-book":     "Réserver",
+    "hero-h1-html":  "Vivez l’hiver.<br><span>En Afrique.</span><br>À l’intérieur.",
+    "hero-eyebrow": "❄ Le premier parc de neige et de glace en intérieur en Afrique",
+    "hero-tagline": "Un parc de neige et de glace entièrement en intérieur dans un centre commercial nigérian premium. Vraie neige. Vraie glace. Ouvert 365 jours par an.",
+    "book-btn":     "🎟 Réserver une visite",
+    "invest-btn":   "📊 Portail investisseurs",
+    "nav-home":     "Accueil",
+    "nav-investor": "Investisseurs",
+    "nav-team":     "Équipe",
+    "nav-about":    "À propos",
+    "nav-gallery":  "Galerie",
+    "nav-book":     "Réserver",
+    "daily-lbl":    "Visiteurs / Jour",
+    "monthly-lbl":  "Revenus Mensuels",
+    "loader-tag":   "Premier parc de neige en intérieur en Afrique",
+    "wa-label":     "Discutez avec nous",
+    "partner-btn":  "🤝 Devenir Partenaire"
+  },
+  en: {
+    "nav-home":     "Home",
+    "nav-investor": "Investors",
+    "nav-team":     "Team",
+    "nav-about":    "About",
+    "nav-gallery":  "Gallery",
+    "nav-book":     "Book Now",
+    "hero-h1-html":  "Experience<br><span>Winter.</span><br>Inside.",
+    "hero-eyebrow": "❄ Africa’s First Indoor Snow & Ice Entertainment Park",
+    "hero-tagline": "A fully indoor snow and ice park inside a premium Nigerian mall. Real snow. Real ice. Open 365 days a year — regardless of the weather outside.",
+    "book-btn":     "🎟 Book a Visit",
+    "invest-btn":   "📊 Investor Portal",
+    "nav-home":     "Home",
+    "nav-investor": "Investors",
+    "nav-team":     "Team",
+    "nav-about":    "About",
+    "nav-gallery":  "Gallery",
+    "nav-book":     "Book Now",
+    "daily-lbl":    "Daily Visitors",
+    "monthly-lbl":  "Projected Monthly",
+    "loader-tag":   "Africa’s First Indoor Snow & Ice Park",
+    "wa-label":     "Chat with us",
+    "partner-btn":  "🤝 Partner With Us"
+  }
+};
+function toggleLang(){
+  window.wmLang = window.wmLang === 'en' ? 'fr' : 'en';
+  var btn = document.getElementById('lang-btn');
+  if(btn) btn.innerHTML = window.wmLang === 'en' ? '🇫🇷 FR' : '🇬🇧 EN';
+  try { applyTranslations(); } catch(e){ console.error('Translation error:', e); }
+}
+function applyTranslations(){
+  var t = wmTranslations[window.wmLang] || wmTranslations['en'];
+
+  /* nav links — match by data-p attribute */
+  var navMap = {home:'nav-home', investor:'nav-investor', team:'nav-team', about:'nav-about', gallery:'nav-gallery'};
+  Object.keys(navMap).forEach(function(pg){
+    document.querySelectorAll('[data-p="'+pg+'"]').forEach(function(el){
+      el.textContent = t[navMap[pg]];
+    });
+  });
+
+  /* book now button */
+  document.querySelectorAll('.nav-book').forEach(function(el){
+    el.textContent = t['nav-book'];
+  });
+
+  /* hero heading — use innerHTML to preserve <br> and <span> */
+  var h1 = document.querySelector('.hero-h1');
+  if(h1) h1.innerHTML = t['hero-h1-html'];
+
+  /* hero tagline (subtitle) */
+  var tagline = document.querySelector('.hero-tagline');
+  if(tagline) tagline.textContent = t['hero-tagline'];
+
+  /* hero eyebrow */
+  var eyebrow = document.querySelector('.hero-eyebrow');
+  if(eyebrow) eyebrow.textContent = t['hero-eyebrow'];
+
+  /* CTA buttons - target by position in hero-ctas */
+  var heroBtns = document.querySelectorAll('.hero-ctas .btn');
+  if(heroBtns[0]) heroBtns[0].innerHTML = t['book-btn'];
+  if(heroBtns[1]) heroBtns[1].innerHTML = t['invest-btn'];
+  if(heroBtns[2]) heroBtns[2].innerHTML = t['partner-btn'];
+
+  /* stat card labels */
+  var dl = document.querySelector('.fc-2 .fc-lbl');  if(dl) dl.textContent = t['daily-lbl'];
+  var ml = document.querySelector('.fc-1 .fc-lbl');  if(ml) ml.textContent = t['monthly-lbl'];
+  var mdl = document.querySelector('.hsm-turq .hsm-lbl'); if(mdl) mdl.textContent = t['daily-lbl'];
+  var mml = document.querySelector('.hsm-gold .hsm-lbl'); if(mml) mml.textContent = t['monthly-lbl'];
+
+  /* loader tag */
+  var lt = document.querySelector('.loader-tag'); if(lt) lt.textContent = t['loader-tag'];
+
+  /* WhatsApp label */
+  var wa = document.querySelector('.wa-label'); if(wa) wa.textContent = t['wa-label'];
+}
+
+
 /* ── EVENTS FORM — Formspree AJAX ── */
 function openVVIPEnquiry(){
   var sel = document.getElementById('evt-type');
@@ -1617,5 +2115,39 @@ document.addEventListener('touchend', function(e){
   if(Math.abs(diff) > 50) lbNav(diff > 0 ? 1 : -1);
 },{passive:true});
 </script>
+
+<!-- ═══ WHATSAPP FLOATING BUTTON ═══ -->
+<a id="wa-btn" href="https://wa.me/2347017999900?text=Hi%20Winter%20Mall%2C%20I%27d%20like%20to%20enquire%20about%20visiting%20%2F%20investing." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span class="wa-label">Chat with us</span>
+</a>
+
+<!-- ═══ COOKIE NOTICE ═══ -->
+<div id="cookie-bar">
+  <div class="cookie-inner">
+    <span>🍪 We use cookies to improve your experience. By using this site you agree to our <a href="#" onclick="showPrivacy();return false;">Privacy Policy</a>.</span>
+    <button class="cookie-accept" onclick="acceptCookies()">Accept</button>
+    <button class="cookie-decline" onclick="declineCookies()">Decline</button>
+  </div>
+</div>
+
+<!-- ═══ PRIVACY POLICY MODAL ═══ -->
+<div id="privacy-modal" class="modal-overlay">
+  <div class="modal-box" style="max-width:600px">
+    <button class="modal-close" onclick="closePrivacy()">✕</button>
+    <div class="modal-title">🔒 Privacy Policy</div>
+    <p class="modal-sub">Winter Mall Nigeria Ltd. · RC: 8015501 · Last updated: March 2026</p>
+    <div style="font-size:.82rem;color:var(--ink2);line-height:1.8;max-height:400px;overflow-y:auto;padding-right:8px">
+      <p><strong>1. Data We Collect</strong><br>When you submit an enquiry, booking, membership or event request, we collect your name, email address, phone number, and any details you voluntarily provide in message fields.</p>
+      <p><strong>2. How We Use Your Data</strong><br>Your data is used solely to respond to your enquiry and provide the service you requested. We do not sell, share, or transfer your personal data to third parties except where required by Nigerian law.</p>
+      <p><strong>3. Data Storage</strong><br>Form submissions are processed via Formspree (formspree.io) and delivered to our secure email. We retain data for a maximum of 2 years or until you request deletion.</p>
+      <p><strong>4. Your Rights (NDPR)</strong><br>Under the Nigeria Data Protection Regulation (NDPR) 2019, you have the right to access, correct, or request deletion of your personal data at any time. Contact us at wintermallng@gmail.com.</p>
+      <p><strong>5. Cookies</strong><br>We use essential cookies only — to remember your language preference and session state. No advertising or tracking cookies are used.</p>
+      <p><strong>6. Contact</strong><br>Data Controller: Winter Mall Nigeria Ltd., Lagos, Nigeria.<br>Email: wintermallng@gmail.com · Tel: +234 701 999 9900</p>
+    </div>
+    <button class="btn btn-navy btn-full" onclick="closePrivacy()" style="margin-top:16px">Close</button>
+  </div>
+</div>
+
 </body>
 </html>

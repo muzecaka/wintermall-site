@@ -264,13 +264,19 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeBook
   2. Update the filename in pdfPath below
 */
 function downloadDeck(){
-  const link=document.createElement('a');
-  link.href='assets/WINTERMALL_V3.pdf';
-  link.download='WinterMall-PitchDeck.pdf';
-  link.target='_blank';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  var pw = prompt('🔐 Enter your investor access code to download the pitch deck:');
+  if(pw === null) return; // user cancelled
+  if(pw.trim() === 'WM2026Invest'){
+    const link=document.createElement('a');
+    link.href='assets/WINTERMALL_V3.pdf';
+    link.download='WinterMall-PitchDeck-Confidential.pdf';
+    link.target='_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } else {
+    alert('❌ Incorrect access code.\n\nTo receive your investor access code, please submit an enquiry via the Investor Portal or contact wintermallng@gmail.com');
+  }
 }
 
 
