@@ -1619,3 +1619,39 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
 
 /* 4-column activity table */
 .act-grid-4col .act-row{grid-template-columns:1.4fr 1fr 1fr 1.3fr}
+
+/* ════════════════════════════════════════
+   MEMBERSHIP ENQUIRY FORM
+════════════════════════════════════════ */
+.mem-form-wrap{
+  margin-top:24px;
+  background:var(--bg);
+  border-radius:18px;
+  padding:24px 22px;
+  border:1px solid rgba(0,175,239,.15);
+}
+.mem-form-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;font-weight:700;
+  color:var(--navy);margin-bottom:5px;
+}
+.mem-form-sub{
+  font-size:.8rem;color:var(--ink3);
+  line-height:1.6;margin-bottom:16px;
+}
+.mem-inp{
+  width:100%;box-sizing:border-box;
+  padding:11px 14px;border-radius:12px;
+  border:1.5px solid var(--bg2);
+  background:#fff;
+  font-family:'Outfit',sans-serif;
+  font-size:.85rem;color:var(--navy);
+  outline:none;transition:border .2s;
+  appearance:none;-webkit-appearance:none;
+}
+.mem-inp:focus{border-color:var(--turq)}
+.mem-inp::placeholder{color:var(--ink3)}
+
+@media(max-width:600px){
+  .mem-form-wrap .cf2{grid-template-columns:1fr !important}
+}

@@ -1300,8 +1300,53 @@
         <div class="act-disclaimer">Annual memberships are non-refundable once issued. In the event of a facility closure exceeding 14 consecutive days, membership validity will be extended by an equivalent period at no additional charge. Memberships are not transferable, shareable, or redeemable for cash.</div>
       </div>
 
-      <div style="margin-top:20px;text-align:center">
-        <a href="mailto:wintermallng@gmail.com?subject=Membership Enquiry" class="btn btn-navy" style="text-decoration:none;display:inline-flex">✉ Enquire About Membership</a>
+      <!-- MEMBERSHIP ENQUIRY FORM — live via Formspree -->
+      <div class="mem-form-wrap">
+        <div class="mem-form-title">💎 Register Your Interest</div>
+        <p class="mem-form-sub">Fill in your details below and our team will contact you within 24 hours to complete your membership setup.</p>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="cf2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input class="mem-inp" type="text"  id="mem-name"  placeholder="Full Name *" required>
+            <input class="mem-inp" type="email" id="mem-email" placeholder="Email Address *" required>
+          </div>
+          <input class="mem-inp" type="tel" id="mem-phone" placeholder="Phone Number *" required>
+
+          <select class="mem-inp" id="mem-tier">
+            <option value="" disabled selected>Select Membership Tier *</option>
+            <option>🥈 Silver — Adult (₦35,000/mo)</option>
+            <option>🥈 Silver — Junior (₦25,000/mo)</option>
+            <option>🥇 Gold — Adult (₦55,000/mo)</option>
+            <option>🥇 Gold — Junior (₦40,000/mo)</option>
+            <option>💎 Platinum — Adult (₦85,000/mo)</option>
+            <option>💎 Platinum — Junior (₦60,000/mo)</option>
+          </select>
+
+          <select class="mem-inp" id="mem-billing">
+            <option value="" disabled selected>Billing Preference</option>
+            <option>Monthly</option>
+            <option>Annual (2 months free)</option>
+          </select>
+
+          <input class="mem-inp" type="text" id="mem-members" placeholder="Number of memberships (e.g. 1 Adult + 1 Junior)">
+          <textarea class="mem-inp" id="mem-msg" rows="2" placeholder="Any questions or special requirements?" style="resize:none"></textarea>
+
+          <!-- success / error banners -->
+          <div id="mem-success" style="display:none;background:rgba(14,124,74,.1);border:1px solid rgba(14,124,74,.35);border-radius:12px;padding:13px 16px;font-size:.82rem;color:#0e7c4a;line-height:1.6">
+            ✅ <strong>Registration received!</strong> Our team will contact you within 24 hours to finalise your membership. Welcome to Winter Mall ❄
+          </div>
+          <div id="mem-error" style="display:none;background:rgba(220,50,50,.08);border:1px solid rgba(220,50,50,.3);border-radius:12px;padding:13px 16px;font-size:.82rem;color:#c0392b;line-height:1.6">
+            ⚠️ Something went wrong. Please try again or email us at wintermallng@gmail.com
+          </div>
+
+          <button class="btn btn-navy btn-full" id="mem-submit-btn" onclick="submitMembership()" style="margin-top:4px">
+            Register Interest →
+          </button>
+        </div>
+
+        <p style="font-size:.7rem;color:var(--ink3);text-align:center;margin-top:12px;line-height:1.6">
+          By submitting you agree to be contacted by Winter Mall Nigeria Ltd. regarding your membership. No payment is taken at this stage.
+        </p>
       </div>
     </div><!-- /mtab-memberships -->
 
@@ -1310,7 +1355,68 @@
 
 <script src="css/main.js"></script>
 <script>
-/* ── MODAL TAB SWITCHER (inline guarantee) ── */
+/* ── MEMBERSHIP FORM — Formspree AJAX ── */
+function submitMembership(){
+  var name    = (document.getElementById('mem-name')    || {}).value || '';
+  var email   = (document.getElementById('mem-email')   || {}).value || '';
+  var phone   = (document.getElementById('mem-phone')   || {}).value || '';
+  var tier    = (document.getElementById('mem-tier')    || {}).value || '';
+  var billing = (document.getElementById('mem-billing') || {}).value || '';
+  var members = (document.getElementById('mem-members') || {}).value || '';
+  var msg     = (document.getElementById('mem-msg')     || {}).value || '';
+
+  if(!name.trim())  { alert('Please enter your full name.');      return; }
+  if(!email.trim()) { alert('Please enter your email address.');  return; }
+  if(!phone.trim()) { alert('Please enter your phone number.');   return; }
+  if(!tier)         { alert('Please select a membership tier.');  return; }
+
+  var btn       = document.getElementById('mem-submit-btn');
+  var successEl = document.getElementById('mem-success');
+  var errorEl   = document.getElementById('mem-error');
+  btn.textContent = 'Sending…';
+  btn.disabled    = true;
+  successEl.style.display = 'none';
+  errorEl.style.display   = 'none';
+
+  var data = new FormData();
+  data.append('_subject',            '💎 New Membership Registration — Winter Mall');
+  data.append('Full Name',           name);
+  data.append('email',               email);
+  data.append('Phone Number',        phone);
+  data.append('Membership Tier',     tier);
+  data.append('Billing Preference',  billing || 'Not specified');
+  data.append('Number of Members',   members || 'Not specified');
+  data.append('Message',             msg     || 'None');
+
+  fetch('https://formspree.io/f/xlgprkwe', {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  })
+  .then(function(res){
+    if(res.ok){
+      successEl.style.display = 'block';
+      btn.textContent = '✅ Registered!';
+      btn.style.background = '#0e7c4a';
+      /* reset */
+      ['mem-name','mem-email','mem-phone','mem-members','mem-msg'].forEach(function(id){
+        var el = document.getElementById(id); if(el) el.value = '';
+      });
+      document.getElementById('mem-tier').selectedIndex    = 0;
+      document.getElementById('mem-billing').selectedIndex = 0;
+    } else {
+      return res.json().then(function(d){ throw d; });
+    }
+  })
+  .catch(function(){
+    errorEl.style.display = 'block';
+    btn.textContent  = 'Register Interest →';
+    btn.disabled     = false;
+    btn.style.background = '';
+  });
+}
+
+
 function switchModalTab(btn, tabId){
   document.querySelectorAll('.modal-tab').forEach(function(t){ t.classList.remove('active'); });
   document.querySelectorAll('.modal-tab-content').forEach(function(t){ t.classList.remove('active'); });
