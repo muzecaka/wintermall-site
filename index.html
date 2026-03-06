@@ -1103,8 +1103,8 @@
           </div>
 
           <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
-            <a href="mailto:wintermallng@gmail.com?subject=VVIP After-Hours Enquiry" class="btn btn-gold" style="text-decoration:none;font-size:.82rem;padding:11px 20px">✨ Enquire Now</a>
-            <a href="tel:+2347017999900" class="btn btn-outline-light" style="font-size:.82rem;padding:11px 20px">📞 Call Us</a>
+            <a href="#" class="btn btn-gold" style="text-decoration:none;font-size:.82rem;padding:11px 20px" onclick="openVVIPEnquiry();return false;">✨ Enquire Now</a>
+            <a href="tel:+2347017999900" class="btn btn-outline-light" style="font-size:.82rem;padding:11px 20px;text-decoration:none">📞 Call Us</a>
           </div>
         </div>
 
@@ -1164,13 +1164,56 @@
 
       </div>
 
-      <div style="margin-top:24px;background:var(--bg);border-radius:16px;padding:20px;border:1px solid rgba(0,175,239,.15)">
-        <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--turq-dark);margin-bottom:10px">📩 Enquire About an Event</div>
-        <p style="font-size:.82rem;color:var(--ink3);margin-bottom:14px">All events confirmed within 24 hours. We'll reach out with a full proposal tailored to your occasion.</p>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <a href="mailto:wintermallng@gmail.com" class="btn btn-navy" style="font-size:.82rem;padding:10px 20px;text-decoration:none">✉ wintermallng@gmail.com</a>
-          <a href="tel:+2347017999900" class="btn btn-outline" style="font-size:.82rem;padding:10px 20px;text-decoration:none">📞 +234 701 999 9900</a>
+      <!-- EVENTS ENQUIRY FORM — live via Formspree -->
+      <div class="mem-form-wrap" style="margin-top:24px">
+        <div class="mem-form-title">📩 Enquire About an Event</div>
+        <p class="mem-form-sub">All events confirmed within 24 hours. Fill in the details below and we'll send you a full proposal tailored to your occasion.</p>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="cf2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input class="mem-inp" type="text"  id="evt-name"  placeholder="Full Name *" required>
+            <input class="mem-inp" type="email" id="evt-email" placeholder="Email Address *" required>
+          </div>
+          <div class="cf2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input class="mem-inp" type="tel"  id="evt-phone" placeholder="Phone Number *" required>
+            <input class="mem-inp" type="text" id="evt-org"   placeholder="Organisation / Company">
+          </div>
+
+          <select class="mem-inp" id="evt-type">
+            <option value="" disabled selected>Event Type *</option>
+            <option>🌙 VVIP After-Hours (Full Park · 8pm–Midnight)</option>
+            <option>🎂 Birthday Party</option>
+            <option>🏫 School Excursion</option>
+            <option>🎵 Music Video Shoot</option>
+            <option>🎬 Movie / Film Scene</option>
+            <option>💍 Pre-Wedding Shoot</option>
+            <option>🎤 Corporate Event / Team Day</option>
+            <option>Other — please describe below</option>
+          </select>
+
+          <div class="cf2" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <input class="mem-inp" type="date" id="evt-date"  placeholder="Preferred Date">
+            <input class="mem-inp" type="text" id="evt-guests" placeholder="Estimated Guest Count">
+          </div>
+
+          <textarea class="mem-inp" id="evt-msg" rows="3" placeholder="Tell us more — theme, requirements, special requests…" style="resize:none"></textarea>
+
+          <!-- success / error banners -->
+          <div id="evt-success" style="display:none;background:rgba(14,124,74,.1);border:1px solid rgba(14,124,74,.35);border-radius:12px;padding:13px 16px;font-size:.82rem;color:#0e7c4a;line-height:1.6">
+            ✅ <strong>Enquiry received!</strong> Our events team will contact you within 24 hours with availability and a full proposal. ❄
+          </div>
+          <div id="evt-error" style="display:none;background:rgba(220,50,50,.08);border:1px solid rgba(220,50,50,.3);border-radius:12px;padding:13px 16px;font-size:.82rem;color:#c0392b;line-height:1.6">
+            ⚠️ Something went wrong. Please try again or call us on +234 701 999 9900.
+          </div>
+
+          <button class="btn btn-navy btn-full" id="evt-submit-btn" onclick="submitEventEnquiry()" style="margin-top:4px">
+            Send Enquiry →
+          </button>
         </div>
+
+        <p style="font-size:.7rem;color:var(--ink3);text-align:center;margin-top:12px;line-height:1.6">
+          No payment is taken at this stage. All enquiries are responded to within 24 hours.
+        </p>
       </div>
     </div><!-- /mtab-events -->
 
@@ -1355,6 +1398,53 @@
 
 <script src="css/main.js"></script>
 <script>
+/* ── EVENTS FORM — Formspree AJAX ── */
+function openVVIPEnquiry(){
+  var sel = document.getElementById('evt-type');
+  if(sel) sel.selectedIndex = 1;
+  var btn = document.getElementById('evt-submit-btn');
+  if(btn) btn.scrollIntoView({behavior:'smooth',block:'center'});
+}
+function submitEventEnquiry(){
+  var name   = (document.getElementById('evt-name')   ||{}).value||'';
+  var email  = (document.getElementById('evt-email')  ||{}).value||'';
+  var phone  = (document.getElementById('evt-phone')  ||{}).value||'';
+  var org    = (document.getElementById('evt-org')    ||{}).value||'';
+  var type   = (document.getElementById('evt-type')   ||{}).value||'';
+  var date   = (document.getElementById('evt-date')   ||{}).value||'';
+  var guests = (document.getElementById('evt-guests') ||{}).value||'';
+  var msg    = (document.getElementById('evt-msg')    ||{}).value||'';
+  if(!name.trim())  {alert('Please enter your full name.');return;}
+  if(!email.trim()) {alert('Please enter your email address.');return;}
+  if(!phone.trim()) {alert('Please enter your phone number.');return;}
+  if(!type)         {alert('Please select an event type.');return;}
+  var btn=document.getElementById('evt-submit-btn');
+  var successEl=document.getElementById('evt-success');
+  var errorEl=document.getElementById('evt-error');
+  btn.textContent='Sending…';btn.disabled=true;
+  successEl.style.display='none';errorEl.style.display='none';
+  var data=new FormData();
+  data.append('_subject',      '🎉 New Event Enquiry — Winter Mall');
+  data.append('Full Name',     name);
+  data.append('email',         email);
+  data.append('Phone Number',  phone);
+  data.append('Organisation',  org||'Not provided');
+  data.append('Event Type',    type);
+  data.append('Preferred Date',date||'Not specified');
+  data.append('Guest Count',   guests||'Not specified');
+  data.append('Message',       msg||'None');
+  fetch('https://formspree.io/f/mqeyzoyz',{method:'POST',body:data,headers:{'Accept':'application/json'}})
+  .then(function(res){
+    if(res.ok){
+      successEl.style.display='block';
+      btn.textContent='✅ Enquiry Sent!';btn.style.background='#0e7c4a';
+      ['evt-name','evt-email','evt-phone','evt-org','evt-date','evt-guests','evt-msg'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+      document.getElementById('evt-type').selectedIndex=0;
+    } else {return res.json().then(function(d){throw d;});}
+  })
+  .catch(function(){errorEl.style.display='block';btn.textContent='Send Enquiry →';btn.disabled=false;btn.style.background='';});
+}
+
 /* ── MEMBERSHIP FORM — Formspree AJAX ── */
 function submitMembership(){
   var name    = (document.getElementById('mem-name')    || {}).value || '';
