@@ -499,12 +499,12 @@ body{
 .dtable{background:#fff;border-radius:var(--r2);overflow:hidden;box-shadow:var(--sh);border:1px solid rgba(158,220,255,.18)}
 .dtable-hdr{
   background:var(--navy);padding:18px 28px;
-  display:grid;grid-template-columns:56px 1fr 90px 90px 90px 90px;gap:10px;
+  display:grid;grid-template-columns:56px 1fr 100px 100px 90px 90px 90px 90px;gap:10px;
 }
 .dtable-hdr span{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.5)}
 .dtable-row{
   padding:16px 28px;
-  display:grid;grid-template-columns:56px 1fr 90px 90px 90px 90px;gap:10px;
+  display:grid;grid-template-columns:56px 1fr 90px 90px 90px 90px 90px 90px;gap:10px;
   border-bottom:1px solid var(--bg2);align-items:center;transition:background .15s;
 }
 .dtable-row:hover{background:var(--bg)}
@@ -1109,6 +1109,12 @@ footer{background:var(--navy);padding:60px 4% 28px;position:relative;z-index:1}
 }
 .clause-body{
   font-size:.85rem;color:var(--ink2);line-height:1.75;
+}
+.capital-bold{
+  display: inline-block;
+  font-weight: bold;
+  font-size: large;
+  margin-top: 15px;
 }
 .legal-cta{
   margin-top:28px;
