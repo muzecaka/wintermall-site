@@ -23,32 +23,33 @@ wintermall-site/
 
 ---
 
-## 🎬 HOW TO ADD YOUR 3D VIDEO (Hero Section)
+## 🎬 HERO VIDEO — "THE PROJECT"
 
-1. Save your video file into `/assets/`
-   - Recommended format: **MP4** (works on all browsers)
-   - Name it e.g. `wintermall-3d.mp4`
+The hero plays a silent loop of `assets/wintermall-3d.mp4`, only between
+`data-loop-start="145"` and `data-loop-end="175"` (seconds), which skips the intro.
+The **▶ Watch the full 3D tour** button opens the whole video with sound.
 
-2. Open `index.html` in VS Code
+- **Change the loop:** edit the two numbers on `<video id="hero-video" …>` in `index.html`.
+- **After launch (real footage):** drop the new MP4 into `/assets/`, change the
+  `<source src>` inside `<video id="hero-video">`, and delete the two `data-loop-…`
+  attributes so the whole clip loops.
 
-3. Find this comment block in the hero section:
-   ```
-   <!-- ↓ REPLACE THIS BLOCK WITH YOUR VIDEO -->
-   <div class="hf-inner">
-     ...
-   </div>
-   <!-- ↑ REPLACE THIS BLOCK WITH YOUR VIDEO -->
-   ```
+---
 
-4. Delete the entire `<div class="hf-inner">...</div>` block
+## 📸 VISITOR MOMENTS — SOCIAL WALL AT LAUNCH
 
-5. Paste this in its place:
-   ```html
-   <video autoplay muted loop playsinline
-     style="width:100%;height:100%;object-fit:cover;border-radius:32px">
-     <source src="assets/wintermall-3d.mp4" type="video/mp4">
-   </video>
-   ```
+The **Visitor Moments** section shows placeholder tiles + the hashtag until you open.
+At launch:
+
+1. Create a free social wall at Curator.io, Juicer.io or Elfsight that pulls
+   Instagram/TikTok posts for **#WinterMallLagos** and @wintermallng.
+   Turn on **moderation** so only approved posts appear.
+2. Copy the embed code it gives you.
+3. In `index.html`, find `<div id="moments-feed">`, delete the whole
+   `<div class="moments-placeholder">…</div>` block inside it, and paste the embed code there.
+
+**Changing the hashtag:** search `index.html` for `WinterMallLagos` and replace every
+match (it appears in the text, the copy button and the translations).
 
 ---
 

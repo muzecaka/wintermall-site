@@ -86,8 +86,10 @@ var wmT = {
   /* HOME — Attractions */
   "exp-eye":         ["🏔 Experiences", "🏔 Expériences"],
   "whats-inside-h2": ["What's Inside",  "Ce qui se trouve à l'intérieur"],
-  "whats-inside-p":  ["Six world-class zones. One address in Lagos.",
-                      "Six zones de classe mondiale. Une adresse à Lagos."],
+  "whats-inside-p":  [
+    "Five zones packed with real-snow attractions — tap a category to explore. One address in Lagos.",
+    "Cinq zones remplies d'attractions en vraie neige — touchez une catégorie pour explorer. Une adresse à Lagos."
+  ],
 
   /* HOME — Who Comes */
   "who-eye": ["👥 Who Comes",       "👥 Qui vient"],
@@ -97,13 +99,23 @@ var wmT = {
     "Des familles aux entreprises — Winter Mall est une destination pour tous les segments de la société nigériane."
   ],
 
-  /* HOME — Virtual Tour */
-  "tour-eye": ["🎬 Virtual Tour",         "🎬 Visite Virtuelle"],
-  "tour-h2":  ["See It Before You Visit", "Découvrez avant votre visite"],
-  "tour-p":   [
-    "Step inside Africa's first indoor snow park — a sneak preview of what awaits you.",
-    "Entrez dans le premier parc de neige en intérieur d'Afrique — un avant-goût de ce qui vous attend."
+  /* HOME — Hero video button */
+  "hero-watch": ["▶ Watch the full 3D tour", "▶ Voir la visite 3D complète"],
+
+  /* HOME — Visitor Moments */
+  "moments-eye":   ["📸 Visitor Moments",        "📸 Moments des visiteurs"],
+  "moments-h2":    ["Your Winter Mall Moments", "Vos moments à Winter Mall"],
+  "moments-p":     [
+    "Once we open, this wall fills with real photos and videos from our visitors. Post yours with #WinterMallLagos or tag @wintermallng to be featured here.",
+    "Dès l'ouverture, ce mur se remplira de vraies photos et vidéos de nos visiteurs. Publiez les vôtres avec #WinterMallLagos ou identifiez @wintermallng pour apparaître ici."
   ],
+  "moments-badge": ["Launching with the park · 2026", "Lancement avec le parc · 2026"],
+  "mstep1-h": ["Visit Winter Mall", "Visitez Winter Mall"],
+  "mstep1-p": ["Skate, slide and play in real snow.", "Patinez, glissez et jouez dans la vraie neige."],
+  "mstep2-h": ["Post your moment", "Publiez votre moment"],
+  "mstep2-p": ["Share on Instagram or TikTok with #WinterMallLagos.", "Partagez sur Instagram ou TikTok avec #WinterMallLagos."],
+  "mstep3-h": ["Get featured", "Soyez à l'affiche"],
+  "mstep3-p": ["Our team picks the best posts for this wall.", "Notre équipe sélectionne les meilleures publications pour ce mur."],
 
   /* HOME — Press */
   "press-eye": ["📰 Press & Recognition",         "📰 Presse & Reconnaissance"],
@@ -288,12 +300,16 @@ function applyTranslations(){
     <div class="hero-r">
       <div class="hero-frame">
         <div class="hero-frame-main">
-          <!-- ↓ REPLACE THIS BLOCK WITH YOUR VIDEO (see comment above) -->
-          <video autoplay muted loop playsinline preload="none"
+          <!-- ↓ HERO VIDEO — "The Project". Plays a silent loop of the 3D tour between
+               data-loop-start and data-loop-end (seconds). After launch, swap the
+               source for real park footage and remove the two data-loop attributes. -->
+          <video id="hero-video" autoplay muted loop playsinline preload="metadata"
+              poster="images/hero.jpg" data-loop-start="145" data-loop-end="175"
               style="width:100%;height:100%;object-fit:cover;border-radius:32px">
               <source src="assets/wintermall-3d.mp4" type="video/mp4">
           </video>
-          <!-- ↑ REPLACE THIS BLOCK WITH YOUR VIDEO -->
+          <!-- ↑ HERO VIDEO -->
+          <button class="hero-watch" onclick="openTourVideo()" data-i18n="hero-watch">▶ Watch the full 3D tour</button>
         </div>
         <div class="fc fc-1">
           <div class="fc-lbl">Projected Monthly</div>
@@ -323,6 +339,12 @@ function applyTranslations(){
     <div class="sec-eye dark" data-i18n="concept-eye">❄ Concept</div>
     <h2 class="sec-h2" data-i18n="what-is-h2">What Is Winter Mall?</h2>
     <p class="sec-p" data-i18n="what-is-p">A fully indoor snow and ice park featuring ice skating, snow slides, snow play zones, food & beverage, and event hosting — installed inside a premium Nigerian mall.</p>
+    <div class="tour-stat-grid fact-strip">
+      <div class="tour-stat"><div class="tour-stat-v">600m²</div><div class="tour-stat-l">Snow Park Floor Area</div></div>
+      <div class="tour-stat"><div class="tour-stat-v">−21°C</div><div class="tour-stat-l">Minimum Temperature</div></div>
+      <div class="tour-stat"><div class="tour-stat-v">5</div><div class="tour-stat-l">Experience Zones</div></div>
+      <div class="tour-stat"><div class="tour-stat-v">365</div><div class="tour-stat-l">Days Open Per Year</div></div>
+    </div>
     <div class="cards3">
       <div class="gcard">
         <span class="gcard-icon">❄️</span>
@@ -346,29 +368,93 @@ function applyTranslations(){
   <section class="sec sec-ice">
     <div class="sec-eye dark tc" data-i18n="exp-eye">🏔 Experiences</div>
     <h2 class="sec-h2 tc" data-i18n="whats-inside-h2">What's Inside</h2>
-    <p class="sec-p tc" data-i18n="whats-inside-p">Six world-class zones. One address in Lagos.</p>
+    <p class="sec-p tc" data-i18n="whats-inside-p">Five zones packed with real-snow attractions — tap a category to explore. One address in Lagos.</p>
+
+    <!-- Filter chips: data-zone on each tile must match one of these -->
+    <div class="att-filters" role="group" aria-label="Filter attractions">
+      <button class="att-chip on" onclick="attFilter(this,'all')">All</button>
+      <button class="att-chip" onclick="attFilter(this,'ice')">❄️ Ice</button>
+      <button class="att-chip" onclick="attFilter(this,'snow')">☃️ Snow</button>
+      <button class="att-chip" onclick="attFilter(this,'kids')">🧒 Kids</button>
+      <button class="att-chip" onclick="attFilter(this,'relax')">☕ Relax &amp; Eat</button>
+    </div>
+
+    <!-- To change a tile's picture, edit its <img src>. Keep the files in /images/ -->
     <div class="att-grid">
-      <div class="att" style="background:linear-gradient(155deg,#1565a8,#0B2D45)">
-        <div class="att-bg"><div class="att-emoji">⛸️</div><div class="att-name">Ice Skating Rink</div></div>
+      <div class="att" data-zone="ice" style="--tint:#1565a8">
+        <img class="att-img" src="images/dance.jpg" alt="Ice skating rink" loading="lazy">
+        <span class="att-tag">❄️ Ice</span>
+        <div class="att-bg"><div class="att-emoji">⛸️</div><div class="att-name">Ice Skating Rink</div><p class="att-desc">Glide on real ice — skates provided, lessons for first-timers.</p></div>
         <div class="att-shine"></div>
       </div>
-      <div class="att" style="background:linear-gradient(155deg,#1a7b5a,#0d3d2a)">
-        <div class="att-bg"><div class="att-emoji">🧒</div><div class="att-name">Snow Play Zone</div></div>
+      <div class="att" data-zone="ice" style="--tint:#0a7fa3">
+        <img class="att-img" src="images/slide.jpg" alt="Ice slides" loading="lazy">
+        <span class="att-tag">❄️ Ice</span>
+        <div class="att-bg"><div class="att-emoji">🛷</div><div class="att-name">Ice Slides</div><p class="att-desc">Race down frozen slides on a sled.</p></div>
         <div class="att-shine"></div>
       </div>
-      <div class="att" style="background:linear-gradient(155deg,#0a7fa3,#0B2D45)">
-        <div class="att-bg"><div class="att-emoji">🛷</div><div class="att-name">Ice Slides</div></div>
+      <div class="att" data-zone="ice" style="--tint:#b3261e">
+        <img class="att-img" src="images/tubing.jpg" alt="Ice bumper cars" loading="lazy">
+        <span class="att-tag">❄️ Ice</span>
+        <div class="att-bg"><div class="att-emoji">🚗</div><div class="att-name">Ice Bumper Cars</div><p class="att-desc">Bump and spin across the ice with friends.</p></div>
         <div class="att-shine"></div>
       </div>
-      <div class="att" style="background:linear-gradient(155deg,#7b3a8a,#3d1a50)">
-        <div class="att-bg"><div class="att-emoji">🎉</div><div class="att-name">Events & Parties</div></div>
+      <div class="att" data-zone="ice" style="--tint:#3d5a80">
+        <img class="att-img" src="images/climbing.jpg" alt="Ice climbing wall" loading="lazy">
+        <span class="att-tag">❄️ Ice</span>
+        <div class="att-bg"><div class="att-emoji">🧗</div><div class="att-name">Ice Climbing Wall</div><p class="att-desc">Climb a frozen rock face, safely roped in.</p></div>
         <div class="att-shine"></div>
       </div>
-      <div class="att" style="background:linear-gradient(155deg,#8a5a1a,#4d2f08)">
-        <div class="att-bg"><div class="att-emoji">🍔</div><div class="att-name">Food & Beverage</div></div>
+      <div class="att" data-zone="snow" style="--tint:#5b4bb7">
+        <img class="att-img" src="images/bumper.jpg" alt="Snow tubing lanes" loading="lazy">
+        <span class="att-tag">☃️ Snow</span>
+        <div class="att-bg"><div class="att-emoji">🍩</div><div class="att-name">Snow Tubing</div><p class="att-desc">Slide down the snow lanes in an inflatable tube.</p></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" data-zone="snow" style="--tint:#2e7d6b">
+        <img class="att-img" src="images/sensory.jpg" alt="Snow tubing carousel" loading="lazy">
+        <span class="att-tag">☃️ Snow</span>
+        <div class="att-bg"><div class="att-emoji">🎠</div><div class="att-name">Tubing Carousel</div><p class="att-desc">Spin round the snow on a tube carousel.</p></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" data-zone="snow" style="--tint:#455a64">
+        <img class="att-img" src="images/play.jpg" alt="Snow cave trail with snowmen" loading="lazy">
+        <span class="att-tag">☃️ Snow</span>
+        <div class="att-bg"><div class="att-emoji">🏔</div><div class="att-name">Snow Cave Trail</div><p class="att-desc">Wander an icy cave lined with snowmen.</p></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" data-zone="kids" style="--tint:#1a7b5a">
+        <img class="att-img" src="images/kidzone.jpg" alt="Snow play zone" loading="lazy">
+        <span class="att-tag">🧒 Kids</span>
+        <div class="att-bg"><div class="att-emoji">⛄</div><div class="att-name">Snow Play Zone</div><p class="att-desc">Build snowmen and throw snowballs in real snow.</p></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" data-zone="kids" style="--tint:#b8860b">
+        <img class="att-img" src="images/crane.jpg" alt="Mini snow diggers for children" loading="lazy">
+        <span class="att-tag">🧒 Kids</span>
+        <div class="att-bg"><div class="att-emoji">🚜</div><div class="att-name">Snow Diggers</div><p class="att-desc">Little ones drive mini excavators through the snow.</p></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" data-zone="relax" style="--tint:#a0522d">
+        <img class="att-img" src="images/cinema.jpg" alt="Fireside lodge" loading="lazy">
+        <span class="att-tag">☕ Relax</span>
+        <div class="att-bg"><div class="att-emoji">🔥</div><div class="att-name">Fireside Lodge</div><p class="att-desc">Warm up by the fire between sessions.</p></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" data-zone="relax" style="--tint:#8a5a1a">
+        <img class="att-img" src="images/restaurant.jpg" alt="Food and beverage area" loading="lazy">
+        <span class="att-tag">☕ Eat</span>
+        <div class="att-bg"><div class="att-emoji">🍔</div><div class="att-name">Food &amp; Beverage</div><p class="att-desc">Hot drinks, meals and snacks with a view of the snow.</p></div>
+        <div class="att-shine"></div>
+      </div>
+      <div class="att" data-zone="relax" style="--tint:#2f6b3a">
+        <img class="att-img" src="images/mech.jpg" alt="Gift shop" loading="lazy">
+        <span class="att-tag">🛍️ Shop</span>
+        <div class="att-bg"><div class="att-emoji">🎁</div><div class="att-name">Gift Shop</div><p class="att-desc">Toys, souvenirs and gift vouchers to take home.</p></div>
         <div class="att-shine"></div>
       </div>
     </div>
+    <p class="att-note tc">Planning a party, school trip or corporate day? <a onclick="openBooking();switchModalTab(document.querySelectorAll('.modal-tab')[2],'mtab-events')">See events &amp; private hire →</a></p>
   </section>
 
   <!-- TARGET AUDIENCE -->
@@ -376,7 +462,7 @@ function applyTranslations(){
     <div class="sec-eye dark" data-i18n="who-eye">👥 Who Comes</div>
     <h2 class="sec-h2" data-i18n="who-h2">Built for Everyone</h2>
     <p class="sec-p" data-i18n="who-p">From families to corporates — Winter Mall is a destination for every segment of Nigerian society.</p>
-    <div class="cards3" style="grid-template-columns:repeat(3,1fr)">
+    <div class="cards3">
       <div class="gcard"><span class="gcard-icon">👨‍👩‍👧‍👦</span><div class="gcard-h">Families</div><p class="gcard-p">A weekly destination. Children experience real snow for the first time. Parents finally have a world-class outing option in Lagos.</p></div>
       <div class="gcard"><span class="gcard-icon">🏫</span><div class="gcard-h">Schools & Field Trips</div><p class="gcard-p">Curriculum-linked educational visits. Bulk booking packages. Transport coordination. A learning experience like nothing in West Africa.</p></div>
       <div class="gcard"><span class="gcard-icon">🏢</span><div class="gcard-h">Corporate & Events</div><p class="gcard-p">Private zone hire. Team away days. Product launches. Music & movie shoots. Sponsorship and naming rights packages available.</p></div>
@@ -385,40 +471,38 @@ function applyTranslations(){
 
 
 
-  <!-- ═══ VIRTUAL TOUR ═══ -->
-  <section class="sec sec-bg" id="virtual-tour">
-    <div class="sec-eye dark tc" data-i18n="tour-eye">🎬 Virtual Tour</div>
-    <h2 class="sec-h2 tc" data-i18n="tour-h2">See It Before You Visit</h2>
-    <p class="sec-p tc" data-i18n="tour-p">Step inside Africa's first indoor snow park — a sneak preview of what awaits you.</p>
-    <div class="tour-wrap">
-      <div class="tour-video-box">
-        <video autoplay muted loop playsinline class="tour-video">
-          <source src="assets/wintermall-3d.mp4" type="video/mp4">
-        </video>
-        <div class="tour-overlay">
-          <div class="tour-badge">❄ 3D Preview</div>
-          <div class="tour-zones">
-            <div class="tz">🏒 Ice Skating Rink</div>
-            <div class="tz">🛝 Ice Slides</div>
-            <div class="tz">⛄ Snow Play Zone</div>
-            <div class="tz">🎉 Events Area</div>
-            <div class="tz">🍽 Food & Beverage</div>
-          </div>
+  <!-- ═══ VISITOR MOMENTS ═══
+       Pre-launch: placeholder tiles + hashtag.
+       AT LAUNCH: paste your social-wall widget code (Curator.io / Juicer /
+       Elfsight) inside <div id="moments-feed"> and delete the
+       <div class="moments-placeholder"> block. See README.
+       To change the hashtag, search index.html for WinterMallLagos. -->
+  <section class="sec sec-bg" id="visitor-moments">
+    <div class="sec-eye dark tc" data-i18n="moments-eye">📸 Visitor Moments</div>
+    <h2 class="sec-h2 tc" data-i18n="moments-h2">Your Winter Mall Moments</h2>
+    <p class="sec-p tc" data-i18n="moments-p">Once we open, this wall fills with real photos and videos from our visitors. Post yours with #WinterMallLagos or tag @wintermallng to be featured here.</p>
+
+    <div class="moments-hashtag">
+      <button class="moments-tag" onclick="copyHashtag(this)" data-tag="#WinterMallLagos" title="Copy hashtag">#WinterMallLagos <span class="moments-copy">Copy</span></button>
+    </div>
+
+    <div id="moments-feed">
+      <div class="moments-placeholder">
+        <div class="moments-grid" aria-hidden="true">
+          <div class="mom-tile"><span class="mom-ico">⛸️</span><span class="mom-cap">First time on ice</span></div>
+          <div class="mom-tile"><span class="mom-ico">☃️</span><span class="mom-cap">Snowball fight</span></div>
+          <div class="mom-tile"><span class="mom-ico">👨‍👩‍👧</span><span class="mom-cap">Family day out</span></div>
+          <div class="mom-tile"><span class="mom-ico">🎂</span><span class="mom-cap">Birthday in the snow</span></div>
+          <div class="mom-tile"><span class="mom-ico">🛷</span><span class="mom-cap">Slide race</span></div>
+          <div class="mom-tile"><span class="mom-ico">🎥</span><span class="mom-cap">Your video here</span></div>
         </div>
       </div>
-      <div class="tour-info">
-        <div class="tour-stat-grid">
-          <div class="tour-stat"><div class="tour-stat-v">600m²</div><div class="tour-stat-l">Snow Park Floor Area</div></div>
-          <div class="tour-stat"><div class="tour-stat-v">−21°C</div><div class="tour-stat-l">Minimum Temperature</div></div>
-          <div class="tour-stat"><div class="tour-stat-v">5</div><div class="tour-stat-l">Experience Zones</div></div>
-          <div class="tour-stat"><div class="tour-stat-v">365</div><div class="tour-stat-l">Days Open Per Year</div></div>
-        </div>
-        <p style="font-size:.85rem;color:var(--ink2);line-height:1.75;margin-top:16px">From the moment you step in, temperature drops and the world outside Lagos disappears. Five distinct zones. Real snow underfoot. Real ice to skate on. Designed for every age, every occasion, every season.</p>
-        <div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
-          <button class="btn btn-navy" onclick="openBooking()">🎟 Book a Visit</button>
-          <button class="btn btn-outline" onclick="go('gallery')">📸 See Gallery</button>
-        </div>
-      </div>
+    </div>
+
+    <div class="moments-steps">
+      <div class="mstep"><span class="mstep-n">1</span><div><strong data-i18n="mstep1-h">Visit Winter Mall</strong><p data-i18n="mstep1-p">Skate, slide and play in real snow.</p></div></div>
+      <div class="mstep"><span class="mstep-n">2</span><div><strong data-i18n="mstep2-h">Post your moment</strong><p data-i18n="mstep2-p">Share on Instagram or TikTok with #WinterMallLagos.</p></div></div>
+      <div class="mstep"><span class="mstep-n">3</span><div><strong data-i18n="mstep3-h">Get featured</strong><p data-i18n="mstep3-p">Our team picks the best posts for this wall.</p></div></div>
     </div>
   </section>
 
@@ -1413,6 +1497,17 @@ function applyTranslations(){
     </div>
   </div>
 </div>
+
+<!-- FULL 3D TOUR VIDEO (opened from the hero button) -->
+<div id="video-modal" class="modal-overlay" onclick="if(event.target===this)closeTourVideo()">
+  <div class="video-box">
+    <button class="modal-close" onclick="closeTourVideo()" aria-label="Close video">✕</button>
+    <video id="full-tour" controls playsinline preload="none" poster="images/hero.jpg">
+      <source src="assets/wintermall-3d.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+
 
 <!-- ═══════════════════════════════════════
      BOOKING MODAL — FULL TABBED VERSION

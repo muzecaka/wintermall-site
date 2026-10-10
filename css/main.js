@@ -287,3 +287,54 @@ function downloadDeck(){
   `let` with the same name makes the browser reject that whole inline
   script, which breaks the forms, FAQ and data room.
 */
+
+
+/* ── 8. EXPERIENCES FILTER ─────────────── */
+/* Shows only the attraction tiles whose data-zone matches the chip */
+function attFilter(btn, zone){
+  document.querySelectorAll('.att-chip').forEach(function(c){ c.classList.toggle('on', c === btn); });
+  document.querySelectorAll('.att-grid .att').forEach(function(t){
+    t.classList.toggle('hide', zone !== 'all' && t.dataset.zone !== zone);
+  });
+}
+
+
+/* ── 9. HERO VIDEO LOOP + FULL TOUR ────── */
+/* The hero plays only the part of the 3D video between data-loop-start and
+   data-loop-end (seconds), skipping the mascot intro. */
+(function(){
+  var v = document.getElementById('hero-video');
+  if(!v) return;
+  var start = parseFloat(v.dataset.loopStart) || 0;
+  var end   = parseFloat(v.dataset.loopEnd)   || 0;
+  if(!start && !end) return;
+  function toStart(){ if(v.duration) v.currentTime = Math.min(start, v.duration - 1); }
+  if(v.readyState >= 1) toStart(); else v.addEventListener('loadedmetadata', toStart);
+  v.addEventListener('timeupdate', function(){
+    if((end && v.currentTime >= end) || v.currentTime < start - 1) toStart();
+  });
+})();
+
+function openTourVideo(){
+  var m = document.getElementById('video-modal');
+  var v = document.getElementById('full-tour');
+  m.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  var p = v.play(); if(p && p.catch) p.catch(function(){});
+}
+function closeTourVideo(){
+  var m = document.getElementById('video-modal');
+  if(!m || !m.classList.contains('open')) return;
+  document.getElementById('full-tour').pause();
+  m.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeTourVideo(); });
+
+
+/* ── 10. VISITOR MOMENTS ───────────────── */
+function copyHashtag(btn){
+  var tag = btn.dataset.tag, lbl = btn.querySelector('.moments-copy');
+  function done(){ if(lbl){ lbl.textContent = 'Copied!'; setTimeout(function(){ lbl.textContent = 'Copy'; }, 1800); } }
+  if(navigator.clipboard) navigator.clipboard.writeText(tag).then(done, done); else done();
+}
