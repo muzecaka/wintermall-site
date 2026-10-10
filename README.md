@@ -154,6 +154,24 @@ function confirmBooking(){
 
 ---
 
+## 🔒 SITE ACCESS TOKEN (PRIVATE PREVIEW)
+
+The whole site is locked behind an access token (`middleware.js`). Visitors see a
+"Private Preview" page and must enter the token. They stay signed in for 30 days.
+
+**Set or change the token:**
+1. Vercel → **wml** → **Settings → Environment Variables**
+2. Add (or edit) `SITE_ACCESS_TOKEN` — tick Production, Preview and Development
+3. **Deployments** → newest deployment → **⋯ → Redeploy** (the new token only works after a redeploy)
+
+Changing the token signs **everyone** out — only people you give the new token to can get back in.
+Sign out on your own device: visit `/__logout`.
+If `SITE_ACCESS_TOKEN` is empty, the site stays locked and shows "Access is not set up yet".
+
+**Open the site to the public later:** delete `middleware.js` and push.
+
+---
+
 ## 🌐 HOW TO GO LIVE
 
 **Option A — Free hosting (Netlify):**
